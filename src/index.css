@@ -6,43 +6,46 @@
 
 @layer base {
   :root {
-    --background: 42 20% 96%;
-    --foreground: 140 25% 12%;
-    --card: 42 30% 98%;
-    --card-foreground: 140 25% 12%;
-    --popover: 42 30% 98%;
-    --popover-foreground: 140 25% 12%;
-    --primary: 140 35% 22%;
-    --primary-foreground: 42 30% 96%;
-    --secondary: 42 45% 88%;
-    --secondary-foreground: 140 25% 12%;
+    --background: 42 30% 95%;
+    --foreground: 35 25% 15%;
+    --card: 42 40% 97%;
+    --card-foreground: 35 25% 15%;
+    --popover: 42 40% 97%;
+    --popover-foreground: 35 25% 15%;
+    --primary: 42 70% 45%;
+    --primary-foreground: 35 30% 10%;
+    --secondary: 42 25% 88%;
+    --secondary-foreground: 35 25% 20%;
     --muted: 42 20% 90%;
-    --muted-foreground: 140 15% 40%;
-    --accent: 42 70% 55%;
-    --accent-foreground: 140 25% 12%;
+    --muted-foreground: 35 15% 45%;
+    --accent: 42 70% 45%;
+    --accent-foreground: 35 30% 10%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
-    --border: 42 20% 82%;
-    --input: 42 20% 82%;
-    --ring: 140 35% 22%;
+    --border: 42 25% 82%;
+    --input: 42 25% 82%;
+    --ring: 42 60% 45%;
     --radius: 0.5rem;
-    --sidebar-background: 140 35% 18%;
+    --sidebar-background: 35 30% 12%;
     --sidebar-foreground: 42 30% 90%;
-    --sidebar-primary: 42 60% 55%;
-    --sidebar-primary-foreground: 140 35% 12%;
-    --sidebar-accent: 140 30% 25%;
+    --sidebar-primary: 42 65% 55%;
+    --sidebar-primary-foreground: 35 30% 10%;
+    --sidebar-accent: 35 25% 20%;
     --sidebar-accent-foreground: 42 30% 90%;
-    --sidebar-border: 140 25% 28%;
-    --sidebar-ring: 42 60% 55%;
+    --sidebar-border: 35 20% 22%;
+    --sidebar-ring: 42 65% 55%;
 
-    --forest: #1a3a2a;
-    --forest-light: #2d5a3e;
     --gold: #b8962e;
     --gold-light: #d4aa4a;
-    --cream: #f4efe6;
-    --cream-dark: #e8dfc8;
-    --text-dark: #1a2e1e;
-    --text-mid: #4a6050;
+    --gold-pale: #e8c96a;
+    --cream: #f5f0e6;
+    --cream-mid: #ede5d0;
+    --cream-dark: #e0d4b8;
+    --sand: #c9b98a;
+    --dark: #2a2015;
+    --dark-mid: #4a3c22;
+    --dark-soft: #6b5835;
+    --text-muted: #8a7456;
   }
 }
 
@@ -50,25 +53,22 @@
   * {
     @apply border-border;
   }
-
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-background text-foreground;
     font-family: "Golos Text", sans-serif;
     background-color: var(--cream);
-    color: var(--text-dark);
+    color: var(--dark);
     overflow-x: hidden;
   }
-
   h1,
   h2,
   h3,
   h4,
   h5 {
     font-family: "Cormorant Garamond", serif;
-  }
-
-  html {
-    scroll-behavior: smooth;
   }
 }
 
@@ -83,53 +83,67 @@
   .text-gold {
     color: var(--gold);
   }
-  .text-forest {
-    color: var(--forest);
+  .text-dark-brand {
+    color: var(--dark);
   }
-  .bg-forest {
-    background-color: var(--forest);
+  .text-muted-brand {
+    color: var(--text-muted);
   }
-  .bg-forest-light {
-    background-color: var(--forest-light);
+
+  .bg-dark {
+    background-color: var(--dark);
+  }
+  .bg-dark-mid {
+    background-color: var(--dark-mid);
   }
   .bg-cream {
     background-color: var(--cream);
   }
-  .bg-cream-dark {
+  .bg-cream-mid {
+    background-color: var(--cream-mid);
+  }
+  .bg-cream-dk {
     background-color: var(--cream-dark);
   }
+  .bg-gold {
+    background-color: var(--gold);
+  }
+
   .border-gold {
     border-color: var(--gold);
   }
+  .border-sand {
+    border-color: var(--sand);
+  }
 
   .animate-fade-in-up {
-    animation: fadeInUp 0.9s ease-out forwards;
+    animation: fadeInUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
   .animate-fade-in-up-1 {
-    animation: fadeInUp 0.9s ease-out 0.15s forwards;
+    animation: fadeInUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
     opacity: 0;
   }
   .animate-fade-in-up-2 {
-    animation: fadeInUp 0.9s ease-out 0.3s forwards;
+    animation: fadeInUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
     opacity: 0;
   }
   .animate-fade-in-up-3 {
-    animation: fadeInUp 0.9s ease-out 0.5s forwards;
+    animation: fadeInUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.48s forwards;
     opacity: 0;
   }
   .animate-fade-in-up-4 {
-    animation: fadeInUp 0.9s ease-out 0.65s forwards;
+    animation: fadeInUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.65s forwards;
     opacity: 0;
   }
 
   .hover-lift {
     transition:
-      transform 0.3s ease,
-      box-shadow 0.3s ease;
+      transform 0.28s ease,
+      box-shadow 0.28s ease;
   }
   .hover-lift:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 16px 48px rgba(26, 58, 42, 0.18);
+    transform: translateY(-4px);
+    box-shadow: 0 14px 40px rgba(42, 32, 21, 0.13);
   }
 
   .divider-gold {
@@ -141,7 +155,7 @@
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(28px);
+    transform: translateY(26px);
   }
   to {
     opacity: 1;
@@ -156,6 +170,6 @@
   background: var(--cream);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--forest-light);
+  background: var(--sand);
   border-radius: 3px;
 }
