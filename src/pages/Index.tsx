@@ -5,7 +5,8 @@ import Icon from '@/components/ui/icon';
 const HERO_IMAGE   = "https://cdn.poehali.dev/projects/36adff41-d365-445e-8d5f-dd8bed2bd445/files/d6567017-3fe5-45e7-b378-926bdaa639ed.jpg";
 const LOGO_URL     = "https://cdn.poehali.dev/files/28b12595-508c-46e8-87a0-fad54fb5c1c5.png";
 const EU_LOGO      = "https://cdn.poehali.dev/files/dbf183fd-8b1e-46f6-9ba9-d02f634bdf25.png";
-const BOOKLET_IMG  = "https://cdn.poehali.dev/files/9a3fb385-2670-4fa5-8c62-68c753c610bf.png";
+const ABOUT_IMG    = "https://cdn.poehali.dev/projects/36adff41-d365-445e-8d5f-dd8bed2bd445/files/e73eb289-9058-41d7-bd3d-6bb7f2c9be60.jpg";
+const PRODUCTS_IMG = "https://cdn.poehali.dev/projects/36adff41-d365-445e-8d5f-dd8bed2bd445/bucket/3bd0b17b-6a41-4406-a868-5a06b8449045.png";
 
 /* ─── Data ───────────────────────────────────────────────── */
 const PRODUCTS = [
@@ -254,10 +255,10 @@ const Index = () => {
               </p>
             </div>
 
-            {/* Right: booklet preview as atmosphere image */}
+            {/* Right: aerial farm photo */}
             <div className="relative">
-              <div className="rounded-2xl overflow-hidden" style={{ border: '1px solid var(--cream-dark)', boxShadow: '0 20px 60px rgba(42,32,21,0.12)' }}>
-                <img src={BOOKLET_IMG} alt="Gavrilov Foods booklet" className="w-full object-cover" style={{ maxHeight: 460, objectPosition: 'top' }} />
+              <div className="rounded-2xl overflow-hidden" style={{ border: '1px solid var(--cream-dark)', boxShadow: '0 20px 60px rgba(42,32,21,0.15)' }}>
+                <img src={ABOUT_IMG} alt="Gavrilov Foods grain fields aerial view" className="w-full object-cover" style={{ height: 460 }} />
               </div>
               <div
                 className="absolute -bottom-5 -left-5 rounded-xl px-5 py-4"
@@ -280,29 +281,70 @@ const Index = () => {
               </h2>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-              {PRODUCTS.map(p => (
-                <div
-                  key={p.name}
-                  className="hover-lift relative rounded-2xl overflow-hidden text-center"
-                  style={{ backgroundColor: 'var(--cream)', border: '1px solid var(--cream-dark)' }}
-                  itemScope itemType="https://schema.org/Product"
-                >
-                  <meta itemProp="name" content={p.name} />
-                  {p.organic && (
-                    <div className="absolute top-2 right-2 text-xs font-bold px-2 py-0.5 rounded-full font-body"
-                      style={{ backgroundColor: 'var(--gold)', color: 'var(--dark)', fontSize: '0.6rem' }}>
-                      BIO
+            {/* Layout: catalog image left + product grid right */}
+            <div className="grid md:grid-cols-2 gap-10 items-start">
+
+              {/* Left — full catalog photo */}
+              <div className="rounded-2xl overflow-hidden sticky top-28" style={{ border: '1px solid var(--cream-dark)', boxShadow: '0 16px 48px rgba(42,32,21,0.10)' }}>
+                <img
+                  src={PRODUCTS_IMG}
+                  alt="Gavrilov Foods — full product range in wooden bowls"
+                  className="w-full object-cover"
+                />
+              </div>
+
+              {/* Right — product cards 3-column grid */}
+              <div className="grid grid-cols-3 gap-1" style={{ backgroundColor: 'var(--cream-dark)', borderRadius: 16, overflow: 'hidden', border: '1px solid var(--cream-dark)' }}>
+                {PRODUCTS.map(p => (
+                  <div
+                    key={p.name}
+                    className="relative flex flex-col items-center justify-end text-center"
+                    style={{ backgroundColor: 'var(--cream)', aspectRatio: '1/1.1' }}
+                    itemScope itemType="https://schema.org/Product"
+                  >
+                    <meta itemProp="name" content={p.name} />
+
+                    {/* BIO badge */}
+                    {p.organic && (
+                      <div
+                        className="absolute top-2 right-2 font-body font-bold z-10"
+                        style={{ fontSize: '0.55rem', letterSpacing: '0.05em', color: 'var(--gold)', lineHeight: 1 }}
+                      >
+                        BIO
+                      </div>
+                    )}
+
+                    {/* Bowl emoji fills the card */}
+                    <div className="flex-1 flex items-center justify-center w-full" style={{ fontSize: 'clamp(2rem,5vw,3.2rem)', padding: '8px 4px 0' }}>
+                      {p.emoji}
                     </div>
-                  )}
-                  <div className="text-4xl flex items-center justify-center" style={{ height: 80, backgroundColor: 'var(--cream-mid)' }}>
-                    {p.emoji}
+
+                    {/* Name label */}
+                    <div
+                      className="w-full py-2 px-1"
+                      style={{ backgroundColor: 'var(--cream-mid)', borderTop: '1px solid var(--cream-dark)' }}
+                    >
+                      <p
+                        className="font-body font-bold uppercase tracking-wider leading-tight"
+                        style={{ fontSize: 'clamp(0.45rem,1.1vw,0.65rem)', color: 'var(--dark)' }}
+                      >
+                        {p.name}
+                      </p>
+                    </div>
                   </div>
-                  <div className="p-3">
-                    <p className="font-body font-semibold text-xs" style={{ color: 'var(--dark)' }}>{p.name}</p>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
+            </div>
+
+            {/* Bottom strip */}
+            <div
+              className="mt-8 rounded-xl p-5 flex items-center gap-4"
+              style={{ backgroundColor: 'var(--dark)', border: '1px solid rgba(184,150,46,0.2)' }}
+            >
+              <span className="text-2xl">🌿</span>
+              <p className="font-body text-sm" style={{ color: 'rgba(245,240,230,0.75)' }}>
+                <strong style={{ color: 'var(--gold-light)' }}>Organic &amp; Conventional options available</strong> — we meet your needs with flexibility and care
+              </p>
             </div>
           </div>
         </section>
