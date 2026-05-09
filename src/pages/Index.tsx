@@ -9,22 +9,23 @@ const ABOUT_IMG    = "https://cdn.poehali.dev/projects/36adff41-d365-445e-8d5f-d
 const PRODUCTS_IMG = "https://cdn.poehali.dev/projects/36adff41-d365-445e-8d5f-dd8bed2bd445/bucket/3bd0b17b-6a41-4406-a868-5a06b8449045.png";
 
 /* ─── Data ───────────────────────────────────────────────── */
+const BASE = "https://cdn.poehali.dev/projects/36adff41-d365-445e-8d5f-dd8bed2bd445/files/";
 const PRODUCTS = [
-  { name: "Buckwheat",        emoji: "🌾", organic: true  },
-  { name: "Green Buckwheat",  emoji: "🌿", organic: true  },
-  { name: "Buckwheat Flour",  emoji: "🫙", organic: true  },
-  { name: "Oat Flakes",       emoji: "🌾", organic: true  },
-  { name: "Flaxseed",         emoji: "🌱", organic: true  },
-  { name: "Red Lentils",      emoji: "🫘", organic: false },
-  { name: "Yellow Peas",      emoji: "🫛", organic: false },
-  { name: "Chickpeas",        emoji: "🫘", organic: false },
-  { name: "Green Peas",       emoji: "🫛", organic: false },
-  { name: "Wheat",            emoji: "🌾", organic: false },
-  { name: "Rye",              emoji: "🌾", organic: false },
-  { name: "Barley",           emoji: "🌾", organic: false },
-  { name: "Millet",           emoji: "🌻", organic: false },
-  { name: "Sunflower Seeds",  emoji: "🌻", organic: false },
-  { name: "Rapeseed",         emoji: "🌱", organic: false },
+  { name: "Buckwheat",       organic: true,  img: BASE + "f9b974d1-c841-4331-96a3-842822cdaed9.jpg" },
+  { name: "Green\nBuckwheat",organic: true,  img: BASE + "ab0b7037-37e4-4f3e-b487-c56bc4e02e57.jpg" },
+  { name: "Buckwheat\nFlour",organic: true,  img: BASE + "45bd13b5-0f8f-46d1-9041-f8f2e3c7cecd.jpg" },
+  { name: "Oat Flakes",      organic: true,  img: BASE + "b151bdca-e773-4697-8764-4a7ab451a99c.jpg" },
+  { name: "Flaxseed",        organic: true,  img: BASE + "ddadd2fe-c880-48b8-a99b-d7789cc47e5e.jpg" },
+  { name: "Red Lentils",     organic: false, img: BASE + "28b5f2c3-288d-4414-8d97-0bcddc4973ce.jpg" },
+  { name: "Yellow Peas",     organic: false, img: BASE + "5b5f3b2a-1b2f-4d86-9963-c68f3779eac8.jpg" },
+  { name: "Chickpeas",       organic: false, img: BASE + "460f0d5e-3246-4bc3-bb61-d666425bd3b2.jpg" },
+  { name: "Green Peas",      organic: false, img: BASE + "42d58a12-be44-4e2e-9fce-aa230f9f1752.jpg" },
+  { name: "Wheat",           organic: false, img: BASE + "a053f393-ef0f-4397-80d6-e81be107e082.jpg" },
+  { name: "Rye",             organic: false, img: BASE + "3735e42c-c759-45f5-adda-afaf0fa39aba.jpg" },
+  { name: "Barley",          organic: false, img: BASE + "b3930bb5-1961-4b75-b197-caa4978820e1.jpg" },
+  { name: "Millet",          organic: false, img: BASE + "137f8b3c-1b6d-47e5-bc8c-4d9ea377b007.jpg" },
+  { name: "Sunflower\nSeeds",organic: false, img: BASE + "770d2c50-1176-4f6a-ac74-df87fda8539c.jpg" },
+  { name: "Rapeseed",        organic: false, img: BASE + "0f1ca6a0-b16d-40a0-b7e0-0e4d9c7571d7.jpg" },
 ];
 
 const ABOUT_FEATURES = [
@@ -281,59 +282,45 @@ const Index = () => {
               </h2>
             </div>
 
-            {/* Layout: catalog image left + product grid right */}
-            <div className="grid md:grid-cols-2 gap-10 items-start">
+            {/* 3-column grid — photo bowl + name капслоком, как в буклете */}
+            <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-5 gap-6">
+              {PRODUCTS.map(p => (
+                <div
+                  key={p.name}
+                  className="hover-lift relative flex flex-col items-center text-center"
+                  itemScope itemType="https://schema.org/Product"
+                >
+                  <meta itemProp="name" content={p.name.replace('\n', ' ')} />
 
-              {/* Left — full catalog photo */}
-              <div className="rounded-2xl overflow-hidden sticky top-28" style={{ border: '1px solid var(--cream-dark)', boxShadow: '0 16px 48px rgba(42,32,21,0.10)' }}>
-                <img
-                  src={PRODUCTS_IMG}
-                  alt="Gavrilov Foods — full product range in wooden bowls"
-                  className="w-full object-cover"
-                />
-              </div>
-
-              {/* Right — product cards 3-column grid */}
-              <div className="grid grid-cols-3 gap-1" style={{ backgroundColor: 'var(--cream-dark)', borderRadius: 16, overflow: 'hidden', border: '1px solid var(--cream-dark)' }}>
-                {PRODUCTS.map(p => (
-                  <div
-                    key={p.name}
-                    className="relative flex flex-col items-center justify-end text-center"
-                    style={{ backgroundColor: 'var(--cream)', aspectRatio: '1/1.1' }}
-                    itemScope itemType="https://schema.org/Product"
-                  >
-                    <meta itemProp="name" content={p.name} />
-
-                    {/* BIO badge */}
-                    {p.organic && (
-                      <div
-                        className="absolute top-2 right-2 font-body font-bold z-10"
-                        style={{ fontSize: '0.55rem', letterSpacing: '0.05em', color: 'var(--gold)', lineHeight: 1 }}
-                      >
-                        BIO
-                      </div>
-                    )}
-
-                    {/* Bowl emoji fills the card */}
-                    <div className="flex-1 flex items-center justify-center w-full" style={{ fontSize: 'clamp(2rem,5vw,3.2rem)', padding: '8px 4px 0' }}>
-                      {p.emoji}
-                    </div>
-
-                    {/* Name label */}
+                  {/* BIO badge */}
+                  {p.organic && (
                     <div
-                      className="w-full py-2 px-1"
-                      style={{ backgroundColor: 'var(--cream-mid)', borderTop: '1px solid var(--cream-dark)' }}
+                      className="absolute top-1 right-1 z-10 font-body font-bold rounded-full px-1.5 py-0.5"
+                      style={{ fontSize: '0.55rem', letterSpacing: '0.08em', backgroundColor: 'var(--gold)', color: 'var(--dark)' }}
                     >
-                      <p
-                        className="font-body font-bold uppercase tracking-wider leading-tight"
-                        style={{ fontSize: 'clamp(0.45rem,1.1vw,0.65rem)', color: 'var(--dark)' }}
-                      >
-                        {p.name}
-                      </p>
+                      BIO
                     </div>
+                  )}
+
+                  {/* Bowl photo — square, rounded */}
+                  <div className="w-full rounded-xl overflow-hidden mb-3" style={{ border: '1px solid var(--cream-dark)' }}>
+                    <img
+                      src={p.img}
+                      alt={p.name.replace('\n', ' ')}
+                      className="w-full object-cover"
+                      style={{ aspectRatio: '1/1' }}
+                    />
                   </div>
-                ))}
-              </div>
+
+                  {/* Name — капслок, bold, как в буклете */}
+                  <p
+                    className="font-body font-bold uppercase leading-tight tracking-wide"
+                    style={{ fontSize: 'clamp(0.6rem, 1.1vw, 0.72rem)', color: 'var(--dark)', whiteSpace: 'pre-line' }}
+                  >
+                    {p.name}
+                  </p>
+                </div>
+              ))}
             </div>
 
             {/* Bottom strip */}
