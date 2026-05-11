@@ -93,6 +93,7 @@ const SD = {
 const Index = () => {
   const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', product: '', country: '', message: '' });
   const [sent, setSent] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -120,25 +121,55 @@ const Index = () => {
 
         {/* ══ NAV ═════════════════════════════════════════════ */}
         <nav
-          className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-14 py-4"
+          className="fixed top-0 left-0 right-0 z-50"
           style={{ backgroundColor: 'rgba(42,32,21,0.97)', backdropFilter: 'blur(14px)' }}
         >
-          <img src={LOGO_URL} alt="Gavrilov Foods logo" className="h-10 w-auto" />
+          <div className="flex items-center justify-between px-5 md:px-14 py-4">
+            <img src={LOGO_URL} alt="Gavrilov Foods logo" className="h-10 w-auto" />
 
-          <div className="hidden md:flex items-center gap-7 font-body text-sm font-medium" style={{ color: 'rgba(245,240,230,0.75)' }}>
-            {[['#about','About'],['#products','Products'],['#organic','Organic'],['#export','Export'],['#certifications','Certifications'],['#private-label','Private Label'],['#contact','Contact']].map(([href, label]) => (
-              <a key={href} href={href} className="hover:opacity-100 transition-opacity" style={{ color: 'rgba(245,240,230,0.75)' }}
-                onMouseEnter={e => (e.currentTarget.style.color = 'var(--gold-light)')}
-                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(245,240,230,0.75)')}
-              >{label}</a>
-            ))}
+            <div className="hidden md:flex items-center gap-7 font-body text-sm font-medium">
+              {[['#about','About'],['#products','Products'],['#organic','Organic'],['#export','Export'],['#certifications','Certifications'],['#private-label','Private Label'],['#contact','Contact']].map(([href, label]) => (
+                <a key={href} href={href} className="hover:opacity-100 transition-opacity" style={{ color: 'rgba(245,240,230,0.75)' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = 'var(--gold-light)')}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(245,240,230,0.75)')}
+                >{label}</a>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-3">
+              <a href="#request" className="hidden md:block font-body text-sm font-semibold px-5 py-2 rounded-lg transition-opacity hover:opacity-85"
+                style={{ backgroundColor: 'var(--gold)', color: 'var(--dark)' }}>
+                Request a Quote
+              </a>
+              <button
+                className="md:hidden flex flex-col items-center justify-center gap-1.5 w-9 h-9 rounded-lg"
+                style={{ backgroundColor: 'rgba(245,240,230,0.08)' }}
+                onClick={() => setMenuOpen(o => !o)}
+                aria-label="Toggle menu"
+              >
+                <span className="w-5 h-px block transition-all duration-200" style={{ backgroundColor: 'rgba(245,240,230,0.85)', transform: menuOpen ? 'translateY(4px) rotate(45deg)' : 'none' }} />
+                <span className="w-5 h-px block transition-all duration-200" style={{ backgroundColor: 'rgba(245,240,230,0.85)', opacity: menuOpen ? 0 : 1 }} />
+                <span className="w-5 h-px block transition-all duration-200" style={{ backgroundColor: 'rgba(245,240,230,0.85)', transform: menuOpen ? 'translateY(-4px) rotate(-45deg)' : 'none' }} />
+              </button>
+            </div>
           </div>
 
-          <a
-            href="#request"
-            className="hidden md:block font-body text-sm font-semibold px-5 py-2 rounded-lg transition-opacity hover:opacity-85"
-            style={{ backgroundColor: 'var(--gold)', color: 'var(--dark)' }}
-          >Request a Quote</a>
+          {menuOpen && (
+            <div className="md:hidden flex flex-col px-4 pb-4 gap-0.5" style={{ borderTop: '1px solid rgba(184,150,46,0.15)' }}>
+              {[['#about','About'],['#products','Products'],['#organic','Organic'],['#export','Export'],['#certifications','Certifications'],['#private-label','Private Label'],['#contact','Contact']].map(([href, label]) => (
+                <a key={href} href={href}
+                  className="font-body text-sm font-medium py-3 px-3 rounded-lg"
+                  style={{ color: 'rgba(245,240,230,0.8)' }}
+                  onClick={() => setMenuOpen(false)}
+                >{label}</a>
+              ))}
+              <a href="#request"
+                className="font-body text-sm font-semibold py-3 rounded-lg text-center mt-2"
+                style={{ backgroundColor: 'var(--gold)', color: 'var(--dark)' }}
+                onClick={() => setMenuOpen(false)}
+              >Request a Quote</a>
+            </div>
+          )}
         </nav>
 
         {/* ══ 1. HERO ══════════════════════════════════════════ */}
@@ -152,7 +183,7 @@ const Index = () => {
             style={{ background: 'linear-gradient(130deg, rgba(42,32,21,0.72) 0%, rgba(42,32,21,0.52) 55%, rgba(42,32,21,0.18) 100%)' }}
           />
 
-          <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-14 py-24 w-full">
+          <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-14 w-full" style={{ paddingTop: '5rem', paddingBottom: '8rem' }}>
             <div className="max-w-2xl">
               {/* Sub-label */}
               <div className="flex items-center gap-3 mb-6 animate-fade-in-up">
@@ -175,7 +206,7 @@ const Index = () => {
               </p>
 
               {/* EU badge */}
-              <div className="flex items-center gap-3 mb-10 animate-fade-in-up-2">
+              <div className="flex items-center gap-3 mb-8 animate-fade-in-up-2">
                 <div
                   className="flex items-center gap-3 px-4 py-3 rounded-xl"
                   style={{ backgroundColor: 'rgba(245,240,230,0.10)', border: '1px solid rgba(184,150,46,0.4)' }}
@@ -188,12 +219,12 @@ const Index = () => {
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-4 animate-fade-in-up-3">
-                <a href="#products" className="font-body font-semibold px-8 py-4 rounded-lg text-sm transition-opacity hover:opacity-85"
+              <div className="flex flex-row gap-3 animate-fade-in-up-3">
+                <a href="#products" className="font-body font-semibold px-6 py-3.5 rounded-lg text-sm transition-opacity hover:opacity-85 whitespace-nowrap"
                   style={{ backgroundColor: 'var(--gold)', color: 'var(--dark)' }}>
                   View Products
                 </a>
-                <a href="#request" className="font-body font-medium px-8 py-4 rounded-lg text-sm border transition-all hover:bg-white/10"
+                <a href="#request" className="font-body font-medium px-6 py-3.5 rounded-lg text-sm border transition-all hover:bg-white/10 whitespace-nowrap"
                   style={{ borderColor: 'rgba(245,240,230,0.35)', color: 'var(--cream)' }}>Request a Quote</a>
               </div>
             </div>
