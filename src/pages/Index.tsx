@@ -93,6 +93,7 @@ const SD = {
 const Index = () => {
   const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', product: '', country: '', message: '' });
   const [sent, setSent] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -120,98 +121,128 @@ const Index = () => {
 
         {/* ══ NAV ═════════════════════════════════════════════ */}
         <nav
-          className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-14 py-4"
+          className="fixed top-0 left-0 right-0 z-50"
           style={{ backgroundColor: 'rgba(42,32,21,0.97)', backdropFilter: 'blur(14px)' }}
         >
-          <img src={LOGO_URL} alt="Gavrilov Foods logo" className="h-10 w-auto" />
+          <div className="flex items-center justify-between px-5 md:px-14 py-3.5">
+            <img src={LOGO_URL} alt="Gavrilov Foods logo" className="h-9 w-auto" />
 
-          <div className="hidden md:flex items-center gap-7 font-body text-sm font-medium" style={{ color: 'rgba(245,240,230,0.75)' }}>
-            {[['#about','About'],['#products','Products'],['#organic','Organic'],['#export','Export'],['#certifications','Certifications'],['#private-label','Private Label'],['#contact','Contact']].map(([href, label]) => (
-              <a key={href} href={href} className="hover:opacity-100 transition-opacity" style={{ color: 'rgba(245,240,230,0.75)' }}
-                onMouseEnter={e => (e.currentTarget.style.color = 'var(--gold-light)')}
-                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(245,240,230,0.75)')}
-              >{label}</a>
-            ))}
+            {/* Desktop menu */}
+            <div className="hidden md:flex items-center gap-7 font-body text-sm font-medium">
+              {[['#about','About'],['#products','Products'],['#organic','Organic'],['#export','Export'],['#certifications','Certifications'],['#private-label','Private Label'],['#contact','Contact']].map(([href, label]) => (
+                <a key={href} href={href} className="transition-colors" style={{ color: 'rgba(245,240,230,0.75)' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = 'var(--gold-light)')}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(245,240,230,0.75)')}
+                >{label}</a>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-3">
+              <a
+                href="#request"
+                className="hidden md:block font-body text-sm font-semibold px-5 py-2 rounded-lg transition-opacity hover:opacity-85"
+                style={{ backgroundColor: 'var(--gold)', color: 'var(--dark)' }}
+              >Request a Quote</a>
+
+              {/* Mobile burger */}
+              <button
+                className="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 rounded-lg"
+                onClick={() => setMenuOpen(o => !o)}
+                aria-label="Menu"
+                style={{ backgroundColor: 'rgba(245,240,230,0.08)' }}
+              >
+                <span className="block w-5 h-px transition-all" style={{ backgroundColor: menuOpen ? 'var(--gold)' : 'rgba(245,240,230,0.8)', transform: menuOpen ? 'translateY(4px) rotate(45deg)' : 'none' }} />
+                <span className="block w-5 h-px transition-all" style={{ backgroundColor: menuOpen ? 'transparent' : 'rgba(245,240,230,0.8)', opacity: menuOpen ? 0 : 1 }} />
+                <span className="block w-5 h-px transition-all" style={{ backgroundColor: menuOpen ? 'var(--gold)' : 'rgba(245,240,230,0.8)', transform: menuOpen ? 'translateY(-4px) rotate(-45deg)' : 'none' }} />
+              </button>
+            </div>
           </div>
 
-          <a
-            href="#request"
-            className="hidden md:block font-body text-sm font-semibold px-5 py-2 rounded-lg transition-opacity hover:opacity-85"
-            style={{ backgroundColor: 'var(--gold)', color: 'var(--dark)' }}
-          >Request a Quote</a>
+          {/* Mobile dropdown */}
+          {menuOpen && (
+            <div className="md:hidden px-5 pb-5 pt-1 flex flex-col gap-1" style={{ borderTop: '1px solid rgba(184,150,46,0.15)' }}>
+              {[['#about','About'],['#products','Products'],['#organic','Organic'],['#export','Export'],['#certifications','Certifications'],['#private-label','Private Label'],['#contact','Contact']].map(([href, label]) => (
+                <a key={href} href={href}
+                  className="font-body text-sm font-medium py-2.5 px-3 rounded-lg transition-colors"
+                  style={{ color: 'rgba(245,240,230,0.8)' }}
+                  onClick={() => setMenuOpen(false)}
+                  onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'rgba(184,150,46,0.1)')}
+                  onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
+                >{label}</a>
+              ))}
+              <a href="#request"
+                className="font-body text-sm font-semibold px-5 py-3 rounded-lg text-center mt-2 transition-opacity hover:opacity-85"
+                style={{ backgroundColor: 'var(--gold)', color: 'var(--dark)' }}
+                onClick={() => setMenuOpen(false)}
+              >Request a Quote</a>
+            </div>
+          )}
         </nav>
 
         {/* ══ 1. HERO ══════════════════════════════════════════ */}
-        <section className="relative min-h-screen flex items-center" style={{ paddingTop: 80 }}>
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${HERO_IMAGE})` }}
-          />
-          <div
-            className="absolute inset-0"
-            style={{ background: 'linear-gradient(130deg, rgba(42,32,21,0.72) 0%, rgba(42,32,21,0.52) 55%, rgba(42,32,21,0.18) 100%)' }}
-          />
+        <section className="relative flex flex-col" style={{ minHeight: '100svh', paddingTop: 58 }}>
+          <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${HERO_IMAGE})` }} />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(150deg, rgba(28,18,8,0.80) 0%, rgba(28,18,8,0.55) 60%, rgba(28,18,8,0.20) 100%)' }} />
 
-          <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-14 py-24 w-full">
-            <div className="max-w-2xl">
-              {/* Sub-label */}
-              <div className="flex items-center gap-3 mb-6 animate-fade-in-up">
-                <div className="h-px w-8" style={{ background: 'var(--gold)' }} />
+          {/* Main content — flex-grow pushes strip to bottom */}
+          <div className="relative z-10 flex-1 flex items-center max-w-7xl mx-auto w-full px-5 md:px-14 py-8 md:py-20">
+            <div className="w-full max-w-xl">
+
+              {/* Sub-label — скрыт на совсем маленьких экранах */}
+              <div className="hidden sm:flex items-center gap-3 mb-4 animate-fade-in-up">
+                <div className="h-px w-6" style={{ background: 'var(--gold)' }} />
                 <span className="font-body text-xs font-semibold tracking-widest uppercase" style={{ color: 'var(--gold)' }}>
                   Farm Origin · Grain Processing · Export Supply
                 </span>
               </div>
 
               <h1
-                className="font-display font-light leading-tight mb-5 animate-fade-in-up-1"
-                style={{ fontSize: 'clamp(2.4rem,5.5vw,4.5rem)', color: '#fff', textShadow: '0 2px 16px rgba(0,0,0,0.55)' }}
+                className="font-display font-light leading-tight mb-3 animate-fade-in-up-1"
+                style={{ fontSize: 'clamp(2rem,6vw,4.5rem)', color: '#fff', textShadow: '0 2px 16px rgba(0,0,0,0.6)' }}
               >
                 Organic &amp; Conventional<br />
                 <em style={{ color: 'var(--gold-light)' }}>Grain Supplier</em>
               </h1>
 
-              <p className="font-body text-base md:text-lg mb-6 animate-fade-in-up-2 font-medium" style={{ color: 'rgba(255,255,255,0.92)', maxWidth: 540, textShadow: '0 1px 8px rgba(0,0,0,0.5)' }}>
+              <p className="font-body text-sm md:text-base mb-4 animate-fade-in-up-2" style={{ color: 'rgba(255,255,255,0.85)', textShadow: '0 1px 6px rgba(0,0,0,0.5)' }}>
                 Grains · Pulses · Flaxseed · Private Label · Export Logistics
               </p>
 
-              {/* EU badge */}
-              <div className="flex items-center gap-3 mb-10 animate-fade-in-up-2">
-                <div
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl"
-                  style={{ backgroundColor: 'rgba(245,240,230,0.10)', border: '1px solid rgba(184,150,46,0.4)' }}
-                >
-                  <img src={EU_LOGO} alt="EU Organic Certified" className="h-10 w-10 rounded" />
-                  <div>
-                    <div className="font-body text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--gold-light)' }}>EU ORGANIC</div>
-                    <div className="font-body text-xs" style={{ color: 'rgba(245,240,230,0.6)' }}>CERTIFIED</div>
-                  </div>
+              {/* EU badge — компактнее */}
+              <div className="inline-flex items-center gap-2.5 px-3 py-2 rounded-xl mb-5 animate-fade-in-up-2"
+                style={{ backgroundColor: 'rgba(245,240,230,0.10)', border: '1px solid rgba(184,150,46,0.4)' }}>
+                <img src={EU_LOGO} alt="EU Organic Certified" className="h-7 w-7 rounded" />
+                <div>
+                  <div className="font-body text-xs font-bold uppercase tracking-wider leading-none" style={{ color: 'var(--gold-light)' }}>EU ORGANIC CERTIFIED</div>
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-4 animate-fade-in-up-3">
-                <a href="#products" className="font-body font-semibold px-8 py-4 rounded-lg text-sm transition-opacity hover:opacity-85"
+              <div className="flex gap-3 animate-fade-in-up-3">
+                <a href="#products"
+                  className="font-body font-semibold px-5 py-3 rounded-lg text-sm transition-opacity hover:opacity-85 flex-1 text-center md:flex-none md:px-8"
                   style={{ backgroundColor: 'var(--gold)', color: 'var(--dark)' }}>
                   View Products
                 </a>
-                <a href="#request" className="font-body font-medium px-8 py-4 rounded-lg text-sm border transition-all hover:bg-white/10"
-                  style={{ borderColor: 'rgba(245,240,230,0.35)', color: 'var(--cream)' }}>Request a Quote</a>
+                <a href="#request"
+                  className="font-body font-medium px-5 py-3 rounded-lg text-sm border transition-all hover:bg-white/10 flex-1 text-center md:flex-none md:px-8"
+                  style={{ borderColor: 'rgba(245,240,230,0.35)', color: 'var(--cream)' }}>
+                  Request a Quote
+                </a>
               </div>
+
             </div>
           </div>
 
-          {/* Bottom strip */}
-          <div
-            className="absolute bottom-0 left-0 right-0 grid grid-cols-3 divide-x"
-            style={{ backgroundColor: 'rgba(42,32,21,0.88)', borderTop: '1px solid rgba(184,150,46,0.2)', divideColor: 'rgba(184,150,46,0.2)' }}
-          >
+          {/* Bottom strip — всегда прижат к низу, не перекрывается */}
+          <div className="relative z-10 grid grid-cols-3" style={{ backgroundColor: 'rgba(28,18,8,0.90)', borderTop: '1px solid rgba(184,150,46,0.2)' }}>
             {[
-              ['EU Organic Certified', 'Farm → Processing → Export'],
-              ['Bulk & Retail Packaging', 'Big Bags · FCL/LCL'],
-              ['Private Label Available', 'From concept to shelf-ready'],
+              ['EU Organic', 'Farm → Export'],
+              ['Bulk & Retail', 'Big Bags · FCL/LCL'],
+              ['Private Label', 'Shelf-ready'],
             ].map(([t, s]) => (
-              <div key={t} className="py-5 px-6 text-center">
-                <div className="font-body text-xs font-semibold mb-0.5" style={{ color: 'var(--gold-light)' }}>{t}</div>
-                <div className="font-body text-xs" style={{ color: 'rgba(245,240,230,0.5)' }}>{s}</div>
+              <div key={t} className="py-3 md:py-5 px-2 md:px-6 text-center">
+                <div className="font-body text-xs font-semibold mb-0.5 leading-tight" style={{ color: 'var(--gold-light)' }}>{t}</div>
+                <div className="hidden sm:block font-body text-xs" style={{ color: 'rgba(245,240,230,0.5)' }}>{s}</div>
               </div>
             ))}
           </div>
