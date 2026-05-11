@@ -91,7 +91,7 @@ const SD = {
    PAGE COMPONENT
 ════════════════════════════════════════════════════════════ */
 const Index = () => {
-  const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', product: '', message: '' });
+  const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', product: '', country: '', message: '' });
   const [sent, setSent] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -151,7 +151,7 @@ const Index = () => {
           />
           <div
             className="absolute inset-0"
-            style={{ background: 'linear-gradient(130deg, rgba(42,32,21,0.91) 0%, rgba(42,32,21,0.72) 55%, rgba(42,32,21,0.32) 100%)' }}
+            style={{ background: 'linear-gradient(130deg, rgba(42,32,21,0.72) 0%, rgba(42,32,21,0.52) 55%, rgba(42,32,21,0.18) 100%)' }}
           />
 
           <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-14 py-24 w-full">
@@ -166,15 +166,14 @@ const Index = () => {
 
               <h1
                 className="font-display font-light leading-tight mb-5 animate-fade-in-up-1"
-                style={{ fontSize: 'clamp(2.8rem,6vw,5rem)', color: 'var(--cream)' }}
+                style={{ fontSize: 'clamp(2.4rem,5.5vw,4.5rem)', color: '#fff', textShadow: '0 2px 16px rgba(0,0,0,0.55)' }}
               >
-                Reliable Russian<br />
-                Grain Products<br />
-                <em style={{ color: 'var(--gold-light)' }}>for the World</em>
+                Organic &amp; Conventional<br />
+                <em style={{ color: 'var(--gold-light)' }}>Grain Supplier</em>
               </h1>
 
-              <p className="font-body text-base mb-6 animate-fade-in-up-2" style={{ color: 'rgba(245,240,230,0.75)', maxWidth: 500 }}>
-                Premium Quality · Sustainable · Traceable
+              <p className="font-body text-base md:text-lg mb-6 animate-fade-in-up-2 font-medium" style={{ color: 'rgba(255,255,255,0.92)', maxWidth: 540, textShadow: '0 1px 8px rgba(0,0,0,0.5)' }}>
+                Grains · Pulses · Flaxseed · Private Label · Export Logistics
               </p>
 
               {/* EU badge */}
@@ -210,13 +209,65 @@ const Index = () => {
             style={{ backgroundColor: 'rgba(42,32,21,0.88)', borderTop: '1px solid rgba(184,150,46,0.2)', divideColor: 'rgba(184,150,46,0.2)' }}
           >
             {[
-              ['Farm to Export', 'Full Control'],
-              ['Consistent Quality', 'Every Shipment'],
-              ['Long-term Partnership', 'Mutual Growth'],
+              ['EU Organic Certified', 'Farm → Processing → Export'],
+              ['Bulk & Retail Packaging', 'Big Bags · FCL/LCL'],
+              ['Private Label Available', 'From concept to shelf-ready'],
             ].map(([t, s]) => (
               <div key={t} className="py-5 px-6 text-center">
                 <div className="font-body text-xs font-semibold mb-0.5" style={{ color: 'var(--gold-light)' }}>{t}</div>
                 <div className="font-body text-xs" style={{ color: 'rgba(245,240,230,0.5)' }}>{s}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ══ WHY BUYERS CHOOSE US ═══════════════════════════ */}
+        <section style={{ backgroundColor: 'var(--cream-mid)', borderBottom: '1px solid var(--cream-dark)' }}>
+          <div className="max-w-7xl mx-auto px-6 md:px-14 py-16">
+            <div className="text-center mb-10">
+              <SectionLabel text="Why Buyers Choose Us" />
+              <h2 className="font-display font-light" style={{ fontSize: 'clamp(1.8rem,3.5vw,2.6rem)', color: 'var(--dark)' }}>
+                Everything a grain buyer needs —<br /><em style={{ color: 'var(--gold)' }}>in one supplier</em>
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+              {[
+                { icon: "Award",    title: "EU Organic Certified",        sub: "Certified grains & pulses" },
+                { icon: "Workflow", title: "Farm → Processing → Export",  sub: "Full cycle, zero middlemen" },
+                { icon: "Package",  title: "Bulk & Retail Packaging",     sub: "250 g to Big Bags 1000 kg" },
+                { icon: "Tag",      title: "Private Label",               sub: "From concept to shelf-ready" },
+                { icon: "Ship",     title: "Export Logistics",            sub: "FCL / LCL, worldwide" },
+              ].map(item => (
+                <div key={item.title}
+                  className="hover-lift rounded-2xl p-5 flex flex-col items-center text-center gap-3"
+                  style={{ backgroundColor: 'var(--cream)', border: '1px solid var(--cream-dark)' }}>
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center"
+                    style={{ backgroundColor: 'var(--dark)' }}>
+                    <Icon name={item.icon} size={22} style={{ color: 'var(--gold)' }} />
+                  </div>
+                  <div>
+                    <div className="font-body font-bold text-sm mb-1" style={{ color: 'var(--dark)' }}>{item.title}</div>
+                    <div className="font-body text-xs" style={{ color: 'var(--text-muted)' }}>{item.sub}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ══ PHOTO STRIP ════════════════════════════════════ */}
+        <section className="overflow-hidden" style={{ backgroundColor: 'var(--dark)' }}>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-1">
+            {[
+              { src: BASE + "15eb6e54-61c1-4be3-a954-ff965d755c08.jpg", alt: "Wheat harvest — combine harvester in field" },
+              { src: BASE + "a402d10f-3f6b-4bcd-b89d-31eb0f5a2b9d.jpg", alt: "Grain processing warehouse" },
+              { src: BASE + "56587c66-822d-4b7f-8678-e556e80bad9f.jpg", alt: "Packaging line — grain filling" },
+              { src: BASE + "f15fa862-b70f-4c1b-b95b-4aa8849450a7.jpg", alt: "Retail packaging 250g-5kg" },
+              { src: BASE + "be8db559-d8a5-4693-870d-6b3151b0880e.jpg", alt: "Container export logistics" },
+            ].map(img => (
+              <div key={img.alt} className="overflow-hidden" style={{ aspectRatio: '1/1' }}>
+                <img src={img.src} alt={img.alt} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
               </div>
             ))}
           </div>
@@ -491,8 +542,11 @@ const Index = () => {
                   style={{ fontSize: 'clamp(2rem,4vw,3rem)', color: 'var(--dark)' }}>
                   Your Brand,<br /><em style={{ color: 'var(--gold)' }}>Our Quality</em>
                 </h2>
-                <p className="font-body text-base leading-relaxed mb-6" style={{ color: 'var(--dark-soft)' }}>
-                  We offer private label production for retailers, distributors and brands worldwide. You get premium-quality grain products under your own label — we handle the rest.
+                <p className="font-body text-base leading-relaxed mb-3" style={{ color: 'var(--dark-soft)' }}>
+                  From concept to shelf-ready packaging — we produce premium grain products under your brand for retailers, distributors and private importers worldwide.
+                </p>
+                <p className="font-body text-sm leading-relaxed mb-6" style={{ color: 'var(--text-muted)' }}>
+                  Design, certification, packaging format and logistics — all handled on our side. You focus on selling.
                 </p>
                 <div className="space-y-3 mb-8">
                   {[
@@ -517,10 +571,10 @@ const Index = () => {
 
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { icon: "Package", title: "Retail Packaging", text: "Custom sizes from 250g to 5kg" },
-                  { icon: "Box", title: "Big Bags", text: "500–1000 kg bulk supply" },
-                  { icon: "Container", title: "Containers", text: "Full container loads, FCL/LCL" },
-                  { icon: "Tag", title: "Private Label", text: "Your brand on our products" },
+                  { icon: "Package",   title: "Retail Packaging",  text: "250 g · 500 g · 1 kg · 5 kg" },
+                  { icon: "Box",       title: "Big Bags",          text: "500 kg · 1 000 kg bulk supply" },
+                  { icon: "Container", title: "FCL / LCL Export",  text: "Full & partial container loads" },
+                  { icon: "Tag",       title: "Private Label",     text: "Concept → shelf-ready packaging" },
                 ].map(item => (
                   <div key={item.title} className="hover-lift rounded-xl p-6"
                     style={{ backgroundColor: 'var(--cream)', border: '1px solid var(--cream-dark)' }}>
@@ -579,9 +633,10 @@ const Index = () => {
         <section id="request" style={{ backgroundColor: 'var(--dark)' }}>
           <div className="max-w-3xl mx-auto px-6 md:px-14 py-24">
             <div className="text-center mb-12">
-              <SectionLabel text="Request a Price" />
-              <h2 className="font-display font-light mb-3" style={{ fontSize: 'clamp(2rem,4vw,3rem)', color: 'var(--cream)' }}>
-                Get Your Quote
+              <SectionLabel text="Get a Quote" />
+              <h2 className="font-display font-light mb-3" style={{ fontSize: 'clamp(1.8rem,4vw,2.8rem)', color: 'var(--cream)' }}>
+                Request a Quote<br />
+                <span style={{ fontSize: '0.6em', color: 'var(--gold-light)' }}>Запросить экспортное предложение</span>
               </h2>
               <p className="font-body text-sm" style={{ color: 'rgba(245,240,230,0.55)' }}>
                 Fill in the form and we'll get back to you within 24 hours
@@ -656,19 +711,33 @@ const Index = () => {
                   </div>
                 </div>
 
-                <div>
-                  <label className="font-body text-xs font-semibold uppercase tracking-wider block mb-2" style={{ color: 'var(--gold)' }}>Product of Interest</label>
-                  <select
-                    value={form.product}
-                    onChange={e => setForm({ ...form, product: e.target.value })}
-                    style={{ ...inputStyle, backgroundColor: 'rgba(245,240,230,0.07)', border: '1px solid rgba(184,150,46,0.25)', color: form.product ? 'var(--cream)' : 'rgba(245,240,230,0.4)' }}
-                    onFocus={e => (e.currentTarget.style.borderColor = 'var(--gold)')}
-                    onBlur={e => (e.currentTarget.style.borderColor = 'rgba(184,150,46,0.25)')}
-                  >
-                    <option value="" disabled style={{ background: 'var(--dark)' }}>Select product</option>
-                    {PRODUCTS.map(p => <option key={p.name} value={p.name} style={{ background: 'var(--dark)' }}>{p.name}</option>)}
-                    <option value="Other / Multiple" style={{ background: 'var(--dark)' }}>Other / Multiple Products</option>
-                  </select>
+                <div className="grid md:grid-cols-2 gap-5">
+                  <div>
+                    <label className="font-body text-xs font-semibold uppercase tracking-wider block mb-2" style={{ color: 'var(--gold)' }}>Product of Interest</label>
+                    <select
+                      value={form.product}
+                      onChange={e => setForm({ ...form, product: e.target.value })}
+                      style={{ ...inputStyle, backgroundColor: 'rgba(245,240,230,0.07)', border: '1px solid rgba(184,150,46,0.25)', color: form.product ? 'var(--cream)' : 'rgba(245,240,230,0.4)' }}
+                      onFocus={e => (e.currentTarget.style.borderColor = 'var(--gold)')}
+                      onBlur={e => (e.currentTarget.style.borderColor = 'rgba(184,150,46,0.25)')}
+                    >
+                      <option value="" disabled style={{ background: 'var(--dark)' }}>Select product</option>
+                      {PRODUCTS.map(p => <option key={p.name} value={p.name} style={{ background: 'var(--dark)' }}>{p.name.replace('\n', ' ')}</option>)}
+                      <option value="Other / Multiple" style={{ background: 'var(--dark)' }}>Other / Multiple Products</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="font-body text-xs font-semibold uppercase tracking-wider block mb-2" style={{ color: 'var(--gold)' }}>Destination Country *</label>
+                    <input
+                      required
+                      placeholder="e.g. Germany, UAE, Brazil"
+                      value={form.country}
+                      onChange={e => setForm({ ...form, country: e.target.value })}
+                      style={{ ...inputStyle, backgroundColor: 'rgba(245,240,230,0.07)', border: '1px solid rgba(184,150,46,0.25)', color: 'var(--cream)' }}
+                      onFocus={e => (e.currentTarget.style.borderColor = 'var(--gold)')}
+                      onBlur={e => (e.currentTarget.style.borderColor = 'rgba(184,150,46,0.25)')}
+                    />
+                  </div>
                 </div>
 
                 <div>
@@ -697,18 +766,106 @@ const Index = () => {
         </section>
 
         {/* ══ FOOTER ═══════════════════════════════════════════ */}
-        <footer style={{ backgroundColor: 'rgba(42,32,21,0.97)', borderTop: '1px solid rgba(184,150,46,0.15)' }}>
-          <div className="max-w-7xl mx-auto px-6 md:px-14 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
-            <img src={LOGO_URL} alt="Gavrilov Foods" className="h-10 w-auto" />
-            <div className="font-body text-xs text-center" style={{ color: 'rgba(245,240,230,0.35)' }}>
-              © 2024 Gavrilov Foods · Smolensk Region, Russia
+        <footer style={{ backgroundColor: 'rgba(28,20,12,0.99)', borderTop: '1px solid rgba(184,150,46,0.15)' }}>
+          <div className="max-w-7xl mx-auto px-6 md:px-14 py-16">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
+
+              {/* Brand */}
+              <div className="col-span-2 md:col-span-1">
+                <img src={LOGO_URL} alt="Gavrilov Foods" className="h-12 w-auto mb-4" />
+                <p className="font-body text-xs leading-relaxed mb-5" style={{ color: 'rgba(245,240,230,0.45)' }}>
+                  Russian grain producer & exporter. Farm-to-export supply chain.
+                </p>
+                <div className="flex items-center gap-3 mb-3">
+                  <img src={EU_LOGO} alt="EU Organic Certified" className="h-9 w-9 rounded" />
+                  <div>
+                    <div className="font-body text-xs font-bold" style={{ color: 'var(--gold-light)' }}>EU ORGANIC CERTIFIED</div>
+                    <div className="font-body text-xs" style={{ color: 'rgba(245,240,230,0.35)' }}>Certified grains & pulses</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Quick Links */}
+              <div>
+                <div className="font-body text-xs font-bold uppercase tracking-widest mb-4" style={{ color: 'var(--gold)' }}>Quick Links</div>
+                <div className="space-y-2.5">
+                  {[['#about','About Us'],['#products','Our Products'],['#organic','Organic'],['#export','Export'],['#private-label','Private Label'],['#request','Request a Quote']].map(([href, label]) => (
+                    <a key={href} href={href} className="block font-body text-sm transition-colors"
+                      style={{ color: 'rgba(245,240,230,0.5)' }}
+                      onMouseEnter={e => (e.currentTarget.style.color = 'var(--gold-light)')}
+                      onMouseLeave={e => (e.currentTarget.style.color = 'rgba(245,240,230,0.5)')}
+                    >{label}</a>
+                  ))}
+                </div>
+              </div>
+
+              {/* Export Regions */}
+              <div>
+                <div className="font-body text-xs font-bold uppercase tracking-widest mb-4" style={{ color: 'var(--gold)' }}>Export Regions</div>
+                <div className="space-y-2">
+                  {EXPORT_REGIONS.map(r => (
+                    <div key={r} className="flex items-center gap-2">
+                      <Icon name="MapPin" size={12} style={{ color: 'var(--gold)', flexShrink: 0 }} />
+                      <span className="font-body text-sm" style={{ color: 'rgba(245,240,230,0.5)' }}>{r}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Contact & CTA */}
+              <div>
+                <div className="font-body text-xs font-bold uppercase tracking-widest mb-4" style={{ color: 'var(--gold)' }}>Contact</div>
+                <div className="space-y-3 mb-5">
+                  <a href="tel:+79037901795" className="flex items-center gap-2 font-body text-sm" style={{ color: 'rgba(245,240,230,0.55)' }}>
+                    <Icon name="Phone" size={13} style={{ color: 'var(--gold)' }} />+7 903 790 17 95
+                  </a>
+                  <a href="mailto:info@gavrilovorganic.com" className="flex items-center gap-2 font-body text-sm" style={{ color: 'rgba(245,240,230,0.55)' }}>
+                    <Icon name="Mail" size={13} style={{ color: 'var(--gold)' }} />info@gavrilovorganic.com
+                  </a>
+                  <div className="flex items-center gap-2 font-body text-sm" style={{ color: 'rgba(245,240,230,0.45)' }}>
+                    <Icon name="MapPin" size={13} style={{ color: 'var(--gold)' }} />Smolensk Region, Russia
+                  </div>
+                </div>
+                <a
+                  href="https://wa.me/79037901795?text=Hello%2C%20I%27d%20like%20to%20request%20an%20export%20quote"
+                  target="_blank" rel="noopener noreferrer"
+                  className="flex items-center gap-2 font-body text-sm font-semibold px-4 py-2.5 rounded-lg mb-3 transition-opacity hover:opacity-85"
+                  style={{ backgroundColor: '#25D366', color: '#fff' }}
+                >
+                  <Icon name="MessageCircle" size={15} />WhatsApp Export Manager
+                </a>
+                <a
+                  href="#request"
+                  className="flex items-center gap-2 font-body text-xs font-semibold px-4 py-2 rounded-lg transition-opacity hover:opacity-85"
+                  style={{ border: '1px solid rgba(184,150,46,0.4)', color: 'var(--gold-light)' }}
+                >
+                  <Icon name="FileDown" size={13} />Download Catalog PDF
+                </a>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <img src={EU_LOGO} alt="EU Organic Certified" className="h-8 w-8 rounded" />
-              <span className="font-body text-xs" style={{ color: 'rgba(245,240,230,0.4)' }}>EU Organic Certified</span>
+
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8" style={{ borderTop: '1px solid rgba(184,150,46,0.1)' }}>
+              <div className="font-body text-xs" style={{ color: 'rgba(245,240,230,0.25)' }}>
+                © 2024 Gavrilov Foods · Smolensk Region, Russia
+              </div>
+              <div className="font-body text-xs text-center" style={{ color: 'rgba(245,240,230,0.2)' }}>
+                Grains · Pulses · Oilseeds · Private Label · Export Logistics
+              </div>
             </div>
           </div>
         </footer>
+
+        {/* ══ WHATSAPP STICKY BUTTON ═══════════════════════════ */}
+        <a
+          href="https://wa.me/79037901795?text=Hello%2C%20I%27d%20like%20to%20request%20an%20export%20quote"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fixed bottom-6 right-6 z-50 flex items-center gap-3 font-body font-semibold text-sm px-5 py-3.5 rounded-full shadow-2xl transition-all hover:scale-105 hover:shadow-green-500/30"
+          style={{ backgroundColor: '#25D366', color: '#fff', boxShadow: '0 8px 32px rgba(37,211,102,0.35)' }}
+        >
+          <Icon name="MessageCircle" size={20} />
+          <span className="hidden sm:inline">Chat with Export Team</span>
+        </a>
 
       </div>
     </>
