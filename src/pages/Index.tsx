@@ -194,9 +194,7 @@ const Index = () => {
                   View Products
                 </a>
                 <a href="#request" className="font-body font-medium px-8 py-4 rounded-lg text-sm border transition-all hover:bg-white/10"
-                  style={{ borderColor: 'rgba(245,240,230,0.35)', color: 'var(--cream)' }}>
-                  Request a Price
-                </a>
+                  style={{ borderColor: 'rgba(245,240,230,0.35)', color: 'var(--cream)' }}>Request a Quote</a>
               </div>
             </div>
           </div>
