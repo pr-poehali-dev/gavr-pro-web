@@ -178,9 +178,15 @@ const Index = () => {
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${HERO_IMAGE})` }}
           />
+          {/* Градиент для десктопа */}
           <div
-            className="absolute inset-0"
+            className="absolute inset-0 hidden md:block"
             style={{ background: 'linear-gradient(130deg, rgba(42,32,21,0.72) 0%, rgba(42,32,21,0.52) 55%, rgba(42,32,21,0.18) 100%)' }}
+          />
+          {/* Градиент для мобиле — равномерно темнее для читаемости */}
+          <div
+            className="absolute inset-0 md:hidden"
+            style={{ background: 'rgba(28,18,8,0.68)' }}
           />
 
           <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-14 w-full" style={{ paddingTop: '5rem', paddingBottom: '8rem' }}>
@@ -224,8 +230,14 @@ const Index = () => {
                   style={{ backgroundColor: 'var(--gold)', color: 'var(--dark)' }}>
                   View Products
                 </a>
-                <a href="#request" className="font-body font-medium px-6 py-3.5 rounded-lg text-sm border transition-all hover:bg-white/10 whitespace-nowrap"
-                  style={{ borderColor: 'rgba(245,240,230,0.35)', color: 'var(--cream)' }}>Request a Quote</a>
+                <a href="#request"
+                  className="font-body font-medium px-6 py-3.5 rounded-lg text-sm transition-all whitespace-nowrap
+                    border md:border md:hover:bg-white/10"
+                  style={{
+                    borderColor: 'rgba(245,240,230,0.35)',
+                    color: 'var(--cream)',
+                    backgroundColor: 'rgba(255,255,255,0.15)',
+                  }}>Request a Quote</a>
               </div>
             </div>
           </div>
