@@ -415,13 +415,21 @@ const Index = () => {
 
             {/* Bottom strip */}
             <div
-              className="mt-8 rounded-xl p-5 flex items-center gap-4"
+              className="mt-8 rounded-xl p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4"
               style={{ backgroundColor: 'var(--dark)', border: '1px solid rgba(184,150,46,0.2)' }}
             >
-              <span className="text-2xl">🌿</span>
-              <p className="font-body text-sm" style={{ color: 'rgba(245,240,230,0.75)' }}>
+              <span className="text-2xl hidden sm:block">🌿</span>
+              <p className="font-body text-sm flex-1" style={{ color: 'rgba(245,240,230,0.75)' }}>
                 <strong style={{ color: 'var(--gold-light)' }}>Organic &amp; Conventional options available</strong> — we meet your needs with flexibility and care
               </p>
+              <a
+                href="#request"
+                className="flex items-center gap-2 font-body text-sm font-semibold px-5 py-2.5 rounded-lg transition-opacity hover:opacity-85 whitespace-nowrap flex-shrink-0"
+                style={{ backgroundColor: 'rgba(184,150,46,0.15)', border: '1px solid rgba(184,150,46,0.4)', color: 'var(--gold-light)' }}
+              >
+                <Icon name="FileDown" size={15} />
+                Download Catalog PDF
+              </a>
             </div>
           </div>
         </section>
