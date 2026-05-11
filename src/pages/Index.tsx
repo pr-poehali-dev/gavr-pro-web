@@ -138,9 +138,7 @@ const Index = () => {
             href="#request"
             className="hidden md:block font-body text-sm font-semibold px-5 py-2 rounded-lg transition-opacity hover:opacity-85"
             style={{ backgroundColor: 'var(--gold)', color: 'var(--dark)' }}
-          >
-            Request a Price
-          </a>
+          >Request a Quote</a>
         </nav>
 
         {/* ══ 1. HERO ══════════════════════════════════════════ */}
