@@ -155,6 +155,7 @@ const LangSwitcher = ({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => voi
   const [open, setOpen] = useState(false);
   const [dropdownPos, setDropdownPos] = useState({ top: 0, right: 0 });
   const btnRef = useRef<HTMLButtonElement>(null);
+  const dropRef = useRef<HTMLDivElement>(null);
   const current = LANGS.find(l => l.code === lang)!;
 
   const handleOpen = () => {
@@ -168,7 +169,13 @@ const LangSwitcher = ({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => voi
   useEffect(() => {
     if (!open) return;
     const close = (e: MouseEvent) => {
-      if (btnRef.current && !btnRef.current.contains(e.target as Node)) setOpen(false);
+      const target = e.target as Node;
+      if (
+        btnRef.current && !btnRef.current.contains(target) &&
+        dropRef.current && !dropRef.current.contains(target)
+      ) {
+        setOpen(false);
+      }
     };
     document.addEventListener('mousedown', close);
     return () => document.removeEventListener('mousedown', close);
@@ -188,6 +195,7 @@ const LangSwitcher = ({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => voi
       </button>
       {open && (
         <div
+          ref={dropRef}
           className="rounded-xl overflow-hidden"
           style={{
             position: 'fixed',
@@ -202,6 +210,7 @@ const LangSwitcher = ({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => voi
           {LANGS.map(l => (
             <button
               key={l.code}
+              onMouseDown={e => e.stopPropagation()}
               onClick={() => { setLang(l.code); setOpen(false); }}
               className="flex items-center gap-2 w-full px-4 py-2.5 font-body text-sm transition-colors text-left"
               style={{
