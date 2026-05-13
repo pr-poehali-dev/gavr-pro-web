@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 import Gallery from '@/components/Gallery';
 import { useLanguage } from '@/i18n/useLanguage';
@@ -127,10 +127,29 @@ const PROOF_OF_SCALE = [
 
 /* ── Language switcher ───────────────────────────────────── */
 const LANGS: { code: Lang; flag: string; label: string }[] = [
-  { code: 'en', flag: '🇬🇧', label: 'EN' },
+  { code: 'en', flag: '🇺🇸', label: 'EN' },
   { code: 'ru', flag: '🇷🇺', label: 'RU' },
   { code: 'es', flag: '🇪🇸', label: 'ES' },
 ];
+
+/* ── Meta tags per language ──────────────────────────────── */
+const META: Record<Lang, { title: string; description: string; lang: string }> = {
+  en: {
+    lang: 'en',
+    title: 'Gavrilov Foods — Russian Organic Grain & Export Supplier',
+    description: 'Russian agricultural producer and grain processor. EU Organic certified. Buckwheat, lentils, peas, oats, flaxseed. Bulk & retail. Private label. Worldwide export.',
+  },
+  ru: {
+    lang: 'ru',
+    title: 'Gavrilov Foods — Производство и экспорт зерна из России',
+    description: 'Российский производитель зерновых и бобовых культур. Сертификат ЕС Органик. Гречиха, чечевица, горох, овёс, лён. Оптовые и розничные поставки. Private Label. Экспорт по всему миру.',
+  },
+  es: {
+    lang: 'es',
+    title: 'Gavrilov Foods — Proveedor ruso de cereales orgánicos y exportación',
+    description: 'Productor agrícola ruso de cereales y legumbres. Certificado Orgánico UE. Trigo sarraceno, lentejas, guisantes, avena, linaza. Granel y retail. Marca blanca. Exportación mundial.',
+  },
+};
 
 const LangSwitcher = ({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) => {
   const [open, setOpen] = useState(false);
@@ -207,6 +226,34 @@ const Index = () => {
   const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', product: '', country: '', message: '' });
   const [sent, setSent] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const m = META[lang];
+    document.documentElement.lang = m.lang;
+    document.title = m.title;
+    const setMeta = (sel: string, val: string) => {
+      const el = document.querySelector(sel);
+      if (el) el.setAttribute(sel.includes('property') ? 'content' : 'content', val);
+    };
+    const setMetaName = (name: string, val: string) => {
+      let el = document.querySelector(`meta[name="${name}"]`);
+      if (!el) { el = document.createElement('meta'); el.setAttribute('name', name); document.head.appendChild(el); }
+      el.setAttribute('content', val);
+    };
+    const setMetaProp = (prop: string, val: string) => {
+      let el = document.querySelector(`meta[property="${prop}"]`);
+      if (!el) { el = document.createElement('meta'); el.setAttribute('property', prop); document.head.appendChild(el); }
+      el.setAttribute('content', val);
+    };
+    setMetaName('description', m.description);
+    setMetaProp('og:title', m.title);
+    setMetaProp('og:description', m.description);
+    setMetaProp('og:locale', lang === 'en' ? 'en_US' : lang === 'ru' ? 'ru_RU' : 'es_ES');
+    setMeta('meta[name="twitter:title"]', m.title);
+    setMeta('meta[name="twitter:description"]', m.description);
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.setAttribute('href', lang === 'en' ? 'https://gavrilovorganic.com/' : `https://gavrilovorganic.com/${lang}/`);
+  }, [lang]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
