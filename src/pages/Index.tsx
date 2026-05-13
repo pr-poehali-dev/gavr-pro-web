@@ -369,7 +369,7 @@ const Index = () => {
               >
                 {t.hero.h1a}
               </h1>
-              <p className="font-display font-light mb-5 animate-fade-in-up-1" style={{ fontSize: 'clamp(1rem,2vw,1.4rem)', color: 'var(--gold-light)', letterSpacing: '0.02em' }}>
+              <p className="font-display font-semibold mb-5 animate-fade-in-up-1" style={{ fontSize: 'clamp(1rem,2vw,1.35rem)', color: 'var(--gold)', letterSpacing: '0.04em', textShadow: '0 1px 12px rgba(0,0,0,0.8)' }}>
                 {t.hero.h1b}
               </p>
 
@@ -401,14 +401,13 @@ const Index = () => {
                 </div>
               </div>
 
-              <div className="flex flex-row gap-3 animate-fade-in-up-3">
-                <a href="#products" className="font-body font-semibold px-6 py-3.5 rounded-lg text-sm transition-opacity hover:opacity-85 whitespace-nowrap"
+              <div className="flex flex-row gap-2 animate-fade-in-up-3">
+                <a href="#products" className="font-body font-semibold px-4 py-2.5 md:px-6 md:py-3.5 rounded-lg text-xs md:text-sm transition-opacity hover:opacity-85 whitespace-nowrap"
                   style={{ backgroundColor: 'var(--gold)', color: 'var(--dark)' }}>
                   {t.hero.btnProducts}
                 </a>
                 <a href="#request"
-                  className="font-body font-medium px-6 py-3.5 rounded-lg text-sm transition-all whitespace-nowrap
-                    border md:border md:hover:bg-white/10"
+                  className="font-body font-medium px-4 py-2.5 md:px-6 md:py-3.5 rounded-lg text-xs md:text-sm transition-all whitespace-nowrap border md:hover:bg-white/10"
                   style={{
                     borderColor: 'rgba(245,240,230,0.35)',
                     color: 'var(--cream)',
