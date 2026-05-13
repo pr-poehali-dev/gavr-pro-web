@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
+import Gallery from '@/components/Gallery';
 
 /* ─── Assets ─────────────────────────────────────────────── */
 const HERO_IMAGE   = "https://cdn.poehali.dev/projects/36adff41-d365-445e-8d5f-dd8bed2bd445/files/d6567017-3fe5-45e7-b378-926bdaa639ed.jpg";
 const LOGO_URL     = "https://cdn.poehali.dev/files/28b12595-508c-46e8-87a0-fad54fb5c1c5.png";
 const EU_LOGO      = "https://cdn.poehali.dev/files/dbf183fd-8b1e-46f6-9ba9-d02f634bdf25.png";
-const ABOUT_IMG    = "https://cdn.poehali.dev/projects/36adff41-d365-445e-8d5f-dd8bed2bd445/files/e73eb289-9058-41d7-bd3d-6bb7f2c9be60.jpg";
+const ABOUT_IMG    = "https://cdn.poehali.dev/files/08c99862-d2e2-428f-ba2a-a2a2eb054fd5.jpg";
 const PRODUCTS_IMG = "https://cdn.poehali.dev/projects/36adff41-d365-445e-8d5f-dd8bed2bd445/bucket/3bd0b17b-6a41-4406-a868-5a06b8449045.png";
 
 /* ─── Data ───────────────────────────────────────────────── */
@@ -56,6 +57,45 @@ const EXPORT_ICONS = [
   { icon: "Shield",    label: "Reliable Supply" },
   { icon: "Award",     label: "Consistent Quality" },
   { icon: "Handshake", label: "Long-term Partnership" },
+];
+
+/* ── Gallery groups ──────────────────────────────────────── */
+const GALLERY_GROUPS = [
+  {
+    title: "Machinery & Equipment",
+    icon: "Tractor",
+    images: [
+      { src: "https://cdn.poehali.dev/files/a6b50e4f-9b2b-4f04-81b9-3712c3abf7fb.jpg", alt: "Combine harvester GS10 in the field" },
+      { src: "https://cdn.poehali.dev/files/e218b691-9429-4cfd-90be-fee24e2e94e4.jpg", alt: "John Deere 9460R tractor" },
+      { src: "https://cdn.poehali.dev/files/9fa9b978-477e-4c69-bfdd-aa010369bf58.jpg", alt: "KAMAZ grain truck" },
+      { src: "https://cdn.poehali.dev/files/808f2178-f3d0-49c8-ab20-a51b836ab80d.jpg", alt: "Telehandler DIECI loading grain silo" },
+    ],
+  },
+  {
+    title: "Warehouse & Big Bags",
+    icon: "Warehouse",
+    images: [
+      { src: "https://cdn.poehali.dev/files/62b224e7-f743-44a1-a822-5b3b8d06a4cf.jpg", alt: "Big bags in warehouse storage" },
+      { src: "https://cdn.poehali.dev/files/f06d46f8-3c1d-41ab-abf9-44ba57413bb5.jpg", alt: "Big bags with grain ready for export" },
+      { src: "https://cdn.poehali.dev/files/a30d0ce6-760c-444a-9e96-7751bcb91787.jpg", alt: "Stacked 25kg bags on pallets" },
+      { src: "https://cdn.poehali.dev/files/712d6784-b71f-4a7c-baca-9e0662e66386.jpg", alt: "Packaged product pallets in warehouse" },
+    ],
+  },
+  {
+    title: "Processing Equipment",
+    icon: "Settings",
+    images: [
+      { src: "https://cdn.poehali.dev/files/dab19fe5-67e1-46c4-94e0-896a64670591.jpg", alt: "TEKO automatic packaging machine" },
+    ],
+  },
+  {
+    title: "Fields & Crops",
+    icon: "Leaf",
+    images: [
+      { src: "https://cdn.poehali.dev/files/08c99862-d2e2-428f-ba2a-a2a2eb054fd5.jpg", alt: "Buckwheat field in bloom with blue sky" },
+      { src: "https://cdn.poehali.dev/files/71677e6f-588a-4c24-91ca-22e14fa60e4d.jpg", alt: "Buckwheat crop close-up with flowers" },
+    ],
+  },
 ];
 
 /* ── Catalog PDF (replace with real PDF when ready) ─────── */
@@ -341,11 +381,11 @@ const Index = () => {
         <section className="overflow-hidden" style={{ backgroundColor: 'var(--dark)' }}>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-1">
             {[
-              { src: BASE + "15eb6e54-61c1-4be3-a954-ff965d755c08.jpg", alt: "Wheat harvest — combine harvester in field" },
-              { src: BASE + "a402d10f-3f6b-4bcd-b89d-31eb0f5a2b9d.jpg", alt: "Grain processing warehouse" },
-              { src: BASE + "56587c66-822d-4b7f-8678-e556e80bad9f.jpg", alt: "Packaging line — grain filling" },
-              { src: BASE + "f15fa862-b70f-4c1b-b95b-4aa8849450a7.jpg", alt: "Retail packaging 250g-5kg" },
-              { src: BASE + "be8db559-d8a5-4693-870d-6b3151b0880e.jpg", alt: "Container export logistics" },
+              { src: "https://cdn.poehali.dev/files/a6b50e4f-9b2b-4f04-81b9-3712c3abf7fb.jpg", alt: "Combine harvester in the field" },
+              { src: "https://cdn.poehali.dev/files/62b224e7-f743-44a1-a822-5b3b8d06a4cf.jpg", alt: "Big bags warehouse storage" },
+              { src: "https://cdn.poehali.dev/files/dab19fe5-67e1-46c4-94e0-896a64670591.jpg", alt: "Processing equipment" },
+              { src: "https://cdn.poehali.dev/files/08c99862-d2e2-428f-ba2a-a2a2eb054fd5.jpg", alt: "Buckwheat field in bloom" },
+              { src: "https://cdn.poehali.dev/files/9fa9b978-477e-4c69-bfdd-aa010369bf58.jpg", alt: "KAMAZ grain truck" },
             ].map(img => (
               <div key={img.alt} className="overflow-hidden" style={{ aspectRatio: '1/1' }}>
                 <img src={img.src} alt={img.alt} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
@@ -715,7 +755,18 @@ const Index = () => {
           </div>
         </section>
 
-        {/* ══ 8. CONTACT ═══════════════════════════════════════ */}
+        {/* ══ 8. GALLERY ═══════════════════════════════════════ */}
+        <section id="gallery" className="max-w-7xl mx-auto px-6 md:px-14 py-24">
+          <div className="text-center mb-12">
+            <SectionLabel text="Our Facility" />
+            <h2 className="font-display font-light mb-3" style={{ fontSize: 'clamp(2rem,4vw,3rem)', color: 'var(--dark)' }}>
+              See what's behind<br /><em style={{ color: 'var(--gold)' }}>every shipment</em>
+            </h2>
+          </div>
+          <Gallery groups={GALLERY_GROUPS} />
+        </section>
+
+        {/* ══ 9. CONTACT ═══════════════════════════════════════ */}
         <section id="contact" className="max-w-7xl mx-auto px-6 md:px-14 py-24">
           <div className="text-center mb-14">
             <SectionLabel text="Contact Us" />
@@ -913,7 +964,7 @@ const Index = () => {
               <div>
                 <div className="font-body text-xs font-bold uppercase tracking-widest mb-4" style={{ color: 'var(--gold)' }}>Quick Links</div>
                 <div className="space-y-2.5">
-                  {[['#about','About Us'],['#products','Our Products'],['#organic','Organic'],['#export','Export'],['#private-label','Private Label'],['#request','Request a Quote']].map(([href, label]) => (
+                  {[['#about','About Us'],['#products','Our Products'],['#organic','Organic'],['#export','Export'],['#private-label','Private Label'],['#gallery','Gallery'],['#request','Request a Quote']].map(([href, label]) => (
                     <a key={href} href={href} className="block font-body text-sm transition-colors"
                       style={{ color: 'rgba(245,240,230,0.5)' }}
                       onMouseEnter={e => (e.currentTarget.style.color = 'var(--gold-light)')}
