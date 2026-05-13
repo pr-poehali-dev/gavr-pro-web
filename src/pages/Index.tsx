@@ -1064,7 +1064,9 @@ const Index = () => {
                   <a href="tel:+79037901795" className="flex items-center gap-2 font-body text-sm" style={{ color: 'rgba(245,240,230,0.55)' }}>
                     <Icon name="Phone" size={13} style={{ color: 'var(--gold)' }} />+7 903 790 17 95
                   </a>
-                  <a href="mailto:info@gavrilovorganic.com" className="flex items-center gap-2 font-body text-sm" style={{ color: 'rgba(245,240,230,0.55)' }}>gavrilovfoods.export@gmail.com</a>
+                  <a href="mailto:gavrilovfoods.export@gmail.com" className="flex items-center gap-2 font-body text-sm" style={{ color: 'rgba(245,240,230,0.55)' }}>
+                    <Icon name="Mail" size={13} style={{ color: 'var(--gold)' }} />gavrilovfoods.export@gmail.com
+                  </a>
                   <div className="flex items-center gap-2 font-body text-sm" style={{ color: 'rgba(245,240,230,0.45)' }}>
                     <Icon name="MapPin" size={13} style={{ color: 'var(--gold)' }} />Smolensk Region, Russia
                   </div>
