@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Icon from '@/components/ui/icon';
 import Gallery from '@/components/Gallery';
 import { useLanguage } from '@/i18n/useLanguage';
@@ -153,11 +153,32 @@ const META: Record<Lang, { title: string; description: string; lang: string }> =
 
 const LangSwitcher = ({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) => {
   const [open, setOpen] = useState(false);
+  const [dropdownPos, setDropdownPos] = useState({ top: 0, right: 0 });
+  const btnRef = useRef<HTMLButtonElement>(null);
   const current = LANGS.find(l => l.code === lang)!;
+
+  const handleOpen = () => {
+    if (!open && btnRef.current) {
+      const rect = btnRef.current.getBoundingClientRect();
+      setDropdownPos({ top: rect.bottom + 6, right: window.innerWidth - rect.right });
+    }
+    setOpen(o => !o);
+  };
+
+  useEffect(() => {
+    if (!open) return;
+    const close = (e: MouseEvent) => {
+      if (btnRef.current && !btnRef.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener('mousedown', close);
+    return () => document.removeEventListener('mousedown', close);
+  }, [open]);
+
   return (
     <div className="relative">
       <button
-        onClick={() => setOpen(o => !o)}
+        ref={btnRef}
+        onClick={handleOpen}
         className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-body text-sm font-medium transition-colors"
         style={{ backgroundColor: 'rgba(245,240,230,0.08)', color: 'rgba(245,240,230,0.85)', border: '1px solid rgba(184,150,46,0.25)' }}
       >
@@ -167,8 +188,16 @@ const LangSwitcher = ({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => voi
       </button>
       {open && (
         <div
-          className="absolute right-0 top-full mt-1 rounded-xl overflow-hidden z-50"
-          style={{ backgroundColor: 'rgba(42,32,21,0.98)', border: '1px solid rgba(184,150,46,0.25)', minWidth: 90 }}
+          className="rounded-xl overflow-hidden"
+          style={{
+            position: 'fixed',
+            top: dropdownPos.top,
+            right: dropdownPos.right,
+            zIndex: 9999,
+            backgroundColor: 'rgba(42,32,21,0.98)',
+            border: '1px solid rgba(184,150,46,0.25)',
+            minWidth: 90,
+          }}
         >
           {LANGS.map(l => (
             <button
