@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 import Gallery from '@/components/Gallery';
+import { useLanguage } from '@/i18n/useLanguage';
+import type { Lang } from '@/i18n/translations';
 
 /* ─── Assets ─────────────────────────────────────────────── */
 const HERO_IMAGE   = "https://cdn.poehali.dev/projects/36adff41-d365-445e-8d5f-dd8bed2bd445/files/d6567017-3fe5-45e7-b378-926bdaa639ed.jpg";
@@ -28,23 +30,6 @@ const PRODUCTS = [
   { name: "Sunflower\nSeeds",organic: false, img: BASE + "770d2c50-1176-4f6a-ac74-df87fda8539c.jpg" },
   { name: "Rapeseed",        organic: false, img: BASE + "0f1ca6a0-b16d-40a0-b7e0-0e4d9c7571d7.jpg" },
 ];
-
-const ABOUT_FEATURES = [
-  "Own farming and trusted growers",
-  "Modern processing facilities",
-  "Strict quality control",
-  "Stable supply and volume",
-  "Export experience worldwide",
-];
-
-const ORGANIC_FEATURES = [
-  "EU Organic Certified",
-  "Traceable from field to final product",
-  "Sustainable farming practices",
-  "Available in organic grains, pulses and oilseeds",
-];
-
-const EXPORT_REGIONS = ["Europe", "North America", "Middle East", "Latin America", "Asia", "Africa"];
 
 const PACKAGING = [
   { icon: "Package",   label: "Retail Packaging" },
@@ -140,6 +125,51 @@ const PROOF_OF_SCALE = [
   },
 ];
 
+/* ── Language switcher ───────────────────────────────────── */
+const LANGS: { code: Lang; flag: string; label: string }[] = [
+  { code: 'en', flag: '🇬🇧', label: 'EN' },
+  { code: 'ru', flag: '🇷🇺', label: 'RU' },
+  { code: 'es', flag: '🇪🇸', label: 'ES' },
+];
+
+const LangSwitcher = ({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) => {
+  const [open, setOpen] = useState(false);
+  const current = LANGS.find(l => l.code === lang)!;
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setOpen(o => !o)}
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-body text-sm font-medium transition-colors"
+        style={{ backgroundColor: 'rgba(245,240,230,0.08)', color: 'rgba(245,240,230,0.85)', border: '1px solid rgba(184,150,46,0.25)' }}
+      >
+        <span>{current.flag}</span>
+        <span>{current.label}</span>
+        <Icon name="ChevronDown" size={12} />
+      </button>
+      {open && (
+        <div
+          className="absolute right-0 top-full mt-1 rounded-xl overflow-hidden z-50"
+          style={{ backgroundColor: 'rgba(42,32,21,0.98)', border: '1px solid rgba(184,150,46,0.25)', minWidth: 90 }}
+        >
+          {LANGS.map(l => (
+            <button
+              key={l.code}
+              onClick={() => { setLang(l.code); setOpen(false); }}
+              className="flex items-center gap-2 w-full px-4 py-2.5 font-body text-sm transition-colors text-left"
+              style={{
+                color: l.code === lang ? 'var(--gold-light)' : 'rgba(245,240,230,0.75)',
+                backgroundColor: l.code === lang ? 'rgba(184,150,46,0.12)' : 'transparent',
+              }}
+            >
+              <span>{l.flag}</span><span>{l.label}</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
 /* ─── Helpers ────────────────────────────────────────────── */
 const SectionLabel = ({ text }: { text: string }) => (
   <div className="flex items-center justify-center gap-3 mb-5">
@@ -173,6 +203,7 @@ const SD = {
    PAGE COMPONENT
 ════════════════════════════════════════════════════════════ */
 const Index = () => {
+  const { lang, setLang, t } = useLanguage();
   const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', product: '', country: '', message: '' });
   const [sent, setSent] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -210,7 +241,7 @@ const Index = () => {
             <img src={LOGO_URL} alt="Gavrilov Foods logo" className="h-10 w-auto" />
 
             <div className="hidden md:flex items-center gap-7 font-body text-sm font-medium">
-              {[['#about','About'],['#products','Products'],['#organic','Organic'],['#export','Export'],['#certifications','Certifications'],['#private-label','Private Label'],['#gallery','Gallery'],['#contact','Contact']].map(([href, label]) => (
+              {([['#about', t.nav.about],['#products', t.nav.products],['#organic', t.nav.organic],['#export', t.nav.export],['#certifications', t.nav.certifications],['#private-label', t.nav.privateLabel],['#gallery', t.nav.gallery],['#contact', t.nav.contact]] as [string,string][]).map(([href, label]) => (
                 <a key={href} href={href} className="hover:opacity-100 transition-opacity" style={{ color: 'rgba(245,240,230,0.75)' }}
                   onMouseEnter={e => (e.currentTarget.style.color = 'var(--gold-light)')}
                   onMouseLeave={e => (e.currentTarget.style.color = 'rgba(245,240,230,0.75)')}
@@ -219,9 +250,10 @@ const Index = () => {
             </div>
 
             <div className="flex items-center gap-3">
+              <LangSwitcher lang={lang} setLang={setLang} />
               <a href="#request" className="hidden md:block font-body text-sm font-semibold px-5 py-2 rounded-lg transition-opacity hover:opacity-85"
                 style={{ backgroundColor: 'var(--gold)', color: 'var(--dark)' }}>
-                Request a Quote
+                {t.nav.requestQuote}
               </a>
               <button
                 className="md:hidden flex flex-col items-center justify-center gap-1.5 w-9 h-9 rounded-lg"
@@ -238,7 +270,7 @@ const Index = () => {
 
           {menuOpen && (
             <div className="md:hidden flex flex-col px-4 pb-4 gap-0.5" style={{ borderTop: '1px solid rgba(184,150,46,0.15)' }}>
-              {[['#about','About'],['#products','Products'],['#organic','Organic'],['#export','Export'],['#certifications','Certifications'],['#private-label','Private Label'],['#gallery','Gallery'],['#contact','Contact']].map(([href, label]) => (
+              {([['#about', t.nav.about],['#products', t.nav.products],['#organic', t.nav.organic],['#export', t.nav.export],['#certifications', t.nav.certifications],['#private-label', t.nav.privateLabel],['#gallery', t.nav.gallery],['#contact', t.nav.contact]] as [string,string][]).map(([href, label]) => (
                 <a key={href} href={href}
                   className="font-body text-sm font-medium py-3 px-3 rounded-lg"
                   style={{ color: 'rgba(245,240,230,0.8)' }}
@@ -249,7 +281,10 @@ const Index = () => {
                 className="font-body text-sm font-semibold py-3 rounded-lg text-center mt-2"
                 style={{ backgroundColor: 'var(--gold)', color: 'var(--dark)' }}
                 onClick={() => setMenuOpen(false)}
-              >Request a Quote</a>
+              >{t.nav.requestQuote}</a>
+              <div className="flex justify-center mt-2">
+                <LangSwitcher lang={lang} setLang={setLang} />
+              </div>
             </div>
           )}
         </nav>
@@ -277,7 +312,7 @@ const Index = () => {
               <div className="flex items-center gap-3 mb-6 animate-fade-in-up">
                 <div className="h-px w-8" style={{ background: 'var(--gold)' }} />
                 <span className="font-body text-xs font-semibold tracking-widest uppercase" style={{ color: 'var(--gold)' }}>
-                  Farm Origin · Grain Processing · Export Supply
+                  {t.hero.badge}
                 </span>
               </div>
 
@@ -285,12 +320,12 @@ const Index = () => {
                 className="font-display font-light leading-tight mb-5 animate-fade-in-up-1"
                 style={{ fontSize: 'clamp(2.4rem,5.5vw,4.5rem)', color: '#fff', textShadow: '0 2px 16px rgba(0,0,0,0.55)' }}
               >
-                Organic &amp; Conventional<br />
-                <em style={{ color: 'var(--gold-light)' }}>Grain Supplier</em>
+                {t.hero.h1a}<br />
+                <em style={{ color: 'var(--gold-light)' }}>{t.hero.h1b}</em>
               </h1>
 
               <p className="font-body text-base md:text-lg mb-6 animate-fade-in-up-2 font-medium" style={{ color: 'rgba(255,255,255,0.92)', maxWidth: 540, textShadow: '0 1px 8px rgba(0,0,0,0.5)' }}>
-                Grains · Pulses · Flaxseed · Private Label · Export Logistics
+                {t.hero.sub}
               </p>
 
               {/* EU badge */}
@@ -301,8 +336,8 @@ const Index = () => {
                 >
                   <img src={EU_LOGO} alt="EU Organic Certified" className="h-10 w-10 rounded" />
                   <div>
-                    <div className="font-body text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--gold-light)' }}>EU ORGANIC</div>
-                    <div className="font-body text-xs" style={{ color: 'rgba(245,240,230,0.6)' }}>CERTIFIED</div>
+                    <div className="font-body text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--gold-light)' }}>{t.hero.certBadge1}</div>
+                    <div className="font-body text-xs" style={{ color: 'rgba(245,240,230,0.6)' }}>{t.hero.certBadge2}</div>
                   </div>
                 </div>
               </div>
@@ -310,7 +345,7 @@ const Index = () => {
               <div className="flex flex-row gap-3 animate-fade-in-up-3">
                 <a href="#products" className="font-body font-semibold px-6 py-3.5 rounded-lg text-sm transition-opacity hover:opacity-85 whitespace-nowrap"
                   style={{ backgroundColor: 'var(--gold)', color: 'var(--dark)' }}>
-                  View Products
+                  {t.hero.btnProducts}
                 </a>
                 <a href="#request"
                   className="font-body font-medium px-6 py-3.5 rounded-lg text-sm transition-all whitespace-nowrap
@@ -319,7 +354,7 @@ const Index = () => {
                     borderColor: 'rgba(245,240,230,0.35)',
                     color: 'var(--cream)',
                     backgroundColor: 'rgba(255,255,255,0.15)',
-                  }}>Request a Quote</a>
+                  }}>{t.hero.btnQuote}</a>
               </div>
             </div>
           </div>
@@ -329,14 +364,10 @@ const Index = () => {
             className="absolute bottom-0 left-0 right-0 grid grid-cols-3 divide-x"
             style={{ backgroundColor: 'rgba(42,32,21,0.88)', borderTop: '1px solid rgba(184,150,46,0.2)', divideColor: 'rgba(184,150,46,0.2)' }}
           >
-            {[
-              ['EU Organic Certified', 'Farm → Processing → Export'],
-              ['Bulk & Retail Packaging', 'Big Bags · FCL/LCL'],
-              ['Private Label Available', 'From concept to shelf-ready'],
-            ].map(([t, s]) => (
-              <div key={t} className="py-5 px-6 text-center">
-                <div className="font-body text-xs font-semibold mb-0.5" style={{ color: 'var(--gold-light)' }}>{t}</div>
-                <div className="font-body text-xs" style={{ color: 'rgba(245,240,230,0.5)' }}>{s}</div>
+            {t.hero.strip.map(item => (
+              <div key={item.title} className="py-5 px-6 text-center">
+                <div className="font-body text-xs font-semibold mb-0.5" style={{ color: 'var(--gold-light)' }}>{item.title}</div>
+                <div className="font-body text-xs" style={{ color: 'rgba(245,240,230,0.5)' }}>{item.sub}</div>
               </div>
             ))}
           </div>
@@ -346,18 +377,18 @@ const Index = () => {
         <section style={{ backgroundColor: 'var(--cream-mid)', borderBottom: '1px solid var(--cream-dark)' }}>
           <div className="max-w-7xl mx-auto px-6 md:px-14 py-16">
             <div className="text-center mb-10">
-              <SectionLabel text="Why Buyers Choose Us" />
+              <SectionLabel text={t.why.label} />
               <h2 className="font-display font-light" style={{ fontSize: 'clamp(1.8rem,3.5vw,2.6rem)', color: 'var(--dark)' }}>
-                Everything a grain buyer needs —<br /><em style={{ color: 'var(--gold)' }}>in one supplier</em>
+                {t.why.h2a}<br /><em style={{ color: 'var(--gold)' }}>{t.why.h2b}</em>
               </h2>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                { icon: "Award",    title: "EU Organic Certified",        sub: "Certified grains & pulses" },
-                { icon: "Workflow", title: "Farm → Processing → Export",  sub: "Full cycle, zero middlemen" },
-                { icon: "Package",  title: "Bulk & Retail Packaging",     sub: "250 g to Big Bags 1000 kg" },
-                { icon: "Tag",      title: "Private Label",               sub: "From concept to shelf-ready" },
+                { icon: "Award",    title: t.why.cards[0].title, sub: t.why.cards[0].sub },
+                { icon: "Workflow", title: t.why.cards[1].title, sub: t.why.cards[1].sub },
+                { icon: "Package",  title: t.why.cards[2].title, sub: t.why.cards[2].sub },
+                { icon: "Tag",      title: t.why.cards[3].title, sub: t.why.cards[3].sub },
               ].map(item => (
                 <div key={item.title}
                   className="hover-lift rounded-2xl p-5 flex flex-col items-center text-center gap-3"
@@ -396,20 +427,20 @@ const Index = () => {
         <section id="about" className="max-w-7xl mx-auto px-6 md:px-14 py-28">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div>
-              <SectionLabelLeft text="About Gavrilov Foods" />
+              <SectionLabelLeft text={t.about.label} />
               <h2 className="font-display font-light leading-tight mb-6"
                 style={{ fontSize: 'clamp(2rem,4vw,3.2rem)', color: 'var(--dark)' }}>
-                From farm<br /><em style={{ color: 'var(--gold)' }}>to export</em>
+                {t.about.h2a}<br /><em style={{ color: 'var(--gold)' }}>{t.about.h2b}</em>
               </h2>
               <p className="font-body text-base leading-relaxed mb-4" style={{ color: 'var(--dark-soft)' }}>
-                We are a Russian agricultural producer and grain processor with full-cycle control from farm to export.
+                {t.about.p1}
               </p>
               <p className="font-body text-base leading-relaxed mb-8" style={{ color: 'var(--dark-soft)' }}>
-                Located in the Smolensk Region, our company combines modern processing technologies, strict quality standards and reliable logistics to deliver premium products to customers worldwide.
+                {t.about.p2}
               </p>
 
               <div className="space-y-3 mb-10">
-                {ABOUT_FEATURES.map(f => (
+                {t.about.features.map(f => (
                   <div key={f} className="flex items-center gap-3">
                     <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
                       style={{ backgroundColor: 'var(--gold)', color: 'var(--dark)' }}>
@@ -421,8 +452,8 @@ const Index = () => {
               </div>
 
               <div className="divider-gold mb-8" />
-              <p className="font-display italic" style={{ fontSize: '1.55rem', color: 'var(--dark)', lineHeight: 1.5 }}>
-                "Growing quality.<br />Delivering trust.<br />Building partnership."
+              <p className="font-display italic" style={{ fontSize: '1.55rem', color: 'var(--dark)', lineHeight: 1.5, whiteSpace: 'pre-line' }}>
+                {t.about.quote}
               </p>
             </div>
 
@@ -436,7 +467,7 @@ const Index = () => {
                 style={{ backgroundColor: 'var(--dark)', border: '1px solid rgba(184,150,46,0.3)' }}
               >
                 <div className="font-display text-2xl font-semibold" style={{ color: 'var(--gold-light)' }}>30+</div>
-                <div className="font-body text-xs" style={{ color: 'rgba(245,240,230,0.6)' }}>countries worldwide</div>
+                <div className="font-body text-xs" style={{ color: 'rgba(245,240,230,0.6)' }}>{t.about.badge}</div>
               </div>
             </div>
           </div>
@@ -444,14 +475,14 @@ const Index = () => {
           {/* ── Proof of Scale ────────────────────────────────── */}
           <div className="mt-20">
             <div className="text-center mb-10">
-              <SectionLabel text="Proof of Scale" />
+              <SectionLabel text={t.scale.label} />
               <h3 className="font-display font-light" style={{ fontSize: 'clamp(1.4rem,3vw,2rem)', color: 'var(--dark)' }}>
-                Real numbers behind every shipment
+                {t.scale.heading}
               </h3>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {PROOF_OF_SCALE.map(cat => (
+              {PROOF_OF_SCALE.map((cat, i) => (
                 <div key={cat.category}
                   className="rounded-2xl p-6"
                   style={{ backgroundColor: 'var(--cream-mid)', border: '1px solid var(--cream-dark)' }}>
@@ -460,13 +491,13 @@ const Index = () => {
                       style={{ backgroundColor: 'var(--gold)', color: 'var(--dark)' }}>
                       <Icon name={cat.icon} size={14} />
                     </div>
-                    <span className="font-body text-xs font-bold uppercase tracking-widest" style={{ color: 'var(--dark)' }}>{cat.category}</span>
+                    <span className="font-body text-xs font-bold uppercase tracking-widest" style={{ color: 'var(--dark)' }}>{t.scale.groups[i].category}</span>
                   </div>
                   <div className="space-y-3">
-                    {cat.stats.map(s => (
+                    {cat.stats.map((s, j) => (
                       <div key={s.label}>
                         <div className="font-display font-semibold leading-none mb-0.5" style={{ fontSize: 'clamp(1.1rem,2vw,1.4rem)', color: 'var(--gold)' }}>{s.value}</div>
-                        <div className="font-body text-xs leading-snug" style={{ color: 'var(--dark-soft)' }}>{s.label}</div>
+                        <div className="font-body text-xs leading-snug" style={{ color: 'var(--dark-soft)' }}>{t.scale.groups[i].stats[j].label}</div>
                       </div>
                     ))}
                   </div>
@@ -480,9 +511,9 @@ const Index = () => {
         <section id="products" style={{ backgroundColor: 'var(--cream-mid)' }}>
           <div className="max-w-7xl mx-auto px-6 md:px-14 py-24">
             <div className="text-center mb-14">
-              <SectionLabel text="Our Products" />
-              <h2 className="font-display font-light mb-3" style={{ fontSize: 'clamp(2rem,4vw,3rem)', color: 'var(--dark)' }}>
-                Wide range of grains, pulses<br />and oilseeds for global markets
+              <SectionLabel text={t.products.label} />
+              <h2 className="font-display font-light mb-3" style={{ fontSize: 'clamp(2rem,4vw,3rem)', color: 'var(--dark)', whiteSpace: 'pre-line' }}>
+                {t.products.h2}
               </h2>
             </div>
 
@@ -534,7 +565,7 @@ const Index = () => {
             >
               <span className="text-2xl hidden sm:block">🌿</span>
               <p className="font-body text-sm flex-1" style={{ color: 'rgba(245,240,230,0.75)' }}>
-                <strong style={{ color: 'var(--gold-light)' }}>Organic &amp; Conventional options available</strong> — we meet your needs with flexibility and care
+                <strong style={{ color: 'var(--gold-light)' }}>{t.products.stripStrong}</strong> {t.products.stripText}
               </p>
               <a
                 href={CATALOG_URL}
@@ -543,7 +574,7 @@ const Index = () => {
                 style={{ backgroundColor: 'rgba(184,150,46,0.15)', border: '1px solid rgba(184,150,46,0.4)', color: 'var(--gold-light)' }}
               >
                 <Icon name="FileDown" size={15} />
-                Download Catalog PDF
+                {t.products.downloadCatalog}
               </a>
             </div>
           </div>
@@ -558,14 +589,14 @@ const Index = () => {
             >
               <div className="flex items-center gap-3 mb-2">
                 <div className="h-px w-8" style={{ background: 'var(--gold)' }} />
-                <span className="font-body text-xs font-semibold tracking-widest uppercase" style={{ color: 'var(--gold)' }}>Organic & Conventional</span>
+                <span className="font-body text-xs font-semibold tracking-widest uppercase" style={{ color: 'var(--gold)' }}>{t.organic.label}</span>
               </div>
               <h2 className="font-display font-light leading-tight mb-3"
                 style={{ fontSize: 'clamp(1.8rem,3.5vw,2.6rem)', color: 'var(--cream)' }}>
-                Organic &amp;<br /><em style={{ color: 'var(--gold-light)' }}>Conventional Options</em>
+                {t.organic.h2a}<br /><em style={{ color: 'var(--gold-light)' }}>{t.organic.h2b}</em>
               </h2>
               <p className="font-body text-sm mb-6" style={{ color: 'rgba(245,240,230,0.65)' }}>
-                We meet your needs with flexibility and care
+                {t.organic.p1}
               </p>
               <div
                 className="rounded-xl p-5 flex items-center gap-4"
@@ -573,18 +604,18 @@ const Index = () => {
               >
                 <span className="text-3xl">🌿</span>
                 <p className="font-body text-sm" style={{ color: 'rgba(245,240,230,0.75)' }}>
-                  Organic &amp; Conventional options available —<br />we meet your needs with flexibility and care
+                  {t.organic.infoStrong}<br />{t.organic.infoText}
                 </p>
               </div>
             </div>
 
             <div>
-              <SectionLabelLeft text="Certified Organic" />
+              <SectionLabelLeft text={t.organic.labelRight} />
               <h3 className="font-display font-light mb-6" style={{ fontSize: 'clamp(1.6rem,3vw,2.2rem)', color: 'var(--dark)' }}>
-                Healthy products —<br /><em style={{ color: 'var(--gold)' }}>healthy planet</em>
+                {t.organic.h3a}<br /><em style={{ color: 'var(--gold)' }}>{t.organic.h3b}</em>
               </h3>
               <div className="space-y-3 mb-8">
-                {ORGANIC_FEATURES.map(f => (
+                {t.organic.features.map(f => (
                   <div key={f} className="flex items-start gap-3">
                     <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
                       style={{ backgroundColor: 'var(--gold)', color: 'var(--dark)' }}>
@@ -597,8 +628,8 @@ const Index = () => {
               <div className="flex items-center gap-4 p-5 rounded-xl" style={{ backgroundColor: 'var(--cream-mid)', border: '1px solid var(--cream-dark)' }}>
                 <img src={EU_LOGO} alt="EU Organic" className="h-16 w-16 rounded-lg" />
                 <div>
-                  <div className="font-body font-bold text-sm mb-1" style={{ color: 'var(--dark)' }}>EU ORGANIC CERTIFIED</div>
-                  <div className="font-body text-xs" style={{ color: 'var(--text-muted)' }}>Available in organic grains, pulses and oilseeds</div>
+                  <div className="font-body font-bold text-sm mb-1" style={{ color: 'var(--dark)' }}>{t.organic.certTitle}</div>
+                  <div className="font-body text-xs" style={{ color: 'var(--text-muted)' }}>{t.organic.certSub}</div>
                 </div>
               </div>
             </div>
@@ -609,14 +640,14 @@ const Index = () => {
         <section id="export" style={{ backgroundColor: 'var(--dark)' }}>
           <div className="max-w-7xl mx-auto px-6 md:px-14 py-24">
             <div className="text-center mb-14">
-              <SectionLabel text="Exporting Worldwide" />
+              <SectionLabel text={t.export.label} />
               <h2 className="font-display font-light mb-3" style={{ fontSize: 'clamp(2rem,4vw,3rem)', color: 'var(--cream)' }}>
-                Delivering quality to customers<br /><em style={{ color: 'var(--gold-light)' }}>across the globe</em>
+                {t.export.h2a}<br /><em style={{ color: 'var(--gold-light)' }}>{t.export.h2b}</em>
               </h2>
             </div>
 
             <div className="flex flex-wrap justify-center gap-3 mb-14">
-              {EXPORT_REGIONS.map(r => (
+              {t.export.regions.map(r => (
                 <div key={r} className="flex items-center gap-2 px-5 py-2.5 rounded-full font-body text-sm"
                   style={{ border: '1px solid rgba(184,150,46,0.35)', color: 'var(--cream)', backgroundColor: 'rgba(255,255,255,0.05)' }}>
                   <Icon name="MapPin" size={13} style={{ color: 'var(--gold)' }} />
@@ -628,13 +659,13 @@ const Index = () => {
             <div className="divider-gold mb-14" style={{ opacity: 0.3 }} />
 
             <div className="grid grid-cols-3 gap-8 text-center">
-              {EXPORT_ICONS.map(i => (
+              {EXPORT_ICONS.map((i, idx) => (
                 <div key={i.label} className="flex flex-col items-center gap-3">
                   <div className="w-14 h-14 rounded-full flex items-center justify-center"
                     style={{ backgroundColor: 'rgba(184,150,46,0.12)', border: '1px solid rgba(184,150,46,0.3)' }}>
                     <Icon name={i.icon} size={24} style={{ color: 'var(--gold)' }} />
                   </div>
-                  <span className="font-body text-sm font-semibold" style={{ color: 'rgba(245,240,230,0.8)' }}>{i.label}</span>
+                  <span className="font-body text-sm font-semibold" style={{ color: 'rgba(245,240,230,0.8)' }}>{t.export.icons[idx]}</span>
                 </div>
               ))}
             </div>
@@ -644,9 +675,9 @@ const Index = () => {
         {/* ══ 6. CERTIFICATIONS ════════════════════════════════ */}
         <section id="certifications" className="max-w-7xl mx-auto px-6 md:px-14 py-24">
           <div className="text-center mb-14">
-            <SectionLabel text="Certifications" />
+            <SectionLabel text={t.certifications.label} />
             <h2 className="font-display font-light mb-3" style={{ fontSize: 'clamp(2rem,4vw,3rem)', color: 'var(--dark)' }}>
-              Quality You Can Trust
+              {t.certifications.heading}
             </h2>
           </div>
 
@@ -656,13 +687,13 @@ const Index = () => {
               <div className="p-8 flex items-center gap-6" style={{ backgroundColor: 'var(--cream-mid)' }}>
                 <img src={EU_LOGO} alt="EU Organic Certification" className="h-20 w-20 rounded-xl object-cover" />
                 <div>
-                  <div className="font-display text-2xl font-semibold mb-1" style={{ color: 'var(--dark)' }}>EU Organic</div>
-                  <div className="font-body text-sm" style={{ color: 'var(--text-muted)' }}>European Organic Certification</div>
+                  <div className="font-display text-2xl font-semibold mb-1" style={{ color: 'var(--dark)' }}>{t.certifications.euOrganic}</div>
+                  <div className="font-body text-sm" style={{ color: 'var(--text-muted)' }}>{t.certifications.euOrganicSub}</div>
                 </div>
               </div>
               <div className="p-6">
                 <div className="space-y-2">
-                  {ORGANIC_FEATURES.map(f => (
+                  {t.organic.features.map(f => (
                     <div key={f} className="flex items-start gap-2">
                       <Icon name="CheckCircle" size={15} style={{ color: 'var(--gold)', marginTop: 2 }} />
                       <span className="font-body text-sm" style={{ color: 'var(--dark-soft)' }}>{f}</span>
@@ -675,18 +706,18 @@ const Index = () => {
             {/* Packaging & Supply */}
             <div className="rounded-2xl overflow-hidden" style={{ border: '1px solid var(--cream-dark)' }}>
               <div className="p-6" style={{ backgroundColor: 'var(--cream-mid)', borderBottom: '1px solid var(--cream-dark)' }}>
-                <div className="font-body text-xs font-semibold tracking-widest uppercase mb-1" style={{ color: 'var(--gold)' }}>Packaging & Supply</div>
-                <div className="font-display text-xl" style={{ color: 'var(--dark)' }}>Flexible Delivery Options</div>
+                <div className="font-body text-xs font-semibold tracking-widest uppercase mb-1" style={{ color: 'var(--gold)' }}>{t.certifications.packagingLabel}</div>
+                <div className="font-display text-xl" style={{ color: 'var(--dark)' }}>{t.certifications.packagingHeading}</div>
               </div>
               <div className="grid grid-cols-2 gap-4 p-6">
-                {PACKAGING.map(pkg => (
+                {PACKAGING.map((pkg, idx) => (
                   <div key={pkg.label} className="hover-lift rounded-xl p-5 flex flex-col items-start gap-3"
                     style={{ backgroundColor: 'var(--cream)', border: '1px solid var(--cream-dark)' }}>
                     <div className="w-9 h-9 rounded-lg flex items-center justify-center"
                       style={{ backgroundColor: 'var(--cream-mid)' }}>
                       <Icon name={pkg.icon} size={18} style={{ color: 'var(--gold)' }} />
                     </div>
-                    <span className="font-body text-xs font-semibold" style={{ color: 'var(--dark)' }}>{pkg.label}</span>
+                    <span className="font-body text-xs font-semibold" style={{ color: 'var(--dark)' }}>{t.certifications.packagingItems[idx]}</span>
                   </div>
                 ))}
               </div>
@@ -699,25 +730,19 @@ const Index = () => {
           <div className="max-w-7xl mx-auto px-6 md:px-14 py-24">
             <div className="grid md:grid-cols-2 gap-16 items-center">
               <div>
-                <SectionLabelLeft text="Private Label" />
+                <SectionLabelLeft text={t.privateLabel.label} />
                 <h2 className="font-display font-light leading-tight mb-6"
                   style={{ fontSize: 'clamp(2rem,4vw,3rem)', color: 'var(--dark)' }}>
-                  Your Brand,<br /><em style={{ color: 'var(--gold)' }}>Our Quality</em>
+                  {t.privateLabel.h2a}<br /><em style={{ color: 'var(--gold)' }}>{t.privateLabel.h2b}</em>
                 </h2>
                 <p className="font-body text-base leading-relaxed mb-3" style={{ color: 'var(--dark-soft)' }}>
-                  From concept to shelf-ready packaging — we produce premium grain products under your brand for retailers, distributors and private importers worldwide.
+                  {t.privateLabel.p1}
                 </p>
                 <p className="font-body text-sm leading-relaxed mb-6" style={{ color: 'var(--text-muted)' }}>
-                  Design, certification, packaging format and logistics — all handled on our side. You focus on selling.
+                  {t.privateLabel.p2}
                 </p>
                 <div className="space-y-3 mb-8">
-                  {[
-                    "Custom packaging design",
-                    "Your brand, your label",
-                    "All product types available",
-                    "Retail & wholesale volumes",
-                    "EU Organic certification possible",
-                  ].map(f => (
+                  {t.privateLabel.features.map(f => (
                     <div key={f} className="flex items-center gap-3">
                       <Icon name="CheckCircle" size={16} style={{ color: 'var(--gold)' }} />
                       <span className="font-body text-sm" style={{ color: 'var(--dark-soft)' }}>{f}</span>
@@ -727,16 +752,16 @@ const Index = () => {
                 <a href="#request"
                   className="inline-block font-body font-semibold px-8 py-4 rounded-lg text-sm transition-opacity hover:opacity-85"
                   style={{ backgroundColor: 'var(--gold)', color: 'var(--dark)' }}>
-                  Discuss Private Label
+                  {t.privateLabel.btn}
                 </a>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { icon: "Package",   title: "Retail Packaging",  text: "250 g · 500 g · 1 kg · 5 kg" },
-                  { icon: "Box",       title: "Big Bags",          text: "500 kg · 1 000 kg bulk supply" },
-                  { icon: "Container", title: "FCL / LCL Export",  text: "Full & partial container loads" },
-                  { icon: "Tag",       title: "Private Label",     text: "Concept → shelf-ready packaging" },
+                  { icon: "Package",   title: t.privateLabel.cards[0].title, text: t.privateLabel.cards[0].text },
+                  { icon: "Box",       title: t.privateLabel.cards[1].title, text: t.privateLabel.cards[1].text },
+                  { icon: "Container", title: t.privateLabel.cards[2].title, text: t.privateLabel.cards[2].text },
+                  { icon: "Tag",       title: t.privateLabel.cards[3].title, text: t.privateLabel.cards[3].text },
                 ].map(item => (
                   <div key={item.title} className="hover-lift rounded-xl p-6"
                     style={{ backgroundColor: 'var(--cream)', border: '1px solid var(--cream-dark)' }}>
@@ -756,32 +781,32 @@ const Index = () => {
         {/* ══ 8. GALLERY ═══════════════════════════════════════ */}
         <section id="gallery" className="max-w-7xl mx-auto px-6 md:px-14 py-24">
           <div className="text-center mb-12">
-            <SectionLabel text="Our Facility" />
+            <SectionLabel text={t.gallery.label} />
             <h2 className="font-display font-light mb-3" style={{ fontSize: 'clamp(2rem,4vw,3rem)', color: 'var(--dark)' }}>
-              See what's behind<br /><em style={{ color: 'var(--gold)' }}>every shipment</em>
+              {t.gallery.h2a}<br /><em style={{ color: 'var(--gold)' }}>{t.gallery.h2b}</em>
             </h2>
           </div>
-          <Gallery groups={GALLERY_GROUPS} />
+          <Gallery groups={GALLERY_GROUPS.map((g, i) => ({ ...g, title: t.gallery.groups[i] }))} />
         </section>
 
         {/* ══ 9. CONTACT ═══════════════════════════════════════ */}
         <section id="contact" className="max-w-7xl mx-auto px-6 md:px-14 py-24">
           <div className="text-center mb-14">
-            <SectionLabel text="Contact Us" />
+            <SectionLabel text={t.contact.label} />
             <h2 className="font-display font-light mb-3" style={{ fontSize: 'clamp(2rem,4vw,3rem)', color: 'var(--dark)' }}>
-              Let's Build a Partnership
+              {t.contact.heading}
             </h2>
             <p className="font-body text-base" style={{ color: 'var(--text-muted)' }}>
-              Reach us through any convenient channel
+              {t.contact.sub}
             </p>
           </div>
 
           <div className="grid md:grid-cols-4 gap-5 mb-10">
             {[
-              { icon: "Phone",  label: "Phone / WhatsApp", value: "+7 903 790 17 95",       href: "tel:+79037901795" },
-              { icon: "Mail",   label: "Email",            value: "info@gavrilovorganic.com", href: "mailto:info@gavrilovorganic.com" },
-              { icon: "Globe",  label: "Website",          value: "gavrilovfarm.ru",           href: "https://gavrilovfarm.ru" },
-              { icon: "MapPin", label: "Location",         value: "Smolensk Region, Russia",   href: "#" },
+              { icon: "Phone",  label: t.contact.cards[0].label, value: "+7 903 790 17 95",       href: "tel:+79037901795" },
+              { icon: "Mail",   label: t.contact.cards[1].label, value: "info@gavrilovorganic.com", href: "mailto:info@gavrilovorganic.com" },
+              { icon: "Globe",  label: t.contact.cards[2].label, value: "gavrilovfarm.ru",           href: "https://gavrilovfarm.ru" },
+              { icon: "MapPin", label: t.contact.cards[3].label, value: "Smolensk Region, Russia",   href: "#" },
             ].map(c => (
               <a
                 key={c.label}
@@ -806,13 +831,13 @@ const Index = () => {
         <section id="request" style={{ backgroundColor: 'var(--dark)' }}>
           <div className="max-w-3xl mx-auto px-6 md:px-14 py-24">
             <div className="text-center mb-12">
-              <SectionLabel text="Get a Quote" />
+              <SectionLabel text={t.form.label} />
               <h2 className="font-display font-light mb-3" style={{ fontSize: 'clamp(1.8rem,4vw,2.8rem)', color: 'var(--cream)' }}>
-                Request a Quote<br />
-                <span style={{ fontSize: '0.6em', color: 'var(--gold-light)' }}>Запросить экспортное предложение</span>
+                {t.form.heading}<br />
+                <span style={{ fontSize: '0.6em', color: 'var(--gold-light)' }}>{t.form.headingSub}</span>
               </h2>
               <p className="font-body text-sm" style={{ color: 'rgba(245,240,230,0.55)' }}>
-                Fill in the form and we'll get back to you within 24 hours
+                {t.form.sub}
               </p>
             </div>
 
@@ -822,9 +847,9 @@ const Index = () => {
                   style={{ backgroundColor: 'rgba(184,150,46,0.15)', border: '1px solid var(--gold)' }}>
                   <Icon name="CheckCircle" size={32} style={{ color: 'var(--gold)' }} />
                 </div>
-                <h3 className="font-display text-2xl mb-2" style={{ color: 'var(--cream)' }}>Thank you!</h3>
+                <h3 className="font-display text-2xl mb-2" style={{ color: 'var(--cream)' }}>{t.form.successTitle}</h3>
                 <p className="font-body text-sm" style={{ color: 'rgba(245,240,230,0.55)' }}>
-                  We've received your request and will contact you shortly.
+                  {t.form.successText}
                 </p>
               </div>
             ) : (
@@ -834,10 +859,10 @@ const Index = () => {
               >
                 <div className="grid md:grid-cols-2 gap-5">
                   <div>
-                    <label className="font-body text-xs font-semibold uppercase tracking-wider block mb-2" style={{ color: 'var(--gold)' }}>Name *</label>
+                    <label className="font-body text-xs font-semibold uppercase tracking-wider block mb-2" style={{ color: 'var(--gold)' }}>{t.form.name} *</label>
                     <input
                       required
-                      placeholder="Your name"
+                      placeholder={t.form.phName}
                       value={form.name}
                       onChange={e => setForm({ ...form, name: e.target.value })}
                       style={{ ...inputStyle, backgroundColor: 'rgba(245,240,230,0.07)', border: '1px solid rgba(184,150,46,0.25)', color: 'var(--cream)' }}
@@ -846,9 +871,9 @@ const Index = () => {
                     />
                   </div>
                   <div>
-                    <label className="font-body text-xs font-semibold uppercase tracking-wider block mb-2" style={{ color: 'var(--gold)' }}>Company</label>
+                    <label className="font-body text-xs font-semibold uppercase tracking-wider block mb-2" style={{ color: 'var(--gold)' }}>{t.form.company}</label>
                     <input
-                      placeholder="Company name"
+                      placeholder={t.form.phCompany}
                       value={form.company}
                       onChange={e => setForm({ ...form, company: e.target.value })}
                       style={{ ...inputStyle, backgroundColor: 'rgba(245,240,230,0.07)', border: '1px solid rgba(184,150,46,0.25)', color: 'var(--cream)' }}
@@ -860,10 +885,10 @@ const Index = () => {
 
                 <div className="grid md:grid-cols-2 gap-5">
                   <div>
-                    <label className="font-body text-xs font-semibold uppercase tracking-wider block mb-2" style={{ color: 'var(--gold)' }}>Email *</label>
+                    <label className="font-body text-xs font-semibold uppercase tracking-wider block mb-2" style={{ color: 'var(--gold)' }}>{t.form.email} *</label>
                     <input
                       required type="email"
-                      placeholder="your@email.com"
+                      placeholder={t.form.phEmail}
                       value={form.email}
                       onChange={e => setForm({ ...form, email: e.target.value })}
                       style={{ ...inputStyle, backgroundColor: 'rgba(245,240,230,0.07)', border: '1px solid rgba(184,150,46,0.25)', color: 'var(--cream)' }}
@@ -872,9 +897,9 @@ const Index = () => {
                     />
                   </div>
                   <div>
-                    <label className="font-body text-xs font-semibold uppercase tracking-wider block mb-2" style={{ color: 'var(--gold)' }}>Phone / WhatsApp</label>
+                    <label className="font-body text-xs font-semibold uppercase tracking-wider block mb-2" style={{ color: 'var(--gold)' }}>{t.form.phone}</label>
                     <input
-                      placeholder="+1 000 000 0000"
+                      placeholder={t.form.phPhone}
                       value={form.phone}
                       onChange={e => setForm({ ...form, phone: e.target.value })}
                       style={{ ...inputStyle, backgroundColor: 'rgba(245,240,230,0.07)', border: '1px solid rgba(184,150,46,0.25)', color: 'var(--cream)' }}
@@ -886,7 +911,7 @@ const Index = () => {
 
                 <div className="grid md:grid-cols-2 gap-5">
                   <div>
-                    <label className="font-body text-xs font-semibold uppercase tracking-wider block mb-2" style={{ color: 'var(--gold)' }}>Product of Interest</label>
+                    <label className="font-body text-xs font-semibold uppercase tracking-wider block mb-2" style={{ color: 'var(--gold)' }}>{t.form.product}</label>
                     <select
                       value={form.product}
                       onChange={e => setForm({ ...form, product: e.target.value })}
@@ -894,16 +919,16 @@ const Index = () => {
                       onFocus={e => (e.currentTarget.style.borderColor = 'var(--gold)')}
                       onBlur={e => (e.currentTarget.style.borderColor = 'rgba(184,150,46,0.25)')}
                     >
-                      <option value="" disabled style={{ background: 'var(--dark)' }}>Select product</option>
+                      <option value="" disabled style={{ background: 'var(--dark)' }}>{t.form.phProduct}</option>
                       {PRODUCTS.map(p => <option key={p.name} value={p.name} style={{ background: 'var(--dark)' }}>{p.name.replace('\n', ' ')}</option>)}
-                      <option value="Other / Multiple" style={{ background: 'var(--dark)' }}>Other / Multiple Products</option>
+                      <option value="Other / Multiple" style={{ background: 'var(--dark)' }}>{t.form.productOther}</option>
                     </select>
                   </div>
                   <div>
-                    <label className="font-body text-xs font-semibold uppercase tracking-wider block mb-2" style={{ color: 'var(--gold)' }}>Destination Country *</label>
+                    <label className="font-body text-xs font-semibold uppercase tracking-wider block mb-2" style={{ color: 'var(--gold)' }}>{t.form.country} *</label>
                     <input
                       required
-                      placeholder="e.g. Germany, UAE, Brazil"
+                      placeholder={t.form.phCountry}
                       value={form.country}
                       onChange={e => setForm({ ...form, country: e.target.value })}
                       style={{ ...inputStyle, backgroundColor: 'rgba(245,240,230,0.07)', border: '1px solid rgba(184,150,46,0.25)', color: 'var(--cream)' }}
@@ -914,10 +939,10 @@ const Index = () => {
                 </div>
 
                 <div>
-                  <label className="font-body text-xs font-semibold uppercase tracking-wider block mb-2" style={{ color: 'var(--gold)' }}>Message</label>
+                  <label className="font-body text-xs font-semibold uppercase tracking-wider block mb-2" style={{ color: 'var(--gold)' }}>{t.form.message}</label>
                   <textarea
                     rows={4}
-                    placeholder="Volume, packaging, destination country, any specific requirements..."
+                    placeholder={t.form.phMessage}
                     value={form.message}
                     onChange={e => setForm({ ...form, message: e.target.value })}
                     style={{ ...inputStyle, backgroundColor: 'rgba(245,240,230,0.07)', border: '1px solid rgba(184,150,46,0.25)', color: 'var(--cream)', resize: 'vertical' }}
@@ -931,7 +956,7 @@ const Index = () => {
                   className="w-full font-body font-semibold py-4 rounded-lg text-sm transition-opacity hover:opacity-85"
                   style={{ backgroundColor: 'var(--gold)', color: 'var(--dark)' }}
                 >
-                  Send Request
+                  {t.form.send}
                 </button>
               </form>
             )}
@@ -947,22 +972,22 @@ const Index = () => {
               <div className="col-span-2 md:col-span-1">
                 <img src={LOGO_URL} alt="Gavrilov Foods" className="h-12 w-auto mb-4" />
                 <p className="font-body text-xs leading-relaxed mb-5" style={{ color: 'rgba(245,240,230,0.45)' }}>
-                  Russian grain producer & exporter. Farm-to-export supply chain.
+                  {t.footer.brand}
                 </p>
                 <div className="flex items-center gap-3 mb-3">
                   <img src={EU_LOGO} alt="EU Organic Certified" className="h-9 w-9 rounded" />
                   <div>
-                    <div className="font-body text-xs font-bold" style={{ color: 'var(--gold-light)' }}>EU ORGANIC CERTIFIED</div>
-                    <div className="font-body text-xs" style={{ color: 'rgba(245,240,230,0.35)' }}>Certified grains & pulses</div>
+                    <div className="font-body text-xs font-bold" style={{ color: 'var(--gold-light)' }}>{t.footer.certTitle}</div>
+                    <div className="font-body text-xs" style={{ color: 'rgba(245,240,230,0.35)' }}>{t.footer.certSub}</div>
                   </div>
                 </div>
               </div>
 
               {/* Quick Links */}
               <div>
-                <div className="font-body text-xs font-bold uppercase tracking-widest mb-4" style={{ color: 'var(--gold)' }}>Quick Links</div>
+                <div className="font-body text-xs font-bold uppercase tracking-widest mb-4" style={{ color: 'var(--gold)' }}>{t.footer.quickLinks}</div>
                 <div className="space-y-2.5">
-                  {[['#about','About Us'],['#products','Our Products'],['#organic','Organic'],['#export','Export'],['#private-label','Private Label'],['#gallery','Gallery'],['#request','Request a Quote']].map(([href, label]) => (
+                  {t.footer.links.map(({ href, label }) => (
                     <a key={href} href={href} className="block font-body text-sm transition-colors"
                       style={{ color: 'rgba(245,240,230,0.5)' }}
                       onMouseEnter={e => (e.currentTarget.style.color = 'var(--gold-light)')}
@@ -974,9 +999,9 @@ const Index = () => {
 
               {/* Export Regions */}
               <div>
-                <div className="font-body text-xs font-bold uppercase tracking-widest mb-4" style={{ color: 'var(--gold)' }}>Export Regions</div>
+                <div className="font-body text-xs font-bold uppercase tracking-widest mb-4" style={{ color: 'var(--gold)' }}>{t.footer.exportRegions}</div>
                 <div className="space-y-2">
-                  {EXPORT_REGIONS.map(r => (
+                  {t.export.regions.map(r => (
                     <div key={r} className="flex items-center gap-2">
                       <Icon name="MapPin" size={12} style={{ color: 'var(--gold)', flexShrink: 0 }} />
                       <span className="font-body text-sm" style={{ color: 'rgba(245,240,230,0.5)' }}>{r}</span>
@@ -987,7 +1012,7 @@ const Index = () => {
 
               {/* Contact & CTA */}
               <div>
-                <div className="font-body text-xs font-bold uppercase tracking-widest mb-4" style={{ color: 'var(--gold)' }}>Contact</div>
+                <div className="font-body text-xs font-bold uppercase tracking-widest mb-4" style={{ color: 'var(--gold)' }}>{t.footer.contactTitle}</div>
                 <div className="space-y-3 mb-5">
                   <a href="tel:+79037901795" className="flex items-center gap-2 font-body text-sm" style={{ color: 'rgba(245,240,230,0.55)' }}>
                     <Icon name="Phone" size={13} style={{ color: 'var(--gold)' }} />+7 903 790 17 95
@@ -1005,7 +1030,7 @@ const Index = () => {
                   className="flex items-center gap-2 font-body text-sm font-semibold px-4 py-2.5 rounded-lg mb-3 transition-opacity hover:opacity-85"
                   style={{ backgroundColor: '#25D366', color: '#fff' }}
                 >
-                  <Icon name="MessageCircle" size={15} />WhatsApp Export Manager
+                  <Icon name="MessageCircle" size={15} />{t.footer.whatsapp}
                 </a>
                 <a
                   href={CATALOG_URL}
@@ -1013,17 +1038,17 @@ const Index = () => {
                   className="flex items-center gap-2 font-body text-xs font-semibold px-4 py-2 rounded-lg transition-opacity hover:opacity-85"
                   style={{ border: '1px solid rgba(184,150,46,0.4)', color: 'var(--gold-light)' }}
                 >
-                  <Icon name="FileDown" size={13} />Download Catalog PDF
+                  <Icon name="FileDown" size={13} />{t.footer.downloadCatalog}
                 </a>
               </div>
             </div>
 
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8" style={{ borderTop: '1px solid rgba(184,150,46,0.1)' }}>
               <div className="font-body text-xs" style={{ color: 'rgba(245,240,230,0.25)' }}>
-                © 2024 Gavrilov Foods · Smolensk Region, Russia
+                {t.footer.copyright}
               </div>
               <div className="font-body text-xs text-center" style={{ color: 'rgba(245,240,230,0.2)' }}>
-                Grains · Pulses · Oilseeds · Private Label · Export Logistics
+                {t.footer.tagline}
               </div>
             </div>
           </div>
@@ -1038,7 +1063,7 @@ const Index = () => {
           style={{ backgroundColor: '#25D366', color: '#fff', boxShadow: '0 8px 32px rgba(37,211,102,0.35)' }}
         >
           <Icon name="MessageCircle" size={20} />
-          <span className="hidden sm:inline">Chat with Export Team</span>
+          <span className="hidden sm:inline">{t.floatingBtn}</span>
         </a>
 
       </div>
