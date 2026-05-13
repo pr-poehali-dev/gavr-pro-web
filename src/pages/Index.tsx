@@ -58,6 +58,48 @@ const EXPORT_ICONS = [
   { icon: "Handshake", label: "Long-term Partnership" },
 ];
 
+/* ── Catalog PDF (replace with real PDF when ready) ─────── */
+const CATALOG_URL = "/catalog/gavrilov-foods-catalog.pdf";
+
+/* ── Proof of Scale data ─────────────────────────────────── */
+const PROOF_OF_SCALE = [
+  {
+    category: "Production",
+    icon: "Tractor",
+    stats: [
+      { value: "10,000 ha", label: "own farmland — full field-to-shelf control" },
+      { value: "10,000–15,000 MT", label: "annual grain & pulse output" },
+      { value: "200 MT / mo", label: "processing capacity — groats, flour, flakes" },
+      { value: "5,000 m²", label: "own warehouse & storage facilities" },
+    ],
+  },
+  {
+    category: "Export",
+    icon: "Ship",
+    stats: [
+      { value: "3+ regions", label: "China, Europe, Serbia & growing" },
+      { value: "5,000–10,000 MT", label: "annual export volume" },
+    ],
+  },
+  {
+    category: "Packaging",
+    icon: "Package",
+    stats: [
+      { value: "250 g – 5 kg", label: "retail packs, private label available" },
+      { value: "25 / 50 kg", label: "standard bags for trade & distribution" },
+      { value: "500–1,000 kg", label: "big bags for bulk & industrial buyers" },
+    ],
+  },
+  {
+    category: "MOQ & Orders",
+    icon: "Container",
+    stats: [
+      { value: "1 MT", label: "minimum order quantity" },
+      { value: "20 / 40 ft", label: "full container options available" },
+    ],
+  },
+];
+
 /* ─── Helpers ────────────────────────────────────────────── */
 const SectionLabel = ({ text }: { text: string }) => (
   <div className="flex items-center justify-center gap-3 mb-5">
@@ -360,6 +402,40 @@ const Index = () => {
               </div>
             </div>
           </div>
+
+          {/* ── Proof of Scale ────────────────────────────────── */}
+          <div className="mt-20">
+            <div className="text-center mb-10">
+              <SectionLabel text="Proof of Scale" />
+              <h3 className="font-display font-light" style={{ fontSize: 'clamp(1.4rem,3vw,2rem)', color: 'var(--dark)' }}>
+                Real numbers behind every shipment
+              </h3>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {PROOF_OF_SCALE.map(cat => (
+                <div key={cat.category}
+                  className="rounded-2xl p-6"
+                  style={{ backgroundColor: 'var(--cream-mid)', border: '1px solid var(--cream-dark)' }}>
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
+                      style={{ backgroundColor: 'var(--gold)', color: 'var(--dark)' }}>
+                      <Icon name={cat.icon} size={14} />
+                    </div>
+                    <span className="font-body text-xs font-bold uppercase tracking-widest" style={{ color: 'var(--dark)' }}>{cat.category}</span>
+                  </div>
+                  <div className="space-y-3">
+                    {cat.stats.map(s => (
+                      <div key={s.label}>
+                        <div className="font-display font-semibold leading-none mb-0.5" style={{ fontSize: 'clamp(1.1rem,2vw,1.4rem)', color: 'var(--gold)' }}>{s.value}</div>
+                        <div className="font-body text-xs leading-snug" style={{ color: 'var(--dark-soft)' }}>{s.label}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </section>
 
         {/* ══ 3. PRODUCTS ══════════════════════════════════════ */}
@@ -423,7 +499,8 @@ const Index = () => {
                 <strong style={{ color: 'var(--gold-light)' }}>Organic &amp; Conventional options available</strong> — we meet your needs with flexibility and care
               </p>
               <a
-                href="#request"
+                href={CATALOG_URL}
+                download="Gavrilov-Foods-Catalog.pdf"
                 className="flex items-center gap-2 font-body text-sm font-semibold px-5 py-2.5 rounded-lg transition-opacity hover:opacity-85 whitespace-nowrap flex-shrink-0"
                 style={{ backgroundColor: 'rgba(184,150,46,0.15)', border: '1px solid rgba(184,150,46,0.4)', color: 'var(--gold-light)' }}
               >
@@ -882,7 +959,8 @@ const Index = () => {
                   <Icon name="MessageCircle" size={15} />WhatsApp Export Manager
                 </a>
                 <a
-                  href="#request"
+                  href={CATALOG_URL}
+                  download="Gavrilov-Foods-Catalog.pdf"
                   className="flex items-center gap-2 font-body text-xs font-semibold px-4 py-2 rounded-lg transition-opacity hover:opacity-85"
                   style={{ border: '1px solid rgba(184,150,46,0.4)', color: 'var(--gold-light)' }}
                 >
