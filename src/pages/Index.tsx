@@ -470,7 +470,7 @@ const Index = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-1">
             {[
               { src: "https://cdn.poehali.dev/files/a6b50e4f-9b2b-4f04-81b9-3712c3abf7fb.jpg", alt: "Combine harvester in the field" },
-              { src: "https://cdn.poehali.dev/files/62b224e7-f743-44a1-a822-5b3b8d06a4cf.jpg", alt: "Big bags warehouse storage" },
+              { src: "https://cdn.poehali.dev/files/51a8aa4e-5bcc-4e1e-8790-2bd61492fbb5.jpg", alt: "Kirovets tractor on the farm" },
               { src: "https://cdn.poehali.dev/files/dab19fe5-67e1-46c4-94e0-896a64670591.jpg", alt: "Processing equipment" },
               { src: "https://cdn.poehali.dev/files/08c99862-d2e2-428f-ba2a-a2a2eb054fd5.jpg", alt: "Buckwheat field in bloom" },
             ].map(img => (
