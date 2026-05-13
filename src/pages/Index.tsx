@@ -210,7 +210,7 @@ const Index = () => {
             <img src={LOGO_URL} alt="Gavrilov Foods logo" className="h-10 w-auto" />
 
             <div className="hidden md:flex items-center gap-7 font-body text-sm font-medium">
-              {[['#about','About'],['#products','Products'],['#organic','Organic'],['#export','Export'],['#certifications','Certifications'],['#private-label','Private Label'],['#contact','Contact']].map(([href, label]) => (
+              {[['#about','About'],['#products','Products'],['#organic','Organic'],['#export','Export'],['#certifications','Certifications'],['#private-label','Private Label'],['#gallery','Gallery'],['#contact','Contact']].map(([href, label]) => (
                 <a key={href} href={href} className="hover:opacity-100 transition-opacity" style={{ color: 'rgba(245,240,230,0.75)' }}
                   onMouseEnter={e => (e.currentTarget.style.color = 'var(--gold-light)')}
                   onMouseLeave={e => (e.currentTarget.style.color = 'rgba(245,240,230,0.75)')}
@@ -238,7 +238,7 @@ const Index = () => {
 
           {menuOpen && (
             <div className="md:hidden flex flex-col px-4 pb-4 gap-0.5" style={{ borderTop: '1px solid rgba(184,150,46,0.15)' }}>
-              {[['#about','About'],['#products','Products'],['#organic','Organic'],['#export','Export'],['#certifications','Certifications'],['#private-label','Private Label'],['#contact','Contact']].map(([href, label]) => (
+              {[['#about','About'],['#products','Products'],['#organic','Organic'],['#export','Export'],['#certifications','Certifications'],['#private-label','Private Label'],['#gallery','Gallery'],['#contact','Contact']].map(([href, label]) => (
                 <a key={href} href={href}
                   className="font-body text-sm font-medium py-3 px-3 rounded-lg"
                   style={{ color: 'rgba(245,240,230,0.8)' }}
@@ -352,13 +352,12 @@ const Index = () => {
               </h2>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
                 { icon: "Award",    title: "EU Organic Certified",        sub: "Certified grains & pulses" },
                 { icon: "Workflow", title: "Farm → Processing → Export",  sub: "Full cycle, zero middlemen" },
                 { icon: "Package",  title: "Bulk & Retail Packaging",     sub: "250 g to Big Bags 1000 kg" },
                 { icon: "Tag",      title: "Private Label",               sub: "From concept to shelf-ready" },
-                { icon: "Ship",     title: "Export Logistics",            sub: "FCL / LCL, worldwide" },
               ].map(item => (
                 <div key={item.title}
                   className="hover-lift rounded-2xl p-5 flex flex-col items-center text-center gap-3"
@@ -379,13 +378,12 @@ const Index = () => {
 
         {/* ══ PHOTO STRIP ════════════════════════════════════ */}
         <section className="overflow-hidden" style={{ backgroundColor: 'var(--dark)' }}>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-1">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-1">
             {[
               { src: "https://cdn.poehali.dev/files/a6b50e4f-9b2b-4f04-81b9-3712c3abf7fb.jpg", alt: "Combine harvester in the field" },
               { src: "https://cdn.poehali.dev/files/62b224e7-f743-44a1-a822-5b3b8d06a4cf.jpg", alt: "Big bags warehouse storage" },
               { src: "https://cdn.poehali.dev/files/dab19fe5-67e1-46c4-94e0-896a64670591.jpg", alt: "Processing equipment" },
               { src: "https://cdn.poehali.dev/files/08c99862-d2e2-428f-ba2a-a2a2eb054fd5.jpg", alt: "Buckwheat field in bloom" },
-              { src: "https://cdn.poehali.dev/files/9fa9b978-477e-4c69-bfdd-aa010369bf58.jpg", alt: "KAMAZ grain truck" },
             ].map(img => (
               <div key={img.alt} className="overflow-hidden" style={{ aspectRatio: '1/1' }}>
                 <img src={img.src} alt={img.alt} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
