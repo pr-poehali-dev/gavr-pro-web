@@ -281,11 +281,11 @@ const Index = () => {
 
         {/* ══ NAV ═════════════════════════════════════════════ */}
         <nav
-          className="fixed top-0 left-0 right-0 z-50"
+          className="fixed top-0 left-0 right-0 z-50 overflow-hidden"
           style={{ backgroundColor: 'rgba(42,32,21,0.97)', backdropFilter: 'blur(14px)' }}
         >
-          <div className="flex items-center justify-between px-5 md:px-14 py-4">
-            <img src={LOGO_URL} alt="Gavrilov Foods logo" className="h-10 w-auto" />
+          <div className="flex items-center justify-between px-4 md:px-14 py-3 md:py-4 min-w-0">
+            <img src={LOGO_URL} alt="Gavrilov Foods logo" className="h-8 md:h-10 w-auto flex-shrink-0" />
 
             <div className="hidden md:flex items-center gap-7 font-body text-sm font-medium">
               {([['#about', t.nav.about],['#products', t.nav.products],['#organic', t.nav.organic],['#export', t.nav.export],['#certifications', t.nav.certifications],['#private-label', t.nav.privateLabel],['#contact', t.nav.contact]] as [string,string][]).map(([href, label]) => (
@@ -296,14 +296,14 @@ const Index = () => {
               ))}
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 flex-shrink-0">
               <LangSwitcher lang={lang} setLang={setLang} />
-              <a href="#request" className="hidden md:block font-body text-sm font-semibold px-5 py-2 rounded-lg transition-opacity hover:opacity-85"
+              <a href="#request" className="hidden md:block font-body text-sm font-semibold px-4 py-2 rounded-lg transition-opacity hover:opacity-85 whitespace-nowrap"
                 style={{ backgroundColor: 'var(--gold)', color: 'var(--dark)' }}>
                 {t.nav.requestQuote}
               </a>
               <button
-                className="md:hidden flex flex-col items-center justify-center gap-1.5 w-9 h-9 rounded-lg"
+                className="md:hidden flex flex-col items-center justify-center gap-1.5 w-9 h-9 rounded-lg flex-shrink-0"
                 style={{ backgroundColor: 'rgba(245,240,230,0.08)' }}
                 onClick={() => setMenuOpen(o => !o)}
                 aria-label="Toggle menu"
@@ -337,7 +337,7 @@ const Index = () => {
         </nav>
 
         {/* ══ 1. HERO ══════════════════════════════════════════ */}
-        <section className="relative min-h-screen flex items-center" style={{ paddingTop: 80 }}>
+        <section className="relative flex flex-col" style={{ paddingTop: 64, minHeight: '100svh' }}>
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${HERO_IMAGE})` }}
@@ -347,85 +347,88 @@ const Index = () => {
             className="absolute inset-0 hidden md:block"
             style={{ background: 'linear-gradient(130deg, rgba(42,32,21,0.72) 0%, rgba(42,32,21,0.52) 55%, rgba(42,32,21,0.18) 100%)' }}
           />
-          {/* Градиент для мобиле — равномерно темнее для читаемости */}
+          {/* Градиент для мобиле */}
           <div
             className="absolute inset-0 md:hidden"
             style={{ background: 'rgba(28,18,8,0.68)' }}
           />
 
-          <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-14 w-full" style={{ paddingTop: '5rem', paddingBottom: '11rem' }}>
-            <div className="max-w-2xl">
-              {/* Sub-label */}
-              <div className="flex items-center gap-3 mb-6 animate-fade-in-up">
-                <div className="h-px w-8" style={{ background: 'var(--gold)' }} />
-                <span className="font-body text-xs font-semibold tracking-widest uppercase" style={{ color: 'var(--gold)' }}>
-                  {t.hero.badge}
-                </span>
-              </div>
-
-              <h1
-                className="font-display font-light leading-tight mb-3 animate-fade-in-up-1"
-                style={{ fontSize: 'clamp(2rem,4.8vw,4rem)', color: '#fff', textShadow: '0 2px 16px rgba(0,0,0,0.55)' }}
-              >
-                {t.hero.h1a}
-              </h1>
-              <p className="font-display font-bold mb-5 animate-fade-in-up-1" style={{ fontSize: 'clamp(1.05rem,2.2vw,1.45rem)', color: 'var(--gold)', letterSpacing: '0.06em', textShadow: '0 0 20px rgba(184,150,46,0.6), 0 2px 12px rgba(0,0,0,0.9)' }}>
-                {t.hero.h1b}
-              </p>
-
-              <p className="font-body text-base md:text-lg mb-6 animate-fade-in-up-2 font-medium" style={{ color: 'rgba(255,255,255,0.88)', maxWidth: 560, textShadow: '0 1px 8px rgba(0,0,0,0.5)', lineHeight: 1.6 }}>
-                {t.hero.sub}
-              </p>
-
-              {/* Trust metrics */}
-              <div className="flex flex-wrap gap-2 mb-7 animate-fade-in-up-2">
-                {t.hero.trustMetrics.map((metric) => (
-                  <span key={metric} className="font-body text-xs font-semibold px-3 py-1.5 rounded-full"
-                    style={{ backgroundColor: 'rgba(184,150,46,0.18)', border: '1px solid rgba(184,150,46,0.45)', color: 'var(--gold-light)' }}>
-                    {metric}
+          {/* Hero content — grows to fill space */}
+          <div className="relative z-10 flex-1 flex items-center w-full">
+            <div className="max-w-7xl mx-auto px-4 md:px-14 w-full py-10 md:py-16">
+              <div className="max-w-2xl">
+                {/* Sub-label */}
+                <div className="flex items-center gap-3 mb-5 animate-fade-in-up">
+                  <div className="h-px w-8" style={{ background: 'var(--gold)' }} />
+                  <span className="font-body text-xs font-semibold tracking-widest uppercase" style={{ color: 'var(--gold)' }}>
+                    {t.hero.badge}
                   </span>
-                ))}
-              </div>
+                </div>
 
-              {/* EU badge */}
-              <div className="flex items-center gap-3 mb-8 animate-fade-in-up-2">
-                <div
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl"
-                  style={{ backgroundColor: 'rgba(245,240,230,0.10)', border: '1px solid rgba(184,150,46,0.4)' }}
+                <h1
+                  className="font-display font-light leading-tight mb-3 animate-fade-in-up-1"
+                  style={{ fontSize: 'clamp(1.75rem,4.8vw,4rem)', color: '#fff', textShadow: '0 2px 16px rgba(0,0,0,0.55)' }}
                 >
-                  <img src={EU_LOGO} alt="EU Organic Certified" className="h-10 w-10 rounded" />
-                  <div>
-                    <div className="font-body text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--gold-light)' }}>{t.hero.certBadge1}</div>
-                    <div className="font-body text-xs" style={{ color: 'rgba(245,240,230,0.6)' }}>{t.hero.certBadge2}</div>
+                  {t.hero.h1a}
+                </h1>
+                <p className="font-display font-bold mb-4 animate-fade-in-up-1" style={{ fontSize: 'clamp(0.95rem,2.2vw,1.45rem)', color: 'var(--gold)', letterSpacing: '0.06em', textShadow: '0 0 20px rgba(184,150,46,0.6), 0 2px 12px rgba(0,0,0,0.9)' }}>
+                  {t.hero.h1b}
+                </p>
+
+                <p className="font-body text-sm md:text-lg mb-5 animate-fade-in-up-2 font-medium" style={{ color: 'rgba(255,255,255,0.88)', maxWidth: 560, textShadow: '0 1px 8px rgba(0,0,0,0.5)', lineHeight: 1.6 }}>
+                  {t.hero.sub}
+                </p>
+
+                {/* Trust metrics */}
+                <div className="flex flex-wrap gap-2 mb-5 animate-fade-in-up-2">
+                  {t.hero.trustMetrics.map((metric) => (
+                    <span key={metric} className="font-body text-xs font-semibold px-3 py-1.5 rounded-full"
+                      style={{ backgroundColor: 'rgba(184,150,46,0.18)', border: '1px solid rgba(184,150,46,0.45)', color: 'var(--gold-light)' }}>
+                      {metric}
+                    </span>
+                  ))}
+                </div>
+
+                {/* EU badge */}
+                <div className="flex items-center gap-3 mb-6 animate-fade-in-up-2">
+                  <div
+                    className="flex items-center gap-3 px-4 py-2.5 rounded-xl"
+                    style={{ backgroundColor: 'rgba(245,240,230,0.10)', border: '1px solid rgba(184,150,46,0.4)' }}
+                  >
+                    <img src={EU_LOGO} alt="EU Organic Certified" className="h-9 w-9 rounded" />
+                    <div>
+                      <div className="font-body text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--gold-light)' }}>{t.hero.certBadge1}</div>
+                      <div className="font-body text-xs" style={{ color: 'rgba(245,240,230,0.6)' }}>{t.hero.certBadge2}</div>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="flex flex-row gap-2 animate-fade-in-up-3">
-                <a href="#products" className="font-body font-semibold px-4 py-2.5 md:px-6 md:py-3.5 rounded-lg text-xs md:text-sm transition-opacity hover:opacity-85 whitespace-nowrap"
-                  style={{ backgroundColor: 'var(--gold)', color: 'var(--dark)' }}>
-                  {t.hero.btnProducts}
-                </a>
-                <a href="#request"
-                  className="font-body font-medium px-4 py-2.5 md:px-6 md:py-3.5 rounded-lg text-xs md:text-sm transition-all whitespace-nowrap border md:hover:bg-white/10"
-                  style={{
-                    borderColor: 'rgba(245,240,230,0.35)',
-                    color: 'var(--cream)',
-                    backgroundColor: 'rgba(255,255,255,0.15)',
-                  }}>{t.hero.btnQuote}</a>
+                <div className="flex flex-col sm:flex-row gap-3 animate-fade-in-up-3">
+                  <a href="#products" className="font-body font-semibold px-6 py-3 rounded-lg text-sm transition-opacity hover:opacity-85 text-center"
+                    style={{ backgroundColor: 'var(--gold)', color: 'var(--dark)' }}>
+                    {t.hero.btnProducts}
+                  </a>
+                  <a href="#request"
+                    className="font-body font-medium px-6 py-3 rounded-lg text-sm transition-all text-center border hover:bg-white/10"
+                    style={{
+                      borderColor: 'rgba(245,240,230,0.35)',
+                      color: 'var(--cream)',
+                      backgroundColor: 'rgba(255,255,255,0.15)',
+                    }}>{t.hero.btnQuote}</a>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Bottom strip */}
+          {/* Bottom strip — always below content, never overlaps */}
           <div
-            className="absolute bottom-0 left-0 right-0 grid grid-cols-3 divide-x"
+            className="relative z-10 grid grid-cols-3 divide-x"
             style={{ backgroundColor: 'rgba(28,20,10,0.95)', borderTop: '1px solid rgba(184,150,46,0.35)', divideColor: 'rgba(184,150,46,0.25)' }}
           >
             {t.hero.strip.map(item => (
-              <div key={item.title} className="py-6 px-6 text-center">
-                <div className="font-body text-sm font-bold mb-1 tracking-wide" style={{ color: 'var(--gold-light)' }}>{item.title}</div>
-                <div className="font-body text-xs font-medium" style={{ color: 'rgba(245,240,230,0.65)' }}>{item.sub}</div>
+              <div key={item.title} className="py-4 md:py-6 px-3 md:px-6 text-center">
+                <div className="font-body text-xs md:text-sm font-bold mb-1 tracking-wide" style={{ color: 'var(--gold-light)' }}>{item.title}</div>
+                <div className="font-body text-xs font-medium leading-snug" style={{ color: 'rgba(245,240,230,0.65)' }}>{item.sub}</div>
               </div>
             ))}
           </div>
