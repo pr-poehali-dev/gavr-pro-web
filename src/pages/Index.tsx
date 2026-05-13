@@ -543,7 +543,7 @@ const Index = () => {
                   <div className="space-y-3">
                     {cat.stats.map((s, j) => (
                       <div key={s.label}>
-                        <div className="font-display font-semibold leading-none mb-0.5" style={{ fontSize: 'clamp(1.1rem,2vw,1.4rem)', color: 'var(--gold)' }}>{s.value}</div>
+                        <div className="font-display font-semibold leading-none mb-0.5" style={{ fontSize: 'clamp(1.1rem,2vw,1.4rem)', color: 'var(--gold)' }}>{t.scale.groups[i].stats[j].value}</div>
                         <div className="font-body text-xs leading-snug" style={{ color: 'var(--dark-soft)' }}>{t.scale.groups[i].stats[j].label}</div>
                       </div>
                     ))}

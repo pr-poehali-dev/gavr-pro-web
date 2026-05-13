@@ -394,7 +394,7 @@ export const translations = {
     form: {
       label: 'Запросить предложение',
       heading: 'Запросить предложение',
-      headingSub: 'Request export offer',
+      headingSub: 'Запросить экспортное предложение',
       sub: 'Заполните форму — ответим в течение 24 часов',
       name: 'Имя',
       company: 'Компания',
@@ -613,7 +613,7 @@ export const translations = {
     form: {
       label: 'Solicitar cotización',
       heading: 'Solicitar cotización',
-      headingSub: 'Request export offer',
+      headingSub: 'Solicitar oferta de exportación',
       sub: 'Complete el formulario y le responderemos en 24 horas',
       name: 'Nombre',
       company: 'Empresa',
