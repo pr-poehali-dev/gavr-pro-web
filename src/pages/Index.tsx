@@ -353,7 +353,7 @@ const Index = () => {
             style={{ background: 'rgba(28,18,8,0.68)' }}
           />
 
-          <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-14 w-full" style={{ paddingTop: '5rem', paddingBottom: '8rem' }}>
+          <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-14 w-full" style={{ paddingTop: '5rem', paddingBottom: '11rem' }}>
             <div className="max-w-2xl">
               {/* Sub-label */}
               <div className="flex items-center gap-3 mb-6 animate-fade-in-up">
@@ -369,7 +369,7 @@ const Index = () => {
               >
                 {t.hero.h1a}
               </h1>
-              <p className="font-display font-semibold mb-5 animate-fade-in-up-1" style={{ fontSize: 'clamp(1rem,2vw,1.35rem)', color: 'var(--gold)', letterSpacing: '0.04em', textShadow: '0 1px 12px rgba(0,0,0,0.8)' }}>
+              <p className="font-display font-bold mb-5 animate-fade-in-up-1" style={{ fontSize: 'clamp(1.05rem,2.2vw,1.45rem)', color: 'var(--gold)', letterSpacing: '0.06em', textShadow: '0 0 20px rgba(184,150,46,0.6), 0 2px 12px rgba(0,0,0,0.9)' }}>
                 {t.hero.h1b}
               </p>
 
