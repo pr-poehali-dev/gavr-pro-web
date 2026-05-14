@@ -4,6 +4,7 @@ import Icon from '@/components/ui/icon';
 interface GalleryImage {
   src: string;
   alt: string;
+  filter?: string;
 }
 
 interface GalleryGroup {
@@ -146,6 +147,7 @@ export const Gallery = ({ groups }: GalleryProps) => {
                   src={img.src}
                   alt={img.alt}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  style={img.filter ? { filter: img.filter } : undefined}
                 />
                 <div
                   className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"

@@ -50,35 +50,39 @@ const GALLERY_GROUPS = [
     title: "Machinery & Equipment",
     icon: "Tractor",
     images: [
-      { src: "https://cdn.poehali.dev/files/a6b50e4f-9b2b-4f04-81b9-3712c3abf7fb.jpg", alt: "Combine harvester GS10 in the field" },
-      { src: "https://cdn.poehali.dev/files/e218b691-9429-4cfd-90be-fee24e2e94e4.jpg", alt: "John Deere 9460R tractor" },
-      { src: "https://cdn.poehali.dev/files/9fa9b978-477e-4c69-bfdd-aa010369bf58.jpg", alt: "KAMAZ grain truck" },
-      { src: "https://cdn.poehali.dev/files/808f2178-f3d0-49c8-ab20-a51b836ab80d.jpg", alt: "Telehandler DIECI loading grain silo" },
+      { src: "https://cdn.poehali.dev/projects/36adff41-d365-445e-8d5f-dd8bed2bd445/bucket/885c31d1-3054-4bef-8e49-f2dd110f27e9.png", alt: "Combine harvester GS10 harvesting", filter: "" },
+      { src: "https://cdn.poehali.dev/files/daf6aabd-6d0f-4423-a493-39ffdca75054.jpg", alt: "John Deere 9460R tractor", filter: "" },
+      { src: "https://cdn.poehali.dev/files/b339e670-7c31-444f-84e7-45ac6f004c3e.jpg", alt: "Kirovets tractor front view", filter: "" },
+      { src: "https://cdn.poehali.dev/files/be3aab1a-b195-414f-b147-de5477a2ad3e.jpg", alt: "Tractor seeding in field", filter: "" },
+      { src: "https://cdn.poehali.dev/files/b1e140d6-a8ec-432c-891d-911c30e983a9.jpg", alt: "KAMAZ grain truck", filter: "" },
+      { src: "https://cdn.poehali.dev/files/e9769c8c-632f-4c32-b64e-2d4cfcdcf468.jpg", alt: "DIECI telehandler loading grain silo", filter: "" },
     ],
   },
   {
-    title: "Warehouse & Big Bags",
+    title: "Warehouse & Storage",
     icon: "Warehouse",
     images: [
-      { src: "https://cdn.poehali.dev/files/62b224e7-f743-44a1-a822-5b3b8d06a4cf.jpg", alt: "Big bags in warehouse storage" },
-      { src: "https://cdn.poehali.dev/files/f06d46f8-3c1d-41ab-abf9-44ba57413bb5.jpg", alt: "Big bags with grain ready for export" },
-      { src: "https://cdn.poehali.dev/files/a30d0ce6-760c-444a-9e96-7751bcb91787.jpg", alt: "Stacked 25kg bags on pallets" },
-      { src: "https://cdn.poehali.dev/files/712d6784-b71f-4a7c-baca-9e0662e66386.jpg", alt: "Packaged product pallets in warehouse" },
+      { src: "https://cdn.poehali.dev/files/53b2c384-19dd-43f2-b117-87844d0e9c5f.jpg", alt: "Big bags row in warehouse", filter: "brightness(1.4) contrast(1.08) saturate(0.8)" },
+      { src: "https://cdn.poehali.dev/files/5d93c333-7d00-4744-91ab-b71a904423d2.jpg", alt: "25kg bags stacked on pallets", filter: "brightness(1.4) contrast(1.08) saturate(0.75)" },
+      { src: "https://cdn.poehali.dev/files/8ac13822-c547-40cd-971e-5a42813ce25d.jpg", alt: "Big bags in brick warehouse", filter: "brightness(1.5) contrast(1.1) saturate(0.7)" },
+      { src: "https://cdn.poehali.dev/files/06369bd8-6de1-44fb-83f7-e1cbab318524.jpg", alt: "Large volume bags on pallets", filter: "brightness(1.45) contrast(1.1) saturate(0.75)" },
     ],
   },
   {
-    title: "Processing Equipment",
+    title: "Processing & Packaging",
     icon: "Settings",
     images: [
-      { src: "https://cdn.poehali.dev/files/dab19fe5-67e1-46c4-94e0-896a64670591.jpg", alt: "TEKO automatic packaging machine" },
+      { src: "https://cdn.poehali.dev/files/a976a097-dbe6-46a2-b8a5-cdc99ee64784.jpg", alt: "TEKO automatic packaging machine", filter: "brightness(1.08)" },
+      { src: "https://cdn.poehali.dev/files/dab19fe5-67e1-46c4-94e0-896a64670591.jpg", alt: "Packaging line equipment", filter: "" },
     ],
   },
   {
     title: "Fields & Crops",
     icon: "Leaf",
     images: [
-      { src: "https://cdn.poehali.dev/files/08c99862-d2e2-428f-ba2a-a2a2eb054fd5.jpg", alt: "Buckwheat field in bloom with blue sky" },
-      { src: "https://cdn.poehali.dev/files/71677e6f-588a-4c24-91ca-22e14fa60e4d.jpg", alt: "Buckwheat crop close-up with flowers" },
+      { src: "https://cdn.poehali.dev/files/c25ede74-dcb5-4256-96a3-afd60a552d37.jpg", alt: "Buckwheat field in bloom aerial view", filter: "" },
+      { src: "https://cdn.poehali.dev/files/08c99862-d2e2-428f-ba2a-a2a2eb054fd5.jpg", alt: "Buckwheat field with blue sky", filter: "" },
+      { src: "https://cdn.poehali.dev/files/19d50183-cca5-4f78-9796-68e942a7e3d5.jpg", alt: "Owner standing in wheat field", filter: "" },
     ],
   },
 ];
@@ -784,126 +788,236 @@ const Index = () => {
           </div>
         </section>
 
-        {/* ══ 6. CERTIFICATIONS ════════════════════════════════ */}
-        <section id="certifications" className="max-w-7xl mx-auto px-6 md:px-14 py-24">
-          <div className="text-center mb-14">
-            <SectionLabel text={t.certifications.label} />
-            <h2 className="font-display font-light mb-3" style={{ fontSize: 'clamp(2rem,4vw,3rem)', color: 'var(--dark)' }}>
-              {t.certifications.heading}
-            </h2>
+        {/* ══ 6. CERTIFICATIONS / OUR PROCESS ═════════════════ */}
+        <section id="certifications">
+
+          {/* ── Hero banner: From Field to Export ── */}
+          <div className="relative overflow-hidden" style={{ minHeight: 420 }}>
+            <img
+              src="https://cdn.poehali.dev/files/c25ede74-dcb5-4256-96a3-afd60a552d37.jpg"
+              alt="Buckwheat field"
+              className="absolute inset-0 w-full h-full object-cover object-center"
+              style={{ filter: 'brightness(0.55)' }}
+            />
+            <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-14 py-16 md:py-24">
+              <div className="max-w-xl">
+                <div className="flex items-center gap-3 mb-4">
+                  <SectionLabel text={t.certifications.label} />
+                </div>
+                <h2 className="font-display font-bold leading-none mb-4"
+                  style={{ fontSize: 'clamp(2.8rem,7vw,5.5rem)', color: '#fff', textTransform: 'uppercase', letterSpacing: '-0.02em' }}>
+                  {t.certifications.heroH2a}<br />
+                  <span style={{ color: 'var(--gold-light)' }}>{t.certifications.heroH2b}</span>
+                </h2>
+                <p className="font-body text-base leading-relaxed mb-8" style={{ color: 'rgba(245,240,230,0.82)', maxWidth: 400 }}>
+                  {t.certifications.heroSub}
+                </p>
+                {/* 4 иконки-столпа */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                  {(t.certifications.heroPillars as readonly { icon: string; title: string; sub: string }[]).map(p => (
+                    <div key={p.title} className="flex flex-col items-center text-center gap-2">
+                      <div className="w-12 h-12 rounded-full flex items-center justify-center"
+                        style={{ border: '1.5px solid rgba(184,150,46,0.7)', backgroundColor: 'rgba(184,150,46,0.15)' }}>
+                        <Icon name={p.icon} size={20} style={{ color: 'var(--gold-light)' }} />
+                      </div>
+                      <div className="font-body text-xs font-bold uppercase tracking-wider" style={{ color: '#fff' }}>{p.title}</div>
+                      <div className="font-body text-xs leading-tight" style={{ color: 'rgba(245,240,230,0.65)' }}>{p.sub}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 mb-8">
-            {/* EU Organic — усиленный блок */}
-            <div className="hover-lift rounded-2xl overflow-hidden flex flex-col" style={{ border: '1px solid var(--cream-dark)' }}>
-              <div className="p-8 flex items-center gap-6" style={{ backgroundColor: 'var(--cream-mid)', borderBottom: '1px solid var(--cream-dark)' }}>
-                <img src={EU_LOGO} alt="EU Organic Certification" className="h-20 w-20 rounded-xl object-cover flex-shrink-0" />
-                <div>
-                  <div className="font-display text-2xl font-semibold mb-1" style={{ color: 'var(--dark)' }}>{t.certifications.euOrganic}</div>
-                  <div className="font-body text-sm mb-3" style={{ color: 'var(--text-muted)' }}>{t.certifications.euOrganicSub}</div>
-                  <a
-                    href="https://wa.me/79037901795?text=Hello%2C%20please%20send%20me%20your%20EU%20Organic%20Certificate"
-                    target="_blank" rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 font-body text-xs font-semibold px-4 py-2 rounded-lg transition-opacity hover:opacity-85"
-                    style={{ backgroundColor: 'var(--gold)', color: 'var(--dark)' }}
-                  >
-                    <Icon name="FileCheck" size={13} />
-                    {t.certifications.viewCertBtn}
+          {/* ── Our Activities: фото-сетка ── */}
+          <div className="max-w-7xl mx-auto px-6 md:px-14 py-12">
+            <div className="font-body text-xs font-semibold tracking-widest uppercase text-center mb-8" style={{ color: 'var(--gold)' }}>
+              {t.certifications.activitiesLabel}
+            </div>
+            {/* Сетка: большое фото слева + 2×2 справа */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+              {/* Большое — комбайн GS10 */}
+              <div className="md:row-span-2 rounded-2xl overflow-hidden" style={{ minHeight: 320 }}>
+                <img
+                  src="https://cdn.poehali.dev/projects/36adff41-d365-445e-8d5f-dd8bed2bd445/bucket/885c31d1-3054-4bef-8e49-f2dd110f27e9.png"
+                  alt="Combine harvester GS10"
+                  className="w-full h-full object-cover"
+                  style={{ minHeight: 320 }}
+                />
+              </div>
+              {/* Владелец в поле */}
+              <div className="rounded-2xl overflow-hidden" style={{ height: 200 }}>
+                <img
+                  src="https://cdn.poehali.dev/files/19d50183-cca5-4f78-9796-68e942a7e3d5.jpg"
+                  alt="Owner in the field"
+                  className="w-full h-full object-cover object-top"
+                />
+              </div>
+              {/* Склад биг-бэги — осветлённое */}
+              <div className="rounded-2xl overflow-hidden" style={{ height: 200 }}>
+                <img
+                  src="https://cdn.poehali.dev/files/53b2c384-19dd-43f2-b117-87844d0e9c5f.jpg"
+                  alt="Big bags warehouse"
+                  className="w-full h-full object-cover"
+                  style={{ filter: 'brightness(1.35) contrast(1.05) saturate(0.85)' }}
+                />
+              </div>
+              {/* 50кг мешки на поддонах */}
+              <div className="rounded-2xl overflow-hidden" style={{ height: 200 }}>
+                <img
+                  src="https://cdn.poehali.dev/files/5d93c333-7d00-4744-91ab-b71a904423d2.jpg"
+                  alt="25kg bags on pallets"
+                  className="w-full h-full object-cover"
+                  style={{ filter: 'brightness(1.4) contrast(1.08) saturate(0.8)' }}
+                />
+              </div>
+            </div>
+            {/* Вторая строка фото */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="rounded-2xl overflow-hidden" style={{ height: 180 }}>
+                <img
+                  src="https://cdn.poehali.dev/files/a976a097-dbe6-46a2-b8a5-cdc99ee64784.jpg"
+                  alt="TEKO packaging machine"
+                  className="w-full h-full object-cover"
+                  style={{ filter: 'brightness(1.1)' }}
+                />
+              </div>
+              <div className="rounded-2xl overflow-hidden" style={{ height: 180 }}>
+                <img
+                  src="https://cdn.poehali.dev/files/daf6aabd-6d0f-4423-a493-39ffdca75054.jpg"
+                  alt="John Deere 9460R tractor"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="rounded-2xl overflow-hidden" style={{ height: 180 }}>
+                <img
+                  src="https://cdn.poehali.dev/files/b1e140d6-a8ec-432c-891d-911c30e983a9.jpg"
+                  alt="KAMAZ grain truck"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="rounded-2xl overflow-hidden" style={{ height: 180 }}>
+                <img
+                  src="https://cdn.poehali.dev/files/be3aab1a-b195-414f-b147-de5477a2ad3e.jpg"
+                  alt="Tractor seeding in field"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* ── Process chain: 6 шагов ── */}
+          <div style={{ backgroundColor: 'var(--cream-mid)', borderTop: '1px solid var(--cream-dark)', borderBottom: '1px solid var(--cream-dark)' }}>
+            <div className="max-w-7xl mx-auto px-6 md:px-14 py-10">
+              <div className="grid grid-cols-3 md:grid-cols-6 gap-2">
+                {(t.certifications.processSteps as readonly { num: string; title: string; sub: string }[]).map((step, idx, arr) => (
+                  <div key={step.title} className="flex flex-col items-center text-center relative">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="font-display text-xs font-light" style={{ color: 'var(--text-muted)' }}>{step.num}</span>
+                      {idx < arr.length - 1 && (
+                        <Icon name="ArrowRight" size={14} style={{ color: 'var(--gold)', opacity: 0.6 }} />
+                      )}
+                    </div>
+                    <div className="font-body text-sm font-bold uppercase tracking-wide mb-1" style={{ color: 'var(--dark)' }}>{step.title}</div>
+                    <div className="font-body text-xs leading-snug" style={{ color: 'var(--text-muted)' }}>{step.sub}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* ── 3 блока: упаковка / гибкость / объёмы ── */}
+          <div className="max-w-7xl mx-auto px-6 md:px-14 py-12">
+            <div className="grid md:grid-cols-3 gap-6 mb-10">
+              {/* Advanced Packaging */}
+              <div className="rounded-2xl overflow-hidden flex flex-col" style={{ border: '1px solid var(--cream-dark)' }}>
+                <div className="overflow-hidden" style={{ height: 220 }}>
+                  <img
+                    src="https://cdn.poehali.dev/files/a976a097-dbe6-46a2-b8a5-cdc99ee64784.jpg"
+                    alt="TEKO packaging line"
+                    className="w-full h-full object-cover"
+                    style={{ filter: 'brightness(1.08)' }}
+                  />
+                </div>
+                <div className="p-6 flex-1 flex flex-col">
+                  <div className="font-body text-sm font-bold uppercase tracking-wide mb-2" style={{ color: 'var(--dark)' }}>
+                    {t.certifications.block1Title}
+                  </div>
+                  <p className="font-body text-sm leading-relaxed mb-4 flex-1" style={{ color: 'var(--dark-soft)' }}>
+                    {t.certifications.block1Text}
+                  </p>
+                  <a href="#request"
+                    className="inline-block font-body text-xs font-bold px-5 py-2.5 rounded-lg text-center transition-opacity hover:opacity-85"
+                    style={{ backgroundColor: 'var(--dark)', color: '#fff' }}>
+                    {t.certifications.blockBtn1}
                   </a>
                 </div>
               </div>
-              <div className="p-6 flex-1">
-                <div className="space-y-3">
-                  {(t.certifications.euOrganicDetails as readonly string[]).map(f => (
-                    <div key={f} className="flex items-start gap-3">
-                      <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
-                        style={{ backgroundColor: 'rgba(184,150,46,0.12)' }}>
-                        <Icon name="Check" size={11} style={{ color: 'var(--gold)' }} />
-                      </div>
-                      <span className="font-body text-sm leading-snug" style={{ color: 'var(--dark-soft)' }}>{f}</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-5 pt-5 flex flex-wrap gap-2" style={{ borderTop: '1px solid var(--cream-dark)' }}>
-                  {['Traceability', 'Export Docs', 'Annual Audit'].map(tag => (
-                    <span key={tag} className="font-body text-xs font-semibold px-3 py-1 rounded-full"
-                      style={{ backgroundColor: 'rgba(184,150,46,0.10)', color: 'var(--gold)', border: '1px solid rgba(184,150,46,0.2)' }}>
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
 
-            {/* Packaging & Export Formats */}
-            <div className="rounded-2xl overflow-hidden flex flex-col" style={{ border: '1px solid var(--cream-dark)' }}>
-              <div className="p-6" style={{ backgroundColor: 'var(--cream-mid)', borderBottom: '1px solid var(--cream-dark)' }}>
-                <div className="font-body text-xs font-semibold tracking-widest uppercase mb-1" style={{ color: 'var(--gold)' }}>{t.certifications.packagingLabel}</div>
-                <div className="font-display text-xl" style={{ color: 'var(--dark)' }}>{t.certifications.packagingHeading}</div>
-              </div>
-              <div className="grid grid-cols-2 gap-4 p-6 flex-1">
-                {([
-                  { icon: 'Package', key: 0 },
-                  { icon: 'Box', key: 1 },
-                  { icon: 'Container', key: 2 },
-                  { icon: 'Tag', key: 3 },
-                ] as { icon: string; key: number }[]).map(pkg => {
-                  const item = t.certifications.packagingItems[pkg.key] as { label: string; sub: string };
-                  return (
-                    <div key={pkg.key} className="hover-lift rounded-xl p-5 flex flex-col items-start gap-2"
-                      style={{ backgroundColor: 'var(--cream)', border: '1px solid var(--cream-dark)' }}>
-                      <div className="w-10 h-10 rounded-lg flex items-center justify-center"
-                        style={{ backgroundColor: 'var(--cream-mid)' }}>
-                        <Icon name={pkg.icon} size={20} style={{ color: 'var(--gold)' }} />
-                      </div>
-                      <span className="font-body text-sm font-semibold leading-tight" style={{ color: 'var(--dark)' }}>{item.label}</span>
-                      <span className="font-body text-xs" style={{ color: 'var(--text-muted)' }}>{item.sub}</span>
-                    </div>
-                  );
-                })}
-              </div>
-              <div className="px-6 pb-5">
-                <div className="flex items-center gap-2 px-4 py-3 rounded-xl"
-                  style={{ backgroundColor: 'rgba(184,150,46,0.07)', border: '1px solid rgba(184,150,46,0.18)' }}>
-                  <Icon name="Info" size={14} style={{ color: 'var(--gold)', flexShrink: 0 }} />
-                  <span className="font-body text-xs font-semibold" style={{ color: 'var(--dark-soft)' }}>{t.certifications.moqNote}</span>
+              {/* Flexible Solutions */}
+              <div className="rounded-2xl overflow-hidden flex flex-col" style={{ border: '1px solid var(--cream-dark)' }}>
+                <div className="overflow-hidden" style={{ height: 220 }}>
+                  <img
+                    src="https://cdn.poehali.dev/files/b339e670-7c31-444f-84e7-45ac6f004c3e.jpg"
+                    alt="Kirovets tractor"
+                    className="w-full h-full object-cover object-center"
+                  />
                 </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Фото: склад, биг-бэги, линия очистки, фасовка */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            {[
-              { src: 'https://cdn.poehali.dev/files/62b224e7-f743-44a1-a822-5b3b8d06a4cf.jpg', alt: 'Big bags in warehouse storage' },
-              { src: 'https://cdn.poehali.dev/files/f06d46f8-3c1d-41ab-abf9-44ba57413bb5.jpg', alt: 'Big bags ready for export' },
-              { src: 'https://cdn.poehali.dev/files/dab19fe5-67e1-46c4-94e0-896a64670591.jpg', alt: 'TEKO packaging line' },
-              { src: 'https://cdn.poehali.dev/files/712d6784-b71f-4a7c-baca-9e0662e66386.jpg', alt: 'Packaged product pallets' },
-            ].map(img => (
-              <div key={img.src} className="rounded-xl overflow-hidden" style={{ height: 180 }}>
-                <img src={img.src} alt={img.alt} className="w-full h-full object-cover" />
-              </div>
-            ))}
-          </div>
-
-          {/* Why Buyers Choose Us */}
-          <div className="rounded-2xl p-8" style={{ backgroundColor: 'var(--cream-mid)', border: '1px solid var(--cream-dark)' }}>
-            <div className="font-body text-xs font-semibold tracking-widest uppercase mb-6 text-center" style={{ color: 'var(--gold)' }}>
-              {t.certifications.trustLabel}
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-              {(t.certifications.trustItems as readonly { icon: string; title: string; sub: string }[]).map(item => (
-                <div key={item.title} className="flex flex-col items-center text-center gap-3">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center"
-                    style={{ backgroundColor: 'rgba(184,150,46,0.10)', border: '1px solid rgba(184,150,46,0.22)' }}>
-                    <Icon name={item.icon} size={22} style={{ color: 'var(--gold)' }} />
+                <div className="p-6 flex-1 flex flex-col">
+                  <div className="font-body text-sm font-bold uppercase tracking-wide mb-2" style={{ color: 'var(--dark)' }}>
+                    {t.certifications.block2Title}
                   </div>
-                  <div>
-                    <div className="font-body text-sm font-semibold leading-tight mb-0.5" style={{ color: 'var(--dark)' }}>{item.title}</div>
-                    <div className="font-body text-xs" style={{ color: 'var(--text-muted)' }}>{item.sub}</div>
-                  </div>
+                  <p className="font-body text-sm leading-relaxed mb-4 flex-1" style={{ color: 'var(--dark-soft)' }}>
+                    {t.certifications.block2Text}
+                  </p>
+                  <a href="#request"
+                    className="inline-block font-body text-xs font-bold px-5 py-2.5 rounded-lg text-center transition-opacity hover:opacity-85"
+                    style={{ backgroundColor: 'var(--dark)', color: '#fff' }}>
+                    {t.certifications.blockBtn2}
+                  </a>
                 </div>
-              ))}
+              </div>
+
+              {/* Large Volumes */}
+              <div className="rounded-2xl overflow-hidden flex flex-col" style={{ border: '1px solid var(--cream-dark)' }}>
+                <div className="overflow-hidden" style={{ height: 220 }}>
+                  <img
+                    src="https://cdn.poehali.dev/files/53b2c384-19dd-43f2-b117-87844d0e9c5f.jpg"
+                    alt="Warehouse big bags"
+                    className="w-full h-full object-cover"
+                    style={{ filter: 'brightness(1.45) contrast(1.1) saturate(0.75)' }}
+                  />
+                </div>
+                <div className="p-6 flex-1 flex flex-col">
+                  <div className="font-body text-sm font-bold uppercase tracking-wide mb-2" style={{ color: 'var(--dark)' }}>
+                    {t.certifications.block3Title}
+                  </div>
+                  <p className="font-body text-sm leading-relaxed mb-4 flex-1" style={{ color: 'var(--dark-soft)' }}>
+                    {t.certifications.block3Text}
+                  </p>
+                  <a href="#contact"
+                    className="inline-block font-body text-xs font-bold px-5 py-2.5 rounded-lg text-center transition-opacity hover:opacity-85"
+                    style={{ backgroundColor: 'var(--dark)', color: '#fff' }}>
+                    {t.certifications.blockBtn3}
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* ── Trust bar: 4 столпа ── */}
+            <div className="rounded-2xl py-7 px-8"
+              style={{ backgroundColor: 'var(--dark)', border: '1px solid rgba(184,150,46,0.2)' }}>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                {(t.certifications.trustBar as readonly { icon: string; title: string }[]).map(item => (
+                  <div key={item.title} className="flex flex-col items-center gap-2">
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center"
+                      style={{ border: '1px solid rgba(184,150,46,0.5)', backgroundColor: 'rgba(184,150,46,0.1)' }}>
+                      <Icon name={item.icon} size={18} style={{ color: 'var(--gold-light)' }} />
+                    </div>
+                    <span className="font-body text-xs font-bold uppercase tracking-wide" style={{ color: 'rgba(245,240,230,0.88)' }}>{item.title}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
