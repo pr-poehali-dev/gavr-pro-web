@@ -681,7 +681,7 @@ const Index = () => {
 
         {/* ══ 4. ORGANIC & CONVENTIONAL ════════════════════════ */}
         <section id="organic" className="max-w-7xl mx-auto px-6 md:px-14 py-24">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-12 items-start">
             <div
               className="rounded-2xl p-10"
               style={{ backgroundColor: 'var(--dark)', border: '1px solid rgba(184,150,46,0.25)' }}
@@ -724,12 +724,25 @@ const Index = () => {
                   </div>
                 ))}
               </div>
-              <div className="flex items-center gap-4 p-5 rounded-xl" style={{ backgroundColor: 'var(--cream-mid)', border: '1px solid var(--cream-dark)' }}>
+              <div className="flex items-center gap-4 p-5 rounded-xl mb-6" style={{ backgroundColor: 'var(--cream-mid)', border: '1px solid var(--cream-dark)' }}>
                 <img src={EU_LOGO} alt="EU Organic" className="h-16 w-16 rounded-lg" />
                 <div>
                   <div className="font-body font-bold text-sm mb-1" style={{ color: 'var(--dark)' }}>{t.organic.certTitle}</div>
                   <div className="font-body text-xs" style={{ color: 'var(--text-muted)' }}>{t.organic.certSub}</div>
                 </div>
+              </div>
+              {/* Фото: поля */}
+              <div className="grid grid-cols-2 gap-3">
+                <img
+                  src="https://cdn.poehali.dev/files/08c99862-d2e2-428f-ba2a-a2a2eb054fd5.jpg"
+                  alt="Buckwheat field in bloom"
+                  className="w-full h-36 object-cover rounded-xl"
+                />
+                <img
+                  src="https://cdn.poehali.dev/files/71677e6f-588a-4c24-91ca-22e14fa60e4d.jpg"
+                  alt="Buckwheat crop close-up"
+                  className="w-full h-36 object-cover rounded-xl"
+                />
               </div>
             </div>
           </div>
@@ -780,46 +793,117 @@ const Index = () => {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* EU Organic */}
-            <div className="hover-lift rounded-2xl overflow-hidden" style={{ border: '1px solid var(--cream-dark)' }}>
-              <div className="p-8 flex items-center gap-6" style={{ backgroundColor: 'var(--cream-mid)' }}>
-                <img src={EU_LOGO} alt="EU Organic Certification" className="h-20 w-20 rounded-xl object-cover" />
+          <div className="grid md:grid-cols-2 gap-8 mb-8">
+            {/* EU Organic — усиленный блок */}
+            <div className="hover-lift rounded-2xl overflow-hidden flex flex-col" style={{ border: '1px solid var(--cream-dark)' }}>
+              <div className="p-8 flex items-center gap-6" style={{ backgroundColor: 'var(--cream-mid)', borderBottom: '1px solid var(--cream-dark)' }}>
+                <img src={EU_LOGO} alt="EU Organic Certification" className="h-20 w-20 rounded-xl object-cover flex-shrink-0" />
                 <div>
                   <div className="font-display text-2xl font-semibold mb-1" style={{ color: 'var(--dark)' }}>{t.certifications.euOrganic}</div>
-                  <div className="font-body text-sm" style={{ color: 'var(--text-muted)' }}>{t.certifications.euOrganicSub}</div>
+                  <div className="font-body text-sm mb-3" style={{ color: 'var(--text-muted)' }}>{t.certifications.euOrganicSub}</div>
+                  <a
+                    href="https://wa.me/79037901795?text=Hello%2C%20please%20send%20me%20your%20EU%20Organic%20Certificate"
+                    target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 font-body text-xs font-semibold px-4 py-2 rounded-lg transition-opacity hover:opacity-85"
+                    style={{ backgroundColor: 'var(--gold)', color: 'var(--dark)' }}
+                  >
+                    <Icon name="FileCheck" size={13} />
+                    {t.certifications.viewCertBtn}
+                  </a>
                 </div>
               </div>
-              <div className="p-6">
-                <div className="space-y-2">
-                  {t.organic.features.map(f => (
-                    <div key={f} className="flex items-start gap-2">
-                      <Icon name="CheckCircle" size={15} style={{ color: 'var(--gold)', marginTop: 2 }} />
-                      <span className="font-body text-sm" style={{ color: 'var(--dark-soft)' }}>{f}</span>
+              <div className="p-6 flex-1">
+                <div className="space-y-3">
+                  {(t.certifications.euOrganicDetails as readonly string[]).map(f => (
+                    <div key={f} className="flex items-start gap-3">
+                      <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
+                        style={{ backgroundColor: 'rgba(184,150,46,0.12)' }}>
+                        <Icon name="Check" size={11} style={{ color: 'var(--gold)' }} />
+                      </div>
+                      <span className="font-body text-sm leading-snug" style={{ color: 'var(--dark-soft)' }}>{f}</span>
                     </div>
+                  ))}
+                </div>
+                <div className="mt-5 pt-5 flex flex-wrap gap-2" style={{ borderTop: '1px solid var(--cream-dark)' }}>
+                  {['Traceability', 'Export Docs', 'Annual Audit'].map(tag => (
+                    <span key={tag} className="font-body text-xs font-semibold px-3 py-1 rounded-full"
+                      style={{ backgroundColor: 'rgba(184,150,46,0.10)', color: 'var(--gold)', border: '1px solid rgba(184,150,46,0.2)' }}>
+                      {tag}
+                    </span>
                   ))}
                 </div>
               </div>
             </div>
 
-            {/* Packaging & Supply */}
-            <div className="rounded-2xl overflow-hidden" style={{ border: '1px solid var(--cream-dark)' }}>
+            {/* Packaging & Export Formats */}
+            <div className="rounded-2xl overflow-hidden flex flex-col" style={{ border: '1px solid var(--cream-dark)' }}>
               <div className="p-6" style={{ backgroundColor: 'var(--cream-mid)', borderBottom: '1px solid var(--cream-dark)' }}>
                 <div className="font-body text-xs font-semibold tracking-widest uppercase mb-1" style={{ color: 'var(--gold)' }}>{t.certifications.packagingLabel}</div>
                 <div className="font-display text-xl" style={{ color: 'var(--dark)' }}>{t.certifications.packagingHeading}</div>
               </div>
-              <div className="grid grid-cols-2 gap-4 p-6">
-                {PACKAGING.map((pkg, idx) => (
-                  <div key={pkg.label} className="hover-lift rounded-xl p-5 flex flex-col items-start gap-3"
-                    style={{ backgroundColor: 'var(--cream)', border: '1px solid var(--cream-dark)' }}>
-                    <div className="w-9 h-9 rounded-lg flex items-center justify-center"
-                      style={{ backgroundColor: 'var(--cream-mid)' }}>
-                      <Icon name={pkg.icon} size={18} style={{ color: 'var(--gold)' }} />
+              <div className="grid grid-cols-2 gap-4 p-6 flex-1">
+                {([
+                  { icon: 'Package', key: 0 },
+                  { icon: 'Box', key: 1 },
+                  { icon: 'Container', key: 2 },
+                  { icon: 'Tag', key: 3 },
+                ] as { icon: string; key: number }[]).map(pkg => {
+                  const item = t.certifications.packagingItems[pkg.key] as { label: string; sub: string };
+                  return (
+                    <div key={pkg.key} className="hover-lift rounded-xl p-5 flex flex-col items-start gap-2"
+                      style={{ backgroundColor: 'var(--cream)', border: '1px solid var(--cream-dark)' }}>
+                      <div className="w-10 h-10 rounded-lg flex items-center justify-center"
+                        style={{ backgroundColor: 'var(--cream-mid)' }}>
+                        <Icon name={pkg.icon} size={20} style={{ color: 'var(--gold)' }} />
+                      </div>
+                      <span className="font-body text-sm font-semibold leading-tight" style={{ color: 'var(--dark)' }}>{item.label}</span>
+                      <span className="font-body text-xs" style={{ color: 'var(--text-muted)' }}>{item.sub}</span>
                     </div>
-                    <span className="font-body text-xs font-semibold" style={{ color: 'var(--dark)' }}>{t.certifications.packagingItems[idx]}</span>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
+              <div className="px-6 pb-5">
+                <div className="flex items-center gap-2 px-4 py-3 rounded-xl"
+                  style={{ backgroundColor: 'rgba(184,150,46,0.07)', border: '1px solid rgba(184,150,46,0.18)' }}>
+                  <Icon name="Info" size={14} style={{ color: 'var(--gold)', flexShrink: 0 }} />
+                  <span className="font-body text-xs font-semibold" style={{ color: 'var(--dark-soft)' }}>{t.certifications.moqNote}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Фото: склад, биг-бэги, линия очистки, фасовка */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            {[
+              { src: 'https://cdn.poehali.dev/files/62b224e7-f743-44a1-a822-5b3b8d06a4cf.jpg', alt: 'Big bags in warehouse storage' },
+              { src: 'https://cdn.poehali.dev/files/f06d46f8-3c1d-41ab-abf9-44ba57413bb5.jpg', alt: 'Big bags ready for export' },
+              { src: 'https://cdn.poehali.dev/files/dab19fe5-67e1-46c4-94e0-896a64670591.jpg', alt: 'TEKO packaging line' },
+              { src: 'https://cdn.poehali.dev/files/712d6784-b71f-4a7c-baca-9e0662e66386.jpg', alt: 'Packaged product pallets' },
+            ].map(img => (
+              <div key={img.src} className="rounded-xl overflow-hidden" style={{ height: 180 }}>
+                <img src={img.src} alt={img.alt} className="w-full h-full object-cover" />
+              </div>
+            ))}
+          </div>
+
+          {/* Why Buyers Choose Us */}
+          <div className="rounded-2xl p-8" style={{ backgroundColor: 'var(--cream-mid)', border: '1px solid var(--cream-dark)' }}>
+            <div className="font-body text-xs font-semibold tracking-widest uppercase mb-6 text-center" style={{ color: 'var(--gold)' }}>
+              {t.certifications.trustLabel}
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+              {(t.certifications.trustItems as readonly { icon: string; title: string; sub: string }[]).map(item => (
+                <div key={item.title} className="flex flex-col items-center text-center gap-3">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center"
+                    style={{ backgroundColor: 'rgba(184,150,46,0.10)', border: '1px solid rgba(184,150,46,0.22)' }}>
+                    <Icon name={item.icon} size={22} style={{ color: 'var(--gold)' }} />
+                  </div>
+                  <div>
+                    <div className="font-body text-sm font-semibold leading-tight mb-0.5" style={{ color: 'var(--dark)' }}>{item.title}</div>
+                    <div className="font-body text-xs" style={{ color: 'var(--text-muted)' }}>{item.sub}</div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
