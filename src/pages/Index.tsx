@@ -3,7 +3,6 @@ import Icon from '@/components/ui/icon';
 import Gallery from '@/components/Gallery';
 import { useLanguage } from '@/i18n/useLanguage';
 import type { Lang } from '@/i18n/translations';
-import { PROCESS_IMAGES } from '@/config/processImages';
 
 /* ─── Assets ─────────────────────────────────────────────── */
 const HERO_IMAGE   = "https://cdn.poehali.dev/projects/36adff41-d365-445e-8d5f-dd8bed2bd445/files/d6567017-3fe5-45e7-b378-926bdaa639ed.jpg";
@@ -51,38 +50,35 @@ const GALLERY_GROUPS = [
     title: "Machinery & Equipment",
     icon: "Tractor",
     images: [
-      { src: "https://cdn.poehali.dev/projects/36adff41-d365-445e-8d5f-dd8bed2bd445/bucket/885c31d1-3054-4bef-8e49-f2dd110f27e9.png", alt: "Combine harvester GS10 harvesting", filter: "" },
-      { src: "https://cdn.poehali.dev/files/daf6aabd-6d0f-4423-a493-39ffdca75054.jpg", alt: "John Deere 9460R tractor", filter: "" },
-      { src: "https://cdn.poehali.dev/files/b339e670-7c31-444f-84e7-45ac6f004c3e.jpg", alt: "Kirovets tractor front view", filter: "" },
-      { src: "https://cdn.poehali.dev/files/be3aab1a-b195-414f-b147-de5477a2ad3e.jpg", alt: "Tractor seeding in field", filter: "" },
-      { src: "https://cdn.poehali.dev/files/b1e140d6-a8ec-432c-891d-911c30e983a9.jpg", alt: "KAMAZ grain truck", filter: "" },
+      { src: "https://cdn.poehali.dev/files/a6b50e4f-9b2b-4f04-81b9-3712c3abf7fb.jpg", alt: "Combine harvester GS10 in the field" },
+      { src: "https://cdn.poehali.dev/files/e218b691-9429-4cfd-90be-fee24e2e94e4.jpg", alt: "John Deere 9460R tractor" },
+      { src: "https://cdn.poehali.dev/files/9fa9b978-477e-4c69-bfdd-aa010369bf58.jpg", alt: "KAMAZ grain truck" },
+      { src: "https://cdn.poehali.dev/files/808f2178-f3d0-49c8-ab20-a51b836ab80d.jpg", alt: "Telehandler DIECI loading grain silo" },
     ],
   },
   {
-    title: "Warehouse & Storage",
+    title: "Warehouse & Big Bags",
     icon: "Warehouse",
     images: [
-      { src: "https://cdn.poehali.dev/files/53b2c384-19dd-43f2-b117-87844d0e9c5f.jpg", alt: "Big bags row in warehouse", filter: "brightness(1.42) contrast(1.09) saturate(0.78) hue-rotate(-5deg)" },
-      { src: "https://cdn.poehali.dev/files/5d93c333-7d00-4744-91ab-b71a904423d2.jpg", alt: "25kg bags stacked on pallets", filter: "brightness(1.42) contrast(1.09) saturate(0.76) hue-rotate(-5deg)" },
-      { src: "https://cdn.poehali.dev/files/8ac13822-c547-40cd-971e-5a42813ce25d.jpg", alt: "Big bags in brick warehouse", filter: "brightness(1.48) contrast(1.1) saturate(0.72) hue-rotate(-5deg)" },
+      { src: "https://cdn.poehali.dev/files/62b224e7-f743-44a1-a822-5b3b8d06a4cf.jpg", alt: "Big bags in warehouse storage" },
+      { src: "https://cdn.poehali.dev/files/f06d46f8-3c1d-41ab-abf9-44ba57413bb5.jpg", alt: "Big bags with grain ready for export" },
+      { src: "https://cdn.poehali.dev/files/a30d0ce6-760c-444a-9e96-7751bcb91787.jpg", alt: "Stacked 25kg bags on pallets" },
+      { src: "https://cdn.poehali.dev/files/712d6784-b71f-4a7c-baca-9e0662e66386.jpg", alt: "Packaged product pallets in warehouse" },
     ],
   },
   {
-    title: "Processing & Packaging",
+    title: "Processing Equipment",
     icon: "Settings",
     images: [
-      { src: "https://cdn.poehali.dev/files/a976a097-dbe6-46a2-b8a5-cdc99ee64784.jpg", alt: "TEKO automatic packaging machine", filter: "brightness(1.08)" },
-      { src: "https://cdn.poehali.dev/files/dab19fe5-67e1-46c4-94e0-896a64670591.jpg", alt: "Packaging line equipment", filter: "brightness(1.06)" },
-      { src: "https://cdn.poehali.dev/files/e9769c8c-632f-4c32-b64e-2d4cfcdcf468.jpg", alt: "DIECI telehandler loading silo", filter: "" },
+      { src: "https://cdn.poehali.dev/files/dab19fe5-67e1-46c4-94e0-896a64670591.jpg", alt: "TEKO automatic packaging machine" },
     ],
   },
   {
     title: "Fields & Crops",
     icon: "Leaf",
     images: [
-      { src: "https://cdn.poehali.dev/files/c25ede74-dcb5-4256-96a3-afd60a552d37.jpg", alt: "Buckwheat field in bloom aerial view", filter: "" },
-      { src: "https://cdn.poehali.dev/files/08c99862-d2e2-428f-ba2a-a2a2eb054fd5.jpg", alt: "Buckwheat field with blue sky", filter: "" },
-      { src: "https://cdn.poehali.dev/files/19d50183-cca5-4f78-9796-68e942a7e3d5.jpg", alt: "Owner standing in wheat field", filter: "" },
+      { src: "https://cdn.poehali.dev/files/08c99862-d2e2-428f-ba2a-a2a2eb054fd5.jpg", alt: "Buckwheat field in bloom with blue sky" },
+      { src: "https://cdn.poehali.dev/files/71677e6f-588a-4c24-91ca-22e14fa60e4d.jpg", alt: "Buckwheat crop close-up with flowers" },
     ],
   },
 ];
@@ -685,7 +681,7 @@ const Index = () => {
 
         {/* ══ 4. ORGANIC & CONVENTIONAL ════════════════════════ */}
         <section id="organic" className="max-w-7xl mx-auto px-6 md:px-14 py-24">
-          <div className="grid md:grid-cols-2 gap-12 items-start">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
             <div
               className="rounded-2xl p-10"
               style={{ backgroundColor: 'var(--dark)', border: '1px solid rgba(184,150,46,0.25)' }}
@@ -728,25 +724,12 @@ const Index = () => {
                   </div>
                 ))}
               </div>
-              <div className="flex items-center gap-4 p-5 rounded-xl mb-6" style={{ backgroundColor: 'var(--cream-mid)', border: '1px solid var(--cream-dark)' }}>
+              <div className="flex items-center gap-4 p-5 rounded-xl" style={{ backgroundColor: 'var(--cream-mid)', border: '1px solid var(--cream-dark)' }}>
                 <img src={EU_LOGO} alt="EU Organic" className="h-16 w-16 rounded-lg" />
                 <div>
                   <div className="font-body font-bold text-sm mb-1" style={{ color: 'var(--dark)' }}>{t.organic.certTitle}</div>
                   <div className="font-body text-xs" style={{ color: 'var(--text-muted)' }}>{t.organic.certSub}</div>
                 </div>
-              </div>
-              {/* Фото: поля */}
-              <div className="grid grid-cols-2 gap-3">
-                <img
-                  src="https://cdn.poehali.dev/files/08c99862-d2e2-428f-ba2a-a2a2eb054fd5.jpg"
-                  alt="Buckwheat field in bloom"
-                  className="w-full h-36 object-cover rounded-xl"
-                />
-                <img
-                  src="https://cdn.poehali.dev/files/71677e6f-588a-4c24-91ca-22e14fa60e4d.jpg"
-                  alt="Buckwheat crop close-up"
-                  className="w-full h-36 object-cover rounded-xl"
-                />
               </div>
             </div>
           </div>
@@ -788,252 +771,54 @@ const Index = () => {
           </div>
         </section>
 
-        {/* ══ 6. OUR PROCESS ═══════════════════════════════════ */}
-        <section id="certifications">
+        {/* ══ 6. CERTIFICATIONS ════════════════════════════════ */}
+        <section id="certifications" className="max-w-7xl mx-auto px-6 md:px-14 py-24">
+          <div className="text-center mb-14">
+            <SectionLabel text={t.certifications.label} />
+            <h2 className="font-display font-light mb-3" style={{ fontSize: 'clamp(2rem,4vw,3rem)', color: 'var(--dark)' }}>
+              {t.certifications.heading}
+            </h2>
+          </div>
 
-          {/* ─── HERO: split-layout — текст слева / фото справа ─── */}
-          <div className="relative overflow-hidden" style={{ backgroundColor: 'var(--dark)', minHeight: 480 }}>
-            {/* Фото-половина справа */}
-            <div className="absolute right-0 top-0 bottom-0 w-full md:w-3/5 overflow-hidden">
-              <img
-                src={PROCESS_IMAGES.harvester}
-                alt="Combine harvester GS10 in the field"
-                className="w-full h-full object-cover object-center"
-                style={{ filter: 'brightness(0.72) saturate(0.9)' }}
-              />
-              {/* Градиент перехода текст→фото */}
-              <div className="absolute inset-0"
-                style={{ background: 'linear-gradient(90deg, var(--dark) 0%, rgba(42,32,21,0.6) 45%, transparent 100%)' }} />
-            </div>
-
-            {/* Текст поверх */}
-            <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-14 py-16 md:py-24">
-              <div className="max-w-lg">
-                {/* Метка */}
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="h-px w-8" style={{ background: 'var(--gold)' }} />
-                  <span className="font-body text-xs font-semibold tracking-widest uppercase" style={{ color: 'var(--gold)' }}>
-                    {t.certifications.label}
-                  </span>
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* EU Organic */}
+            <div className="hover-lift rounded-2xl overflow-hidden" style={{ border: '1px solid var(--cream-dark)' }}>
+              <div className="p-8 flex items-center gap-6" style={{ backgroundColor: 'var(--cream-mid)' }}>
+                <img src={EU_LOGO} alt="EU Organic Certification" className="h-20 w-20 rounded-xl object-cover" />
+                <div>
+                  <div className="font-display text-2xl font-semibold mb-1" style={{ color: 'var(--dark)' }}>{t.certifications.euOrganic}</div>
+                  <div className="font-body text-sm" style={{ color: 'var(--text-muted)' }}>{t.certifications.euOrganicSub}</div>
                 </div>
-
-                <h2 className="font-display font-bold leading-none mb-5"
-                  style={{ fontSize: 'clamp(3rem,7vw,5.8rem)', color: '#fff', textTransform: 'uppercase', letterSpacing: '-0.03em', lineHeight: 0.92 }}>
-                  {t.certifications.heroH2a}<br />
-                  <span style={{ color: 'var(--gold-light)', WebkitTextStroke: '1px rgba(184,150,46,0.4)' }}>{t.certifications.heroH2b}</span>
-                </h2>
-
-                <p className="font-body text-base leading-relaxed mb-10"
-                  style={{ color: 'rgba(245,240,230,0.78)', maxWidth: 380, textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>
-                  {t.certifications.heroSub}
-                </p>
-
-                {/* 4 столпа — горизонталь с чёткими подписями */}
-                <div className="grid grid-cols-2 gap-x-6 gap-y-5">
-                  {(t.certifications.heroPillars as readonly { icon: string; title: string; sub: string }[]).map(p => (
-                    <div key={p.title} className="flex items-start gap-3">
-                      <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"
-                        style={{ border: '1px solid rgba(184,150,46,0.55)', backgroundColor: 'rgba(184,150,46,0.12)' }}>
-                        <Icon name={p.icon} size={16} style={{ color: 'var(--gold-light)' }} />
-                      </div>
-                      <div>
-                        <div className="font-body text-xs font-bold uppercase tracking-wider leading-tight" style={{ color: '#fff' }}>{p.title}</div>
-                        <div className="font-body text-xs leading-snug mt-0.5" style={{ color: 'rgba(245,240,230,0.6)' }}>{p.sub}</div>
-                      </div>
+              </div>
+              <div className="p-6">
+                <div className="space-y-2">
+                  {t.organic.features.map(f => (
+                    <div key={f} className="flex items-start gap-2">
+                      <Icon name="CheckCircle" size={15} style={{ color: 'var(--gold)', marginTop: 2 }} />
+                      <span className="font-body text-sm" style={{ color: 'var(--dark-soft)' }}>{f}</span>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* ─── ФОТО-СЕТКА: активности ─── */}
-          <div className="max-w-7xl mx-auto px-6 md:px-14 pt-12 pb-6">
-            <div className="flex items-center gap-4 mb-7">
-              <div className="h-px flex-1" style={{ backgroundColor: 'var(--cream-dark)' }} />
-              <span className="font-body text-xs font-semibold tracking-widest uppercase" style={{ color: 'var(--gold)' }}>
-                {t.certifications.activitiesLabel}
-              </span>
-              <div className="h-px flex-1" style={{ backgroundColor: 'var(--cream-dark)' }} />
-            </div>
-
-            {/* Мозаика: 2 col слева + 1 большое справа */}
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-              {/* Колонка 1: два маленьких */}
-              <div className="flex flex-col gap-3">
-                <div className="rounded-xl overflow-hidden" style={{ height: 185 }}>
-                  <img src={PROCESS_IMAGES.owner} alt="Owner in the field"
-                    className="w-full h-full object-cover object-top" />
-                </div>
-                <div className="rounded-xl overflow-hidden" style={{ height: 185 }}>
-                  <img src={PROCESS_IMAGES.seeding} alt="Seeding equipment in field"
-                    className="w-full h-full object-cover" />
-                </div>
+            {/* Packaging & Supply */}
+            <div className="rounded-2xl overflow-hidden" style={{ border: '1px solid var(--cream-dark)' }}>
+              <div className="p-6" style={{ backgroundColor: 'var(--cream-mid)', borderBottom: '1px solid var(--cream-dark)' }}>
+                <div className="font-body text-xs font-semibold tracking-widest uppercase mb-1" style={{ color: 'var(--gold)' }}>{t.certifications.packagingLabel}</div>
+                <div className="font-display text-xl" style={{ color: 'var(--dark)' }}>{t.certifications.packagingHeading}</div>
               </div>
-
-              {/* Колонка 2: два маленьких с обработкой засветов */}
-              <div className="flex flex-col gap-3">
-                <div className="rounded-xl overflow-hidden" style={{ height: 185 }}>
-                  <img src={PROCESS_IMAGES.bigbags} alt="Big bags in warehouse"
-                    className="w-full h-full object-cover"
-                    style={{ filter: 'brightness(1.38) contrast(1.07) saturate(0.8) hue-rotate(-5deg)' }} />
-                </div>
-                <div className="rounded-xl overflow-hidden" style={{ height: 185 }}>
-                  <img src={PROCESS_IMAGES.pallets} alt="Bags on pallets"
-                    className="w-full h-full object-cover"
-                    style={{ filter: 'brightness(1.42) contrast(1.09) saturate(0.78) hue-rotate(-5deg)' }} />
-                </div>
-              </div>
-
-              {/* Колонка 3: одно большое — комбайн */}
-              <div className="col-span-2 md:col-span-1 rounded-xl overflow-hidden relative" style={{ minHeight: 380 }}>
-                <img src={PROCESS_IMAGES.tractor} alt="John Deere 9460R tractor"
-                  className="w-full h-full object-cover" style={{ minHeight: 380 }} />
-                {/* Оверлей с подписью */}
-                <div className="absolute bottom-0 left-0 right-0 p-4"
-                  style={{ background: 'linear-gradient(transparent, rgba(42,32,21,0.82))' }}>
-                  <span className="font-body text-xs font-semibold" style={{ color: 'rgba(245,240,230,0.85)' }}>
-                    John Deere 9460R · 10 000 ha
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* ─── ПРОЦЕСС: горизонтальная цепочка ─── */}
-          <div className="max-w-7xl mx-auto px-6 md:px-14 py-8 mb-2">
-            <div className="flex flex-col md:flex-row gap-0 rounded-2xl overflow-hidden"
-              style={{ border: '1px solid var(--cream-dark)', backgroundColor: 'var(--cream-mid)' }}>
-              {(t.certifications.processSteps as readonly { num: string; title: string; sub: string }[]).map((step, idx, arr) => (
-                <div key={step.title}
-                  className="flex-1 px-5 py-6 relative"
-                  style={{
-                    borderRight: idx < arr.length - 1 ? '1px solid var(--cream-dark)' : 'none',
-                    borderBottom: '0',
-                  }}>
-                  <div className="font-display text-3xl font-bold mb-1 leading-none"
-                    style={{ color: 'rgba(184,150,46,0.18)', letterSpacing: '-0.04em' }}>{step.num}</div>
-                  <div className="font-body text-xs font-bold uppercase tracking-wider mb-1.5" style={{ color: 'var(--dark)' }}>{step.title}</div>
-                  <div className="font-body text-xs leading-snug" style={{ color: 'var(--text-muted)' }}>{step.sub}</div>
-                  {idx < arr.length - 1 && (
-                    <div className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 w-5 h-5 rounded-full items-center justify-center"
-                      style={{ backgroundColor: 'var(--gold)', boxShadow: '0 0 0 3px var(--cream-mid)' }}>
-                      <Icon name="ChevronRight" size={11} style={{ color: 'var(--dark)' }} />
+              <div className="grid grid-cols-2 gap-4 p-6">
+                {PACKAGING.map((pkg, idx) => (
+                  <div key={pkg.label} className="hover-lift rounded-xl p-5 flex flex-col items-start gap-3"
+                    style={{ backgroundColor: 'var(--cream)', border: '1px solid var(--cream-dark)' }}>
+                    <div className="w-9 h-9 rounded-lg flex items-center justify-center"
+                      style={{ backgroundColor: 'var(--cream-mid)' }}>
+                      <Icon name={pkg.icon} size={18} style={{ color: 'var(--gold)' }} />
                     </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* ─── 3 блока + EU Organic ─── */}
-          <div className="max-w-7xl mx-auto px-6 md:px-14 pb-14">
-            {/* Верхний ряд: 3 карточки с фото */}
-            <div className="grid md:grid-cols-3 gap-5 mb-5">
-              {[
-                {
-                  img: PROCESS_IMAGES.packaging,
-                  imgFilter: 'brightness(1.06)',
-                  title: t.certifications.block1Title,
-                  text: t.certifications.block1Text,
-                  btn: t.certifications.blockBtn1,
-                  href: '#request',
-                },
-                {
-                  img: PROCESS_IMAGES.kamaz,
-                  imgFilter: '',
-                  title: t.certifications.block2Title,
-                  text: t.certifications.block2Text,
-                  btn: t.certifications.blockBtn2,
-                  href: '#request',
-                },
-                {
-                  img: PROCESS_IMAGES.storage,
-                  imgFilter: 'brightness(1.45) contrast(1.1) saturate(0.72) hue-rotate(-6deg)',
-                  title: t.certifications.block3Title,
-                  text: t.certifications.block3Text,
-                  btn: t.certifications.blockBtn3,
-                  href: '#contact',
-                },
-              ].map(card => (
-                <div key={card.title} className="group rounded-2xl overflow-hidden flex flex-col"
-                  style={{ border: '1px solid var(--cream-dark)', backgroundColor: '#fff' }}>
-                  <div className="overflow-hidden" style={{ height: 210 }}>
-                    <img src={card.img} alt={card.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      style={card.imgFilter ? { filter: card.imgFilter } : undefined} />
+                    <span className="font-body text-xs font-semibold" style={{ color: 'var(--dark)' }}>{t.certifications.packagingItems[idx]}</span>
                   </div>
-                  <div className="p-6 flex-1 flex flex-col">
-                    <div className="font-body text-sm font-extrabold uppercase tracking-wide mb-2" style={{ color: 'var(--dark)' }}>
-                      {card.title}
-                    </div>
-                    <p className="font-body text-sm leading-relaxed flex-1 mb-5" style={{ color: 'var(--dark-soft)' }}>
-                      {card.text}
-                    </p>
-                    <a href={card.href}
-                      className="inline-flex items-center gap-2 font-body text-xs font-bold px-5 py-2.5 rounded-lg transition-opacity hover:opacity-80 self-start"
-                      style={{ backgroundColor: 'var(--dark)', color: '#fff' }}>
-                      {card.btn}
-                      <Icon name="ArrowRight" size={12} />
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* ─── EU Organic + Trust bar ─── */}
-            <div className="grid md:grid-cols-5 gap-5">
-              {/* EU Organic — занимает 2 колонки */}
-              <div className="md:col-span-2 rounded-2xl overflow-hidden flex flex-col"
-                style={{ border: '1px solid var(--cream-dark)', backgroundColor: 'var(--cream-mid)' }}>
-                <div className="p-6 flex items-center gap-5" style={{ borderBottom: '1px solid var(--cream-dark)' }}>
-                  <img src={EU_LOGO} alt="EU Organic" className="h-16 w-16 rounded-xl object-cover flex-shrink-0" />
-                  <div>
-                    <div className="font-display text-lg font-semibold mb-0.5" style={{ color: 'var(--dark)' }}>{t.certifications.euOrganic}</div>
-                    <div className="font-body text-xs" style={{ color: 'var(--text-muted)' }}>{t.certifications.euOrganicSub}</div>
-                  </div>
-                </div>
-                <div className="p-6 flex-1">
-                  <div className="space-y-2.5 mb-5">
-                    {(t.certifications.euOrganicDetails as readonly string[]).map(f => (
-                      <div key={f} className="flex items-start gap-2.5">
-                        <Icon name="CheckCircle" size={14} style={{ color: 'var(--gold)', flexShrink: 0, marginTop: 2 }} />
-                        <span className="font-body text-xs leading-snug" style={{ color: 'var(--dark-soft)' }}>{f}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <a href="https://wa.me/79037901795?text=Hello%2C%20please%20send%20me%20your%20EU%20Organic%20Certificate"
-                    target="_blank" rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 font-body text-xs font-bold px-4 py-2.5 rounded-lg transition-opacity hover:opacity-85"
-                    style={{ backgroundColor: 'var(--gold)', color: 'var(--dark)' }}>
-                    <Icon name="FileCheck" size={13} />
-                    {t.certifications.viewCertBtn}
-                  </a>
-                </div>
-              </div>
-
-              {/* Trust items — занимает 3 колонки */}
-              <div className="md:col-span-3 rounded-2xl p-6 flex flex-col justify-between"
-                style={{ backgroundColor: 'var(--dark)', border: '1px solid rgba(184,150,46,0.18)' }}>
-                <div className="font-body text-xs font-semibold tracking-widest uppercase mb-5" style={{ color: 'var(--gold)' }}>
-                  {t.certifications.trustLabel}
-                </div>
-                <div className="grid grid-cols-1 gap-4 flex-1">
-                  {(t.certifications.trustItems as readonly { icon: string; title: string; sub: string }[]).map(item => (
-                    <div key={item.title} className="flex items-center gap-4"
-                      style={{ borderBottom: '1px solid rgba(184,150,46,0.1)', paddingBottom: 12 }}>
-                      <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
-                        style={{ backgroundColor: 'rgba(184,150,46,0.1)', border: '1px solid rgba(184,150,46,0.25)' }}>
-                        <Icon name={item.icon} size={16} style={{ color: 'var(--gold)' }} />
-                      </div>
-                      <div>
-                        <div className="font-body text-sm font-semibold" style={{ color: '#fff' }}>{item.title}</div>
-                        <div className="font-body text-xs" style={{ color: 'rgba(245,240,230,0.5)' }}>{item.sub}</div>
-                      </div>
-                      <Icon name="Check" size={14} style={{ color: 'var(--gold)', marginLeft: 'auto', flexShrink: 0 }} />
-                    </div>
-                  ))}
-                </div>
+                ))}
               </div>
             </div>
           </div>
